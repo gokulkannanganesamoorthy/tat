@@ -1,7 +1,8 @@
 .why-us-section {
   background-color: var(--bg-color);
   position: relative;
-  z-index: 10; /* Ensures it sits above the tall hero container */
+  z-index: 10;
+  padding: 8rem 4rem;
 }
 
 .why-us-header {
@@ -11,13 +12,24 @@
 
 .why-us-header .section-title {
   color: var(--text-primary);
-  font-size: var(--text-4xl);
+  font-size: var(--text-h2);
+  margin-bottom: 1rem;
+}
+
+.why-us-header .section-subtitle {
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: var(--text-p);
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .why-us-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .why-card {
@@ -25,14 +37,15 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  background: #ffffff; /* Solid white card over creamy bg */
-  border-color: rgba(15, 23, 42, 0.05);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  background: #ffffff; /* Clean white card */
+  border-radius: 8px;
+  border: 1px solid rgba(12, 24, 39, 0.05);
 }
 
 .why-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+  box-shadow: 0 30px 60px rgba(12, 24, 39, 0.08);
 }
 
 .why-icon {
@@ -42,19 +55,25 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  color: #fff;
+  color: var(--bg-color);
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: var(--text-lg);
+  font-size: 1.2rem;
 }
 
 .why-title {
-  font-size: var(--text-2xl);
+  font-size: 1.8rem;
   color: var(--text-primary);
 }
 
 .why-desc {
   color: var(--text-secondary);
-  font-size: var(--text-base);
+  font-size: 1.1rem;
   line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+  .why-us-section {
+    padding: 4rem 2rem;
+  }
 }

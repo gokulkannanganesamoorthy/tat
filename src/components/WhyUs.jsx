@@ -26,7 +26,7 @@ const WhyUs = () => {
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <div className="why-icon" style={{ backgroundColor: 'var(--accent-color)' }}>01</div>
+            <div className="why-icon" style={{ backgroundColor: 'var(--color-burgundy)' }}>01</div>
             <h3 className="why-title">Lavish Creativity</h3>
             <p className="why-desc">
               We subordinate the agency ego to your brand narrative. Every design choice is bespoke, elegant, and perfectly aligned with your market position.
@@ -40,7 +40,7 @@ const WhyUs = () => {
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <div className="why-icon" style={{ backgroundColor: 'var(--secondary-accent)' }}>02</div>
+            <div className="why-icon" style={{ backgroundColor: 'var(--color-green)' }}>02</div>
             <h3 className="why-title">Unapologetic Growth</h3>
             <p className="why-desc">
               Clicks mean nothing without conversions. We engineer our marketing campaigns to act as relentless engines of ROI and scaling.
