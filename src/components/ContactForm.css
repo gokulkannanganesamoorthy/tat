@@ -1,37 +1,48 @@
 .contact-section {
   background-color: var(--bg-color);
-  position: relative;
-  border-top: 1px solid var(--glass-border);
+  width: 100vw;
+  padding: 8rem 0;
 }
 
 .contact-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 4rem;
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 4rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 8rem;
 }
 
-@media (min-width: 992px) {
-  .contact-container {
-    grid-template-columns: 1fr 1.5fr;
-  }
+/* Left Panel - Typography & Details */
+.contact-info-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.contact-title {
-  font-size: var(--text-4xl);
-  line-height: 1;
-  text-transform: uppercase;
+.contact-header {
+  margin-bottom: 6rem;
+}
+
+.contact-main-title {
+  font-family: var(--font-display);
+  font-size: var(--text-hero);
+  color: var(--text-primary);
+  line-height: 0.85;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
 }
 
 .contact-subtitle {
-  font-size: var(--text-xl);
+  font-family: var(--font-body);
+  font-size: 1.5rem;
   color: var(--text-secondary);
-  margin-bottom: 3rem;
 }
 
-.contact-details {
+.contact-details-list {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 3rem;
 }
 
 .detail-item {
@@ -41,106 +52,119 @@
 }
 
 .detail-label {
-  font-size: var(--text-xs);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
   color: var(--text-secondary);
 }
 
 .detail-link, .detail-text {
-  font-size: var(--text-xl);
+  font-family: var(--font-body);
+  font-size: 2rem;
+  color: var(--text-primary);
   font-weight: 500;
   transition: color 0.3s ease;
 }
 
 .detail-link:hover {
-  color: var(--accent-color);
+  color: var(--color-burgundy);
 }
 
-.contact-form-wrapper {
-  padding: 3rem;
+/* Right Panel - Form Layout */
+.contact-form-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .contact-form {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 3rem;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 input, textarea {
   background: transparent;
   border: none;
-  border-bottom: 1px solid var(--glass-border);
+  border-bottom: 2px solid rgba(12, 24, 39, 0.1);
   color: var(--text-primary);
   font-family: var(--font-body);
-  font-size: var(--text-base);
+  font-size: 1.2rem;
   padding: 1rem 0;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.4s ease;
 }
 
 input:focus, textarea:focus {
   outline: none;
-  border-bottom-color: var(--accent-color);
+  border-bottom-color: var(--text-primary);
 }
 
 input::placeholder, textarea::placeholder {
   color: var(--text-secondary);
+  font-weight: 400;
 }
 
-.attribution label {
-  color: var(--text-secondary);
-  font-size: var(--text-sm);
-  margin-bottom: 1rem;
-  display: block;
+/* Custom Submit Button */
+.form-submit-wrapper {
+  margin-top: 2rem;
 }
 
-.radio-group {
-  display: flex;
-  gap: 1.5rem;
-  flex-wrap: wrap;
+.btn-submit {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  letter-spacing: 0.05em;
+  color: var(--bg-color);
+  background-color: var(--text-primary);
+  padding: 1.5rem 3rem;
+  border-radius: 4px;
+  cursor: none; /* Let custom cursor handle it */
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
 }
 
-.radio-label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: var(--text-sm);
-  cursor: pointer;
+.btn-submit:hover {
+  background-color: var(--color-burgundy);
+  transform: translateY(-5px);
 }
 
-.submit-btn {
-  width: 100%;
-  margin-top: 1rem;
+.btn-submit:disabled {
+  opacity: 0.5;
+  pointer-events: none;
 }
 
+/* Success Message */
 .success-message {
-  text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  min-height: 400px;
+  align-items: flex-start;
   gap: 1.5rem;
 }
 
-.success-message h3 {
-  font-size: var(--text-3xl);
-  color: var(--accent-color);
+.success-title {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  color: var(--color-green);
+  line-height: 0.9;
 }
 
-.success-message p {
+.success-desc {
+  font-family: var(--font-body);
+  font-size: 1.2rem;
   color: var(--text-secondary);
-  font-size: var(--text-lg);
 }
 
-@media (max-width: 768px) {
-  .contact-form-wrapper {
-    padding: 2rem 1.5rem;
+@media (max-width: 1024px) {
+  .contact-container {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    padding: 0 2rem;
+  }
+  .contact-main-title {
+    font-size: var(--text-h1);
   }
 }

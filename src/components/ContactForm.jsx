@@ -3,49 +3,49 @@ import { motion } from 'framer-motion';
 import './ContactForm.css';
 
 const ContactForm = () => {
-  const [formState, setFormState] = useState('idle'); // 'idle' | 'submitting' | 'success' | 'error'
+  const [formState, setFormState] = useState('idle');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormState('submitting');
-    
-    // Simulate async submission
     setTimeout(() => {
       setFormState('success');
     }, 1500);
   };
 
   return (
-    <section className="contact-section section">
-      <div className="container contact-container">
+    <section className="contact-section">
+      <div className="contact-container">
         <motion.div 
-          className="contact-info"
+          className="contact-info-panel"
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="contact-title">WANNA FLY WITH US?</h2>
-          <p className="contact-subtitle">Let's build the engine driving your brand forward.</p>
+          <div className="contact-header">
+            <h2 className="contact-main-title">LET'S BUILD</h2>
+            <p className="contact-subtitle">Transmit your vision. Our engineers are ready.</p>
+          </div>
           
-          <div className="contact-details">
+          <div className="contact-details-list">
             <div className="detail-item">
-              <span className="detail-label">Email</span>
-              <a href="mailto:hello@tat.digital" className="detail-link">hello@tat.digital</a>
+              <span className="detail-label">EMAIL</span>
+              <a href="mailto:hello@tatstudio.com" className="detail-link interactive">HELLO@TATSTUDIO.COM</a>
             </div>
             <div className="detail-item">
-              <span className="detail-label">Phone</span>
-              <a href="tel:+919999999999" className="detail-link">+91 99999 99999</a>
+              <span className="detail-label">PHONE</span>
+              <a href="tel:+919999999999" className="detail-link interactive">+91 99999 99999</a>
             </div>
             <div className="detail-item">
-              <span className="detail-label">Location</span>
-              <p className="detail-text">Coimbatore, India</p>
+              <span className="detail-label">LOCATION</span>
+              <p className="detail-text">COIMBATORE, INDIA</p>
             </div>
           </div>
         </motion.div>
 
         <motion.div 
-          className="contact-form-wrapper glass-panel"
+          className="contact-form-panel"
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
@@ -54,53 +54,40 @@ const ContactForm = () => {
           {formState === 'success' ? (
             <motion.div 
               className="success-message"
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
             >
-              <h3>Thank you!</h3>
-              <p>Your transmission has been received. Our engine is revving up to respond.</p>
-              <button className="btn btn-primary" onClick={() => setFormState('idle')}>Send Another</button>
+              <h3 className="success-title">TRANSMISSION RECEIVED</h3>
+              <p className="success-desc">We will respond within 24 hours.</p>
+              <button className="btn-submit interactive" onClick={() => setFormState('idle')}>SEND ANOTHER</button>
             </motion.div>
           ) : (
             <form className="contact-form" onSubmit={handleSubmit}>
               <div className="form-group">
-                <input type="text" id="name" required placeholder="Name (Who are we talking to?)" />
+                <input className="interactive" type="text" id="name" required placeholder="NAME / ORGANIZATION" />
               </div>
               
               <div className="form-group">
-                <input type="email" id="email" required placeholder="Email (How do we reach you?)" />
+                <input className="interactive" type="email" id="email" required placeholder="EMAIL ADDRESS" />
               </div>
 
               <div className="form-group">
-                <input type="tel" id="phone" required placeholder="Phone (Let's talk business)" />
+                <input className="interactive" type="text" id="budget" required placeholder="ESTIMATED BUDGET" />
               </div>
 
               <div className="form-group">
-                <textarea id="message" required placeholder="Your Challenge in One Sentence..." rows="4"></textarea>
+                <textarea className="interactive" id="message" required placeholder="TELL US ABOUT YOUR CHALLENGE..." rows="4"></textarea>
               </div>
 
-              <div className="form-group attribution">
-                <label>How did you hear about us?</label>
-                <div className="radio-group">
-                  <label className="radio-label">
-                    <input type="radio" name="source" value="social" /> Social Media
-                  </label>
-                  <label className="radio-label">
-                    <input type="radio" name="source" value="search" /> Google Search
-                  </label>
-                  <label className="radio-label">
-                    <input type="radio" name="source" value="referral" /> Referral
-                  </label>
-                </div>
+              <div className="form-submit-wrapper">
+                <button 
+                  type="submit" 
+                  className="btn-submit interactive"
+                  disabled={formState === 'submitting'}
+                >
+                  {formState === 'submitting' ? 'TRANSMITTING...' : "INITIALIZE PROJECT"}
+                </button>
               </div>
-
-              <button 
-                type="submit" 
-                className="btn btn-primary submit-btn"
-                disabled={formState === 'submitting'}
-              >
-                {formState === 'submitting' ? 'Transmitting...' : "Let's Dominate"}
-              </button>
             </form>
           )}
         </motion.div>
