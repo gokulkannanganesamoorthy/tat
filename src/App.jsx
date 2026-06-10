@@ -55,6 +55,9 @@ function App() {
 
   return (
     <div className="app-container">
+      {/* Macro Element: Cinematic Noise Overlay */}
+      <div className="noise-overlay"></div>
+      
       <Cursor />
       <Preloader />
       

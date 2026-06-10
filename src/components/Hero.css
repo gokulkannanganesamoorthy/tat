@@ -152,6 +152,26 @@
   background-color: var(--text-secondary);
 }
 
+/* Micro Elements: Crosshairs */
+.crosshair {
+  position: absolute;
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  opacity: 0.5;
+  user-select: none;
+  animation: spin 20s linear infinite;
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+.ch-top-left { top: 4%; left: 4%; }
+.ch-top-right { top: 4%; right: 4%; }
+.ch-bottom-left { bottom: 4%; left: 4%; }
+.ch-bottom-right { bottom: 4%; right: 4%; }
+
 @media (max-width: 900px) {
   .card-left-top { width: 25vw; height: 20vh; left: 5%; top: 12%; }
   .card-left-bottom { width: 22vw; height: 18vh; left: 3%; top: 65%; }

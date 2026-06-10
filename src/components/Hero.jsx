@@ -92,6 +92,12 @@ const Hero = () => {
     <section className="creative-hero" ref={heroRef}>
       {/* Dynamic Grid of Floating Media Cards */}
       <div className="hero-grid-container">
+        {/* Micro Elements: Crosshairs */}
+        <div className="crosshair ch-top-left">+</div>
+        <div className="crosshair ch-top-right">+</div>
+        <div className="crosshair ch-bottom-left">+</div>
+        <div className="crosshair ch-bottom-right">+</div>
+
         {heroImages.map((img, idx) => (
           <div key={idx} className={`image-card-wrapper ${img.className}`}>
             <div className="image-card-inner interactive">
@@ -112,11 +118,6 @@ const Hero = () => {
 
       {/* Decorative Brand Details */}
       <div className="hero-bottom-meta">
-        <div className="meta-left">
-          <span>EST. 2026</span>
-          <span className="line-separator" />
-          <span>COIMBATORE, IN</span>
-        </div>
         <div className="meta-right">
           <span>SCROLL DOWN TO EXPLORE</span>
         </div>
