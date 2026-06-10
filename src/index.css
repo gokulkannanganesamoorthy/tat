@@ -1,19 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600&display=swap');
 
 :root {
-  /* The Fluid Monolith Palette */
-  --bg-color: #030303; /* Deep Void Black */
-  --text-primary: #efebe5; /* Off-White/Bone */
-  --text-secondary: rgba(239, 235, 229, 0.5);
+  /* The Creamy Blue Lavish Palette */
+  --bg-color: #f7f4ed; /* White-Creamy */
+  --text-primary: #0c1827; /* Dark Blue */
+  --text-secondary: rgba(12, 24, 39, 0.6);
+  --color-burgundy: #7d1d2b; /* Burgundy */
+  --color-green: #1c3d27; /* Lavish Green */
   
   --font-body: 'Inter', sans-serif;
-  --font-display: 'Anton', sans-serif; /* Ultra-bold, condensed, brutalist */
+  --font-display: 'Anton', sans-serif;
 
   /* Extreme Typography */
-  --text-hero: clamp(5rem, 15vw, 20rem);
-  --text-h1: clamp(4rem, 10vw, 12rem);
-  --text-h2: clamp(3rem, 8vw, 8rem);
-  --text-p: clamp(1rem, 2vw, 1.5rem);
+  --text-hero: clamp(4rem, 12vw, 15rem);
+  --text-h1: clamp(3.5rem, 8vw, 10rem);
+  --text-h2: clamp(2.5rem, 6vw, 7rem);
+  --text-p: clamp(1rem, 1.8vw, 1.3rem);
 }
 
 * {

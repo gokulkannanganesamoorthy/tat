@@ -1,34 +1,101 @@
-.preloader-container {
+.preloader-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: var(--text-primary); /* Off-white preloader */
-  color: var(--bg-color); /* Black text */
-  z-index: 9000;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: none; /* Let clicks pass through when it is animating away */
+}
+
+.shutter-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  z-index: 1;
+}
+
+.shutter-col {
+  height: 100%;
+  background-color: var(--text-primary); /* Dark blue shutter columns in light theme */
+}
+
+.preloader-content-wrapper {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  color: var(--bg-color); /* Creamy text against the dark blue shutter columns */
+}
+
+.svg-container {
+  width: 120px;
+  height: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.preloader-content {
-  text-align: center;
-  overflow: hidden;
+.preloader-svg {
+  width: 100%;
+  height: 100%;
 }
 
-.preloader-counter {
+.preloader-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.preloader-progress-text {
   font-family: var(--font-display);
-  font-size: clamp(8rem, 25vw, 35rem);
-  line-height: 0.8;
-  letter-spacing: -0.05em;
-  margin-bottom: 2rem;
+  font-size: 4rem;
+  line-height: 1;
+  font-weight: 800;
+  display: flex;
+  align-items: baseline;
 }
 
-.preloader-label {
+.percent-sign {
+  font-size: 2rem;
+  opacity: 0.7;
+}
+
+.preloader-status-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--color-burgundy, #6b1426);
+  border-radius: 50%;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.preloader-subtext {
   font-family: var(--font-body);
+  font-size: 0.75rem;
   font-weight: 500;
-  letter-spacing: 0.4em;
-  font-size: 1rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(0.8); opacity: 0.5; }
 }

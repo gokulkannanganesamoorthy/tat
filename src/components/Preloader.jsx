@@ -11,32 +11,99 @@ const Preloader = () => {
     if (progress < 100) {
       interval = setInterval(() => {
         setProgress(prev => {
-          const next = prev + Math.floor(Math.random() * 15);
+          const next = prev + Math.floor(Math.random() * 8) + 2;
           return next >= 100 ? 100 : next;
         });
-      }, 100);
+      }, 50);
     } else {
-      // Small delay at 100% before triggering the exit animation
-      setTimeout(() => setIsLoaded(true), 600);
+      setTimeout(() => setIsLoaded(true), 800);
     }
 
     return () => clearInterval(interval);
   }, [progress]);
 
+  const shutterVariants = {
+    initial: { scaleY: 1 },
+    exit: (i) => ({
+      scaleY: 0,
+      transition: {
+        duration: 0.9,
+        ease: [0.85, 0, 0.15, 1],
+        delay: i * 0.08,
+      }
+    })
+  };
+
+  const contentVariants = {
+    initial: { opacity: 1, y: 0 },
+    exit: { 
+      opacity: 0, 
+      y: -50,
+      transition: { duration: 0.6, ease: [0.85, 0, 0.15, 1] } 
+    }
+  };
+
   return (
     <AnimatePresence>
       {!isLoaded && (
-        <motion.div 
-          className="preloader-container"
-          initial={{ y: 0 }}
-          exit={{ y: '-100vh' }}
-          transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
-        >
-          <div className="preloader-content">
-            <h1 className="preloader-counter">{progress}%</h1>
-            <p className="preloader-label">INITIALIZING THE VOID</p>
+        <div className="preloader-overlay">
+          {/* Alternating Shutter Columns */}
+          <div className="shutter-grid">
+            {[...Array(5)].map((_, i) => (
+              <motion.div
+                key={i}
+                custom={i}
+                className="shutter-col"
+                style={{ transformOrigin: i % 2 === 0 ? 'top' : 'bottom' }}
+                variants={shutterVariants}
+                initial="initial"
+                exit="exit"
+              />
+            ))}
           </div>
-        </motion.div>
+
+          <motion.div 
+            className="preloader-content-wrapper"
+            variants={contentVariants}
+            initial="initial"
+            exit="exit"
+          >
+            <div className="svg-container">
+              <svg className="preloader-svg" viewBox="0 0 100 100">
+                <motion.path
+                  d="M 20 25 L 80 25 M 50 25 L 50 75 M 35 75 L 65 75"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: progress / 100 }}
+                  transition={{ ease: "easeInOut" }}
+                />
+                <motion.circle
+                  cx="50"
+                  cy="50"
+                  r="42"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="0.75"
+                  strokeDasharray="4 4"
+                  animate={{ rotate: 360 }}
+                  transition={{ repeat: Infinity, duration: 12, ease: "linear" }}
+                />
+              </svg>
+            </div>
+
+            <div className="preloader-info">
+              <div className="preloader-progress-text">
+                {progress}<span className="percent-sign">%</span>
+              </div>
+              <div className="preloader-status-container">
+                <span className="status-dot"></span>
+                <p className="preloader-subtext">CRAFTING SPATIAL EXPERIENCES</p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
       )}
     </AnimatePresence>
   );

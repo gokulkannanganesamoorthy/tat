@@ -45,7 +45,7 @@ const Cursor = () => {
       }}
       animate={{
         scale: isHovered ? 2.5 : 1,
-        backgroundColor: isHovered ? '#fff' : '#efebe5',
+        backgroundColor: isHovered ? 'var(--color-burgundy)' : 'var(--text-primary)',
       }}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
     />

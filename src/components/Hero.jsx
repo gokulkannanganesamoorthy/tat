@@ -1,41 +1,125 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './Hero.css';
 
+gsap.registerPlugin(ScrollTrigger);
+
+const heroImages = [
+  {
+    url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=600&auto=format&fit=crop',
+    className: 'card-left-top floating-card',
+    speed: 0.2,
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=600&auto=format&fit=crop',
+    className: 'card-left-bottom floating-card',
+    speed: 0.4,
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=600&auto=format&fit=crop',
+    className: 'card-center-top floating-card',
+    speed: 0.1,
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=600&auto=format&fit=crop',
+    className: 'card-right-top floating-card',
+    speed: 0.3,
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=600&auto=format&fit=crop',
+    className: 'card-right-bottom floating-card',
+    speed: 0.5,
+  }
+];
+
 const Hero = () => {
-  const [isHovered, setIsHovered] = useState(false);
+  const heroRef = useRef(null);
+
+  useEffect(() => {
+    // Mouse move parallax interaction
+    const handleMouseMove = (e) => {
+      const { clientX, clientY } = e;
+      const xPercent = (clientX / window.innerWidth - 0.5);
+      const yPercent = (clientY / window.innerHeight - 0.5);
+
+      const cards = heroRef.current.querySelectorAll('.floating-card');
+      cards.forEach((card, index) => {
+        const factor = (index + 1) * 15;
+        gsap.to(card, {
+          x: xPercent * factor,
+          y: yPercent * factor,
+          rotate: xPercent * (index + 1) * 3,
+          duration: 1.2,
+          ease: 'power2.out',
+          overwrite: 'auto',
+        });
+      });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
+    // ScrollTrigger-driven animations
+    const ctx = gsap.context(() => {
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1,
+        }
+      });
+
+      // Split title animation
+      timeline.to('.hero-line.top-title', { xPercent: -35, opacity: 0.1, ease: 'none' }, 0);
+      timeline.to('.hero-line.bottom-title', { xPercent: 35, opacity: 0.1, ease: 'none' }, 0);
+
+      // Distort and slide images away on scroll
+      timeline.to('.card-left-top', { xPercent: -120, yPercent: -50, rotate: -25, scale: 0.7, opacity: 0, ease: 'none' }, 0);
+      timeline.to('.card-left-bottom', { xPercent: -150, yPercent: 50, rotate: -40, scale: 0.6, opacity: 0, ease: 'none' }, 0);
+      timeline.to('.card-center-top', { yPercent: -150, scale: 0.5, opacity: 0, ease: 'none' }, 0);
+      timeline.to('.card-right-top', { xPercent: 120, yPercent: -50, rotate: 25, scale: 0.7, opacity: 0, ease: 'none' }, 0);
+      timeline.to('.card-right-bottom', { xPercent: 150, yPercent: 50, rotate: 40, scale: 0.6, opacity: 0, ease: 'none' }, 0);
+    }, heroRef);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      ctx.revert();
+    };
+  }, []);
 
   return (
-    <section className="monolith-hero">
-      {/* Background Video */}
-      <motion.div 
-        className="hero-video-bg"
-        animate={{ opacity: isHovered ? 1 : 0, scale: isHovered ? 1 : 1.1 }}
-        transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-      >
-        <video 
-          src="https://cdn.pixabay.com/video/2020/05/11/38747-418659187_large.mp4" 
-          autoPlay 
-          loop 
-          muted 
-          playsInline
-        />
-      </motion.div>
+    <section className="creative-hero" ref={heroRef}>
+      {/* Dynamic Grid of Floating Media Cards */}
+      <div className="hero-grid-container">
+        {heroImages.map((img, idx) => (
+          <div key={idx} className={`image-card-wrapper ${img.className}`}>
+            <div className="image-card-inner interactive">
+              <img src={img.url} alt={`Creative design ${idx}`} />
+              <div className="card-ambient-shadow" />
+            </div>
+          </div>
+        ))}
+      </div>
 
-      {/* Massive Typography */}
-      <div className="hero-typography">
-        <h1 
-          className="interactive" 
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          <span className="line">WE SHAPE</span>
-          <span className="line indent">THE UNSEEN</span>
+      {/* Extreme Kinetic Typography Layer */}
+      <div className="hero-typography-container">
+        <h1 className="hero-main-title">
+          <span className="hero-line top-title">TAT STUDIO</span>
+          <span className="hero-line bottom-title">SHAPING VOID</span>
         </h1>
       </div>
 
-      <div className="hero-scroll-prompt">
-        <p>SCROLL TO EXPLORE</p>
+      {/* Decorative Brand Details */}
+      <div className="hero-bottom-meta">
+        <div className="meta-left">
+          <span>EST. 2026</span>
+          <span className="line-separator" />
+          <span>COIMBATORE, IN</span>
+        </div>
+        <div className="meta-right">
+          <span>SCROLL DOWN TO EXPLORE</span>
+        </div>
       </div>
     </section>
   );

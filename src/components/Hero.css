@@ -1,70 +1,161 @@
-.monolith-hero {
+.creative-hero {
   position: relative;
-  height: 100vh;
   width: 100vw;
+  height: 100vh;
   background-color: var(--bg-color);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.hero-video-bg {
+.hero-grid-container {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   z-index: 1;
+  pointer-events: none;
 }
 
-.hero-video-bg video {
+/* Image Card Positioning */
+.image-card-wrapper {
+  position: absolute;
+  pointer-events: auto;
+  will-change: transform;
+  transition: box-shadow 0.3s ease;
+}
+
+.image-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(12, 24, 39, 0.08);
+}
+
+.image-card-inner img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(100%) contrast(1.2); /* Brutalist black & white video */
+  filter: grayscale(20%) contrast(1.05);
+  transition: filter 0.4s ease, transform 0.4s ease;
 }
 
-.hero-typography {
+.image-card-inner:hover img {
+  filter: grayscale(0%) contrast(1.1);
+  transform: scale(1.05);
+}
+
+/* Card Specific Positions and Sizes */
+.card-left-top {
+  left: 10%;
+  top: 15%;
+  width: 18vw;
+  height: 24vh;
+}
+
+.card-left-bottom {
+  left: 6%;
+  top: 60%;
+  width: 15vw;
+  height: 20vh;
+}
+
+.card-center-top {
+  left: 42%;
+  top: 8%;
+  width: 16vw;
+  height: 22vh;
+}
+
+.card-right-top {
+  right: 12%;
+  top: 18%;
+  width: 17vw;
+  height: 23vh;
+}
+
+.card-right-bottom {
+  right: 8%;
+  top: 55%;
+  width: 20vw;
+  height: 26vh;
+}
+
+/* Typography styling */
+.hero-typography-container {
   position: relative;
-  z-index: 10;
-  padding: 0 4rem;
-  mix-blend-mode: difference; /* Text inverts against the video when it appears */
+  z-index: 2;
+  text-align: center;
+  mix-blend-mode: multiply; /* Creates a high-end blending with background images */
+  pointer-events: none;
 }
 
-.hero-typography h1 {
-  font-size: var(--text-hero);
-  color: var(--text-primary);
+.hero-main-title {
   display: flex;
   flex-direction: column;
-  cursor: none; /* Let the custom cursor handle it */
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.hero-typography .line {
+.hero-line {
   display: block;
-}
-
-.hero-typography .indent {
-  padding-left: 15vw;
-}
-
-.hero-scroll-prompt {
-  position: absolute;
-  bottom: 2rem;
-  left: 4rem;
-  z-index: 10;
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  letter-spacing: 0.2em;
+  font-family: var(--font-display);
+  font-size: var(--text-hero);
   color: var(--text-primary);
-  mix-blend-mode: difference;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
 }
 
-@media (max-width: 768px) {
-  .hero-typography {
-    padding: 0 2rem;
-  }
-  .hero-scroll-prompt {
-    left: 2rem;
-  }
+.hero-line.bottom-title {
+  color: var(--color-burgundy); /* Burgundy accent */
+  font-style: italic;
+  font-family: var(--font-body);
+  font-weight: 200;
+  letter-spacing: -0.06em;
+  font-size: calc(var(--text-hero) * 0.95);
+  text-transform: uppercase;
+}
+
+/* Bottom meta details */
+.hero-bottom-meta {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 4%;
+  right: 4%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: var(--text-secondary);
+  z-index: 10;
+}
+
+.meta-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.line-separator {
+  width: 40px;
+  height: 1px;
+  background-color: var(--text-secondary);
+}
+
+@media (max-width: 900px) {
+  .card-left-top { width: 25vw; height: 20vh; left: 5%; top: 12%; }
+  .card-left-bottom { width: 22vw; height: 18vh; left: 3%; top: 65%; }
+  .card-center-top { display: none; }
+  .card-right-top { width: 24vw; height: 20vh; right: 5%; top: 15%; }
+  .card-right-bottom { width: 26vw; height: 22vh; right: 3%; top: 60%; }
 }
