@@ -1,0 +1,60 @@
+.why-us-section {
+  background-color: var(--bg-color);
+  position: relative;
+  z-index: 10; /* Ensures it sits above the tall hero container */
+}
+
+.why-us-header {
+  margin-bottom: 4rem;
+  text-align: center;
+}
+
+.why-us-header .section-title {
+  color: var(--text-primary);
+  font-size: var(--text-4xl);
+}
+
+.why-us-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.why-card {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: #ffffff; /* Solid white card over creamy bg */
+  border-color: rgba(15, 23, 42, 0.05);
+}
+
+.why-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+}
+
+.why-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-lg);
+}
+
+.why-title {
+  font-size: var(--text-2xl);
+  color: var(--text-primary);
+}
+
+.why-desc {
+  color: var(--text-secondary);
+  font-size: var(--text-base);
+  line-height: 1.7;
+}

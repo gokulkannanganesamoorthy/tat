@@ -1,0 +1,41 @@
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-monolith {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem;
+  background-color: var(--bg-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-title {
+  font-size: clamp(6rem, 20vw, 30rem);
+  white-space: nowrap;
+  letter-spacing: -0.05em;
+  color: var(--text-primary);
+  margin-bottom: -0.1em; /* Tight brutalist spacing */
+}
+
+.footer-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--text-p);
+  border-top: 1px solid var(--text-secondary);
+  padding-top: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.interactive {
+  /* Used by Cursor.jsx to detect hover interactions */
+  position: relative;
+  z-index: 50;
+}

@@ -1,0 +1,116 @@
+.services-section {
+  background-color: var(--bg-color);
+  position: relative;
+}
+
+.services-header {
+  margin-bottom: 4rem;
+}
+
+.section-title {
+  font-size: var(--text-4xl);
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+.section-subtitle {
+  font-size: var(--text-lg);
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+}
+
+.services-list {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--glass-border);
+}
+
+.service-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 2rem;
+  padding: 3rem 0;
+  border-bottom: 1px solid var(--glass-border);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  align-items: center;
+}
+
+.service-item.active {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  background: var(--glass-bg);
+}
+
+.service-number {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+}
+
+.service-item.active .service-number {
+  color: var(--accent-color);
+}
+
+.service-title {
+  font-size: var(--text-3xl);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.service-description {
+  overflow: hidden;
+  color: var(--text-secondary);
+  font-size: var(--text-base);
+  margin-top: 1rem;
+  max-width: 600px;
+}
+
+.service-arrow {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease;
+  background: transparent;
+}
+
+.service-item.active .service-arrow {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  transform: rotate(-45deg);
+}
+
+.arrow-icon {
+  transition: all 0.3s ease;
+}
+
+.service-item.active .arrow-icon {
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .service-item {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 2rem 0;
+  }
+  
+  .service-number {
+    font-size: var(--text-xl);
+  }
+  
+  .service-title {
+    font-size: var(--text-2xl);
+  }
+  
+  .service-arrow {
+    display: none;
+  }
+}
