@@ -1,20 +1,48 @@
+/* The invisible physics container that rotates */
 .custom-cursor {
   position: fixed;
   top: 0;
   left: 0;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background-color: var(--text-primary);
+  width: 40px;
+  height: 40px;
   pointer-events: none;
   z-index: 99999;
-  mix-blend-mode: difference; /* Key to the Awwwards look: inverts colors beneath it */
-  will-change: transform;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 1px solid transparent; /* Hidden by default */
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  mix-blend-mode: difference; /* Keeps it extremely visible on light/dark backgrounds */
 }
 
-/* Hide on touch devices */
-@media (hover: none) and (pointer: coarse) {
+/* The physical Clock Hand (Second Hand) */
+.custom-cursor::before {
+  content: '';
+  position: absolute;
+  top: 0; /* Extends from the top edge... */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 50%; /* ...down to the absolute center */
+  background-color: var(--text-primary);
+  transform-origin: bottom center; /* It rotates around the center of the 40x40 container */
+  transition: height 0.3s ease, opacity 0.3s ease;
+}
+
+/* Hover State: The hand dissolves, the dial appears */
+.custom-cursor.hovered {
+  border-color: var(--text-primary);
+  background-color: rgba(247, 244, 237, 0.05);
+}
+
+.custom-cursor.hovered::before {
+  height: 0; /* Hand shrinks into the center */
+  opacity: 0;
+}
+
+@media (max-width: 768px) {
   .custom-cursor {
-    display: none;
+    display: none; /* Hide on mobile devices */
   }
 }

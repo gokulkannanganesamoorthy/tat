@@ -8,18 +8,15 @@
   position: relative;
   z-index: 2;
   background-color: var(--bg-color);
-  margin-bottom: 80vh; /* Reveal height matching the footer height */
+  /* Removed margin-bottom to eliminate the curtain reveal gap */
   box-shadow: 0 30px 60px rgba(12, 24, 39, 0.08);
 }
 
-/* Curtain Reveal Footer */
+/* Footer Container */
 .footer-reveal-container {
-  position: fixed;
-  bottom: 0;
-  left: 0;
+  position: relative;
   width: 100vw;
-  height: 80vh;
-  z-index: 1;
+  min-height: 80vh;
   background-color: var(--text-primary); /* Dark Blue */
   color: var(--bg-color); /* Creamy White */
   display: flex;

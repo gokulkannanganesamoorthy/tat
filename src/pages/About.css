@@ -10,10 +10,10 @@
   overflow: hidden;
 }
 
-/* Typography Layer (Sits behind the image) */
+/* Typography Layer */
 .about-premium-text-layer {
   position: relative;
-  z-index: 1; /* Behind the image */
+  z-index: 4; /* Brought to the very front */
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -21,6 +21,7 @@
   text-align: center;
   gap: 2rem;
   opacity: 0; /* GSAP will reveal this */
+  pointer-events: none; /* Let clicks pass through to the image */
 }
 
 .about-premium-meta {
@@ -41,7 +42,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15vh; /* Creates a massive gap in the middle where the image will sit */
+  gap: 1rem; /* Removed the massive gap */
 }
 
 .serif-italic {

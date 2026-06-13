@@ -9,9 +9,18 @@ const Hero = () => {
   const containerRef = useRef(null);
   const textRef = useRef(null);
   const mediaRef = useRef(null);
+  const dialRef = useRef(null); // Reference for the rotating dial
 
   useEffect(() => {
     let ctx = gsap.context(() => {
+      // Infinite slow rotation for the clock dial
+      gsap.to(dialRef.current, {
+        rotation: 360,
+        duration: 60, // Extremely slow, mechanical rotation (1 minute per revolution)
+        ease: "none",
+        repeat: -1
+      });
+
       // Create a timeline that pins the container and scales the text mask
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -60,6 +69,26 @@ const Hero = () => {
           alt="Abstract Architecture" 
           ref={mediaRef}
         />
+        
+        {/* Massive Rotating Subliminal Clock Dial */}
+        <div className="hero-subliminal-dial" ref={dialRef}>
+          <svg viewBox="0 0 100 100" className="hero-dial-svg">
+            <circle cx="50" cy="50" r="48" fill="none" stroke="rgba(247, 244, 237, 0.3)" strokeWidth="0.2" />
+            <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(247, 244, 237, 0.15)" strokeWidth="0.1" strokeDasharray="1 2" />
+            <circle cx="50" cy="50" r="36" fill="none" stroke="rgba(247, 244, 237, 0.05)" strokeWidth="0.1" strokeDasharray="0.5 4" />
+            {/* The 12 Hour Tick Marks */}
+            {Array.from({ length: 12 }).map((_, i) => (
+              <line 
+                key={i} 
+                x1="50" y1="2" 
+                x2="50" y2="5" 
+                stroke="rgba(247, 244, 237, 0.6)" 
+                strokeWidth="0.4" 
+                transform={`rotate(${i * 30} 50 50)`} 
+              />
+            ))}
+          </svg>
+        </div>
       </div>
 
       {/* Foreground Mask Layer */}

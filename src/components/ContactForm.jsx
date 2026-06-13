@@ -10,7 +10,7 @@ const ContactForm = () => {
     name: '',
     company: '',
     project: '',
-    budget: '',
+    description: '',
     email: ''
   });
   const [status, setStatus] = useState('idle');
@@ -48,7 +48,7 @@ const ContactForm = () => {
     setStatus('submitting');
     setTimeout(() => {
       setStatus('success');
-      setFormData({ name: '', company: '', project: '', budget: '', email: '' });
+      setFormData({ name: '', company: '', project: '', description: '', email: '' });
     }, 1500);
   };
 
@@ -56,15 +56,15 @@ const ContactForm = () => {
     <section className="contact-terminal-container" ref={containerRef}>
       
       <div className="contact-meta-header">
-        <span>[ TRANSMIT DIRECTIVE ]</span>
+        <span>04 // GET IN TOUCH</span>
       </div>
 
       {status === 'success' ? (
         <div className="contact-success-message interactive">
-          <h2>TRANSMISSION RECEIVED.</h2>
-          <p>OUR SYSTEMS ARE ANALYZING YOUR COORDINATES. WE WILL INITIATE CONTACT SHORTLY.</p>
+          <h2>MESSAGE RECEIVED.</h2>
+          <p>WE WILL REVIEW YOUR REQUEST AND GET BACK TO YOU SHORTLY.</p>
           <button className="reset-btn interactive" onClick={() => setStatus('idle')}>
-            INITIALIZE NEW DIRECTIVE
+            SEND ANOTHER MESSAGE
           </button>
         </div>
       ) : (
@@ -94,21 +94,21 @@ const ContactForm = () => {
             <input 
               type="text" 
               name="project" 
-              placeholder="[A PLATFORM / AN EXPERIENCE]" 
+              placeholder="[A PROJECT]" 
               value={formData.project} 
               onChange={handleChange} 
               required 
               className="blank-input long-input"
             />
-            <span> WITH A BUDGET OF </span>
+            <span>. BRIEFLY DESCRIBED AS </span>
             <input 
               type="text" 
-              name="budget" 
-              placeholder="[BUDGET]" 
-              value={formData.budget} 
+              name="description" 
+              placeholder="[DESCRIPTION]" 
+              value={formData.description} 
               onChange={handleChange} 
               required 
-              className="blank-input"
+              className="blank-input long-input"
             />
             <span>. YOU CAN REACH ME AT </span>
             <input 
@@ -124,7 +124,7 @@ const ContactForm = () => {
           </div>
 
           <button type="submit" className="terminal-submit-btn interactive" disabled={status === 'submitting'}>
-            {status === 'submitting' ? 'TRANSMITTING...' : 'EXECUTE DIRECTIVE'}
+            {status === 'submitting' ? 'SENDING...' : 'SEND MESSAGE'}
           </button>
         </form>
       )}

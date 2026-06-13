@@ -11,6 +11,8 @@ import Services from './pages/Services';
 import Contact from './pages/Contact';
 import './App.css';
 
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
 // ScrollToTop component to reset scroll on route change
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -20,6 +22,13 @@ const ScrollToTop = () => {
     } else {
       window.scrollTo(0, 0);
     }
+    
+    // Force GSAP to recalculate pin spacers and layout heights
+    // This eliminates the "black void" on redirect and fixes bottom gaps
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
+
   }, [pathname]);
   return null;
 };

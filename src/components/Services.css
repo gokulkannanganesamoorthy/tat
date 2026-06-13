@@ -150,6 +150,30 @@
   opacity: 0; /* Hide the "VIEW" text when expanded */
 }
 
+/* New CTA Button inside expanded slice */
+.services-cta {
+  margin-top: 1.5rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  letter-spacing: 0.2em;
+  color: #0A0A0A;
+  background-color: var(--color-green);
+  border: none;
+  padding: 1rem 2rem;
+  width: fit-content;
+  cursor: pointer;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.services-cta:hover {
+  background-color: var(--color-burgundy);
+  color: #F7F4ED;
+  transform: translateX(10px);
+}
+
 @media (max-width: 1024px) {
   .services-slices-wrapper {
     flex-direction: column; /* Stack vertically on mobile */

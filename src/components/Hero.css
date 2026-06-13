@@ -23,6 +23,23 @@
   filter: contrast(1.1) saturate(1.2);
 }
 
+/* The Subliminal Rotating Dial */
+.hero-subliminal-dial {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150vh; /* Massive so the edges bleed off the screen */
+  height: 150vh;
+  transform: translate(-50%, -50%); /* Centers the dial perfectly */
+  pointer-events: none;
+  z-index: 2; /* Sits on top of the image */
+}
+
+.hero-dial-svg {
+  width: 100%;
+  height: 100%;
+}
+
 /* The Mask Layer (White background, Black text, Screen blend mode) */
 .hero-mask-layer {
   position: absolute;

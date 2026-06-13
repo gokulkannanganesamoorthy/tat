@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './Services.css';
 
 const servicesList = [
-  { id: "01", title: "SPATIAL", desc: "Crafting immersive physical environments.", img: "https://images.unsplash.com/photo-1600607688969-a5bfcd64bd40?q=80&w=2000&auto=format&fit=crop" },
+  { id: "01", title: "SPATIAL", desc: "Crafting immersive physical environments.", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2000&auto=format&fit=crop" },
   { id: "02", title: "CREATIVE", desc: "Engineering the impossible.", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2000&auto=format&fit=crop" },
   { id: "03", title: "VIRTUAL", desc: "High-fidelity unreal production.", img: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2000&auto=format&fit=crop" },
   { id: "04", title: "SYSTEMS", desc: "Architecting the invisible foundation.", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2000&auto=format&fit=crop" }
@@ -23,6 +23,7 @@ const Services = () => {
             key={service.id}
             className={`services-slice ${hoveredIndex === index ? 'active' : ''}`}
             onMouseEnter={() => setHoveredIndex(index)}
+            onClick={() => setHoveredIndex(index)}
           >
             
             {/* The Background Image of the slice */}
@@ -39,6 +40,7 @@ const Services = () => {
                 <h2 className="services-slice-title">{service.title}</h2>
               </div>
               <p className="services-slice-desc">{service.desc}</p>
+              <button className="services-cta interactive">EXPLORE CAPABILITY &rarr;</button>
             </div>
 
           </div>
