@@ -1,118 +1,66 @@
-.services-cursor-container {
+.services-elegant-container {
   width: 100vw;
   min-height: 100vh;
-  background-color: var(--text-primary);
-  color: var(--bg-color);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
   padding: 10rem 5vw;
-  position: relative;
-  overflow: hidden; /* Important so the cursor image doesn't cause scrollbars */
-  cursor: none; /* Hide default cursor when interacting */
-}
-
-.services-header {
-  margin-bottom: 4rem;
-  border-bottom: 1px solid rgba(247, 244, 237, 0.2);
-  padding-bottom: 1rem;
-}
-
-.services-meta {
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  letter-spacing: 0.2em;
-  color: var(--color-burgundy);
-}
-
-.services-list-wrapper {
   display: flex;
   flex-direction: column;
 }
 
-.service-list-row {
+.services-elegant-header {
+  margin-bottom: 6rem;
+}
+
+.services-elegant-meta {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  color: var(--text-secondary);
+}
+
+.services-elegant-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.service-elegant-row {
   display: flex;
   align-items: center;
-  border-bottom: 1px solid rgba(247, 244, 237, 0.1);
-  padding: 2rem 0;
-  transition: padding 0.4s ease;
+  border-bottom: 1px solid rgba(12, 24, 39, 0.1);
+  padding: 3rem 0;
+  transition: padding-left 0.5s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.5s ease;
+  cursor: pointer;
 }
 
-.service-list-row:hover {
-  padding-left: 2vw;
-  padding-right: 2vw;
-  background-color: rgba(247, 244, 237, 0.02);
+.service-elegant-row:hover {
+  padding-left: 5vw;
+  background-color: rgba(12, 24, 39, 0.02);
 }
 
-.service-id {
+.service-elegant-id {
   font-family: var(--font-body);
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 10vw;
-  color: rgba(247, 244, 237, 0.4);
+  color: var(--text-secondary);
 }
 
-.service-massive-text {
+.service-elegant-title {
   font-family: var(--font-display);
-  font-size: clamp(4rem, 8vw, 10rem);
-  line-height: 0.85;
+  font-size: clamp(3rem, 6vw, 8rem);
+  line-height: 0.9;
   margin: 0;
-  color: var(--bg-color);
+  color: var(--text-primary);
   text-transform: uppercase;
   transition: color 0.4s ease;
 }
 
-.service-list-row:hover .service-massive-text {
-  color: var(--color-burgundy); /* Highlight on hover */
-}
-
-/* Floating Cursor Image */
-.service-hover-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 350px;
-  height: 450px;
-  pointer-events: none; /* Must not block mouse events for tracking */
-  z-index: 10;
-  transform: translate(-50%, -50%) scale(0.5); /* Center on cursor, start scaled down */
-  opacity: 0;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
-  overflow: hidden;
-  border-radius: 8px;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-}
-
-.service-hover-image.active {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
-}
-
-.service-image-inner {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
-.service-image-inner img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  filter: grayscale(100%) contrast(1.2);
-}
-
-.service-image-inner img.active-img {
-  opacity: 1;
-  z-index: 2;
+.service-elegant-row:hover .service-elegant-title {
+  color: var(--color-burgundy);
 }
 
 @media (max-width: 1024px) {
-  /* Disable custom cursor reveal on smaller screens, just show list */
-  .service-hover-image {
-    display: none !important;
-  }
-  .services-cursor-container {
-    cursor: auto;
+  .service-elegant-row:hover {
+    padding-left: 2vw;
   }
 }

@@ -1,201 +1,62 @@
-.hero-zoom-container {
+.hero-void-container {
   width: 100vw;
-  height: 100vh;
-  position: relative;
+  min-height: 140vh; /* Extremely tall to allow for the parallax image to scroll up gracefully */
   background-color: var(--bg-color);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* The Background Reveal Grid */
-.hero-background-grid {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1; /* Below the canvas */
-  opacity: 0;
-  transform: scale(0.9); /* Starts slightly scaled down */
-  will-change: transform, opacity;
-  background-color: var(--bg-color);
-}
-
-.grid-item {
-  position: absolute;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-  background-color: var(--text-primary);
-}
-
-.grid-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: grayscale(20%);
-}
-
-/* Asymmetrical Masonry Positioning */
-.img-1 { width: 25vw; height: 35vh; top: 10vh; left: 5vw; }
-.img-2 { width: 30vw; height: 40vh; top: -5vh; right: 10vw; }
-.img-3 { width: 20vw; height: 30vh; bottom: 15vh; left: 10vw; }
-.img-4 { width: 35vw; height: 50vh; bottom: 5vh; right: 5vw; }
-.img-5 { width: 15vw; height: 20vh; top: 40vh; left: 2vw; }
-.img-6 { width: 18vw; height: 25vh; top: 35vh; right: 2vw; }
-
-.grid-text-item {
-  position: absolute;
-  font-family: var(--font-display);
-  font-size: clamp(4rem, 8vw, 8rem);
   color: var(--text-primary);
-  opacity: 0.1;
-  pointer-events: none;
-}
-
-.top-left-text { top: 5vh; left: 35vw; }
-.bottom-right-text { bottom: 10vh; right: 40vw; }
-
-/* The actual artwork that shrinks */
-.blueprint-canvas {
-  width: 100vw;
-  height: 100vh;
-  background-color: var(--text-primary); /* Dark Blue Base */
-  color: var(--bg-color); /* Creamy Text */
   position: relative;
-  z-index: 2; /* Above the grid */
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
   overflow: hidden;
-  transform-origin: center center;
-  will-change: transform, border-radius, opacity, filter;
 }
 
-/* The Technical Grid Background */
-.blueprint-grid {
-  position: absolute;
-  top: 0;
-  left: 0;
+.hero-void-text-wrapper {
+  margin-top: 25vh;
   width: 100%;
-  height: 100%;
-  background-image: 
-    linear-gradient(rgba(247, 244, 237, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(247, 244, 237, 0.05) 1px, transparent 1px);
-  background-size: 50px 50px;
-  z-index: 1;
-  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  z-index: 2;
 }
 
-/* Central Typography */
-.blueprint-text-wrapper {
-  position: relative;
-  z-index: 3;
-  text-align: center;
-  mix-blend-mode: difference;
-}
-
-.blueprint-title {
+.hero-massive-void-title {
   font-family: var(--font-display);
-  font-size: clamp(6rem, 20vw, 25rem);
-  line-height: 1;
-  letter-spacing: normal;
+  font-size: clamp(5rem, 15vw, 18rem);
+  line-height: 0.85;
+  text-transform: uppercase;
   margin: 0;
-  color: var(--bg-color);
+  text-align: left;
 }
 
-.blueprint-subtitle {
-  font-family: var(--font-body);
-  font-size: clamp(1rem, 2vw, 2rem);
-  line-height: 1.5;
-  letter-spacing: 0.2em;
-  font-weight: 300;
-  margin-top: 1rem;
+.indent-text {
+  padding-left: 20vw;
   color: var(--color-burgundy);
 }
 
-/* The Data Corners (Architectural details) */
-.blueprint-data-corners {
+.hero-elegant-image-wrapper {
   position: absolute;
-  top: 0;
-  left: 0;
+  bottom: -20vh; /* Start below the viewport slightly */
+  width: 60vw;
+  height: 80vh;
+  overflow: hidden;
+  z-index: 1;
+  border-radius: 4px;
+  box-shadow: 0 40px 100px rgba(12, 24, 39, 0.15);
+}
+
+.hero-elegant-image-wrapper img {
   width: 100%;
   height: 100%;
-  padding: 2rem 4rem;
-  z-index: 2;
-  pointer-events: none;
+  object-fit: cover;
+  filter: grayscale(20%); /* Keep it elegant and slightly muted */
 }
 
-.data-corner {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-  letter-spacing: 0.1em;
-  color: rgba(247, 244, 237, 0.6);
-  line-height: 1.6;
-}
-
-.top-left { top: 2rem; left: 4rem; }
-.top-right { top: 2rem; right: 4rem; text-align: right; }
-.bottom-left { bottom: 2rem; left: 4rem; }
-.bottom-right { bottom: 2rem; right: 4rem; text-align: right; }
-
-/* The Rotating Abstract 3D Wireframe */
-.blueprint-centerpiece {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 50vw;
-  height: 50vw;
-  max-width: 600px;
-  max-height: 600px;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.rotating-wireframe {
-  width: 100%;
-  height: 100%;
-  border: 1px solid rgba(247, 244, 237, 0.1);
-  border-radius: 50%;
-  animation: rotateSlow 20s linear infinite;
-  position: relative;
-}
-
-.rotating-wireframe::before,
-.rotating-wireframe::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: 1px solid rgba(247, 244, 237, 0.1);
-  border-radius: 50%;
-}
-
-.rotating-wireframe::before {
-  transform: rotateX(60deg);
-}
-
-.rotating-wireframe::after {
-  transform: rotateY(60deg);
-}
-
-@keyframes rotateSlow {
-  0% { transform: rotateZ(0deg) rotateX(0deg) rotateY(0deg); }
-  100% { transform: rotateZ(360deg) rotateX(360deg) rotateY(360deg); }
-}
-
-@media (max-width: 768px) {
-  .blueprint-data-corners { padding: 1.5rem; }
-  .top-left { top: 6rem; left: 1.5rem; } /* Pushed down below navbar */
-  .top-right { top: 6rem; right: 1.5rem; }
-  .bottom-left { bottom: 2rem; left: 1.5rem; }
-  .bottom-right { bottom: 2rem; right: 1.5rem; }
+@media (max-width: 1024px) {
+  .hero-elegant-image-wrapper {
+    width: 90vw;
+    height: 60vh;
+    bottom: -10vh;
+  }
+  .indent-text {
+    padding-left: 10vw;
+  }
 }
