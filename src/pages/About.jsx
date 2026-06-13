@@ -5,40 +5,59 @@ import './About.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const narrative = [
+  'WE REJECT THE TEMPLATE.',
+  'WE ABANDON THE GRID.',
+  'TAT STUDIO ARCHITECTS FLUID DIGITAL ENVIRONMENTS.',
+  'ENGINEERED FOR MAXIMUM NARRATIVE IMPACT.',
+  'BEYOND THE BROWSER.'
+];
+
 const About = () => {
   const containerRef = useRef(null);
-  const imageRef = useRef(null);
+  const textRefs = useRef([]);
+  const bgRef = useRef(null);
 
   useEffect(() => {
     let ctx = gsap.context(() => {
-      
-      // Elegant background color transition
-      gsap.to(containerRef.current, {
-        backgroundColor: "#0A0A0A", // Very deep, luxurious charcoal/black
-        color: "#F7F4ED", // Shift text to cream
+      const container = containerRef.current;
+      const texts = textRefs.current;
+
+      const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 60%", // Start shifting when section is 60% up the viewport
-          end: "top 20%",
-          scrub: true,
+          trigger: container,
+          start: "top top",
+          end: "+=400%", // Deep pin
+          pin: true,
+          scrub: 1,
         }
       });
 
-      // Deep parallax on the inner image
-      // The wrapper has overflow hidden, the image scales up slightly and moves Y
-      gsap.fromTo(imageRef.current, 
-        { yPercent: -20, scale: 1.1 },
-        { 
-          yPercent: 20, 
-          ease: "none",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true
-          }
+      // Slowly fade in the dark background image over the course of the entire pin
+      tl.to(bgRef.current, {
+        opacity: 0.3,
+        scale: 1.1,
+        duration: 10, // Span the timeline
+        ease: "none"
+      }, 0);
+
+      // Staggered reveal and hide for each narrative line
+      texts.forEach((text, i) => {
+        // Fade in and slide up
+        tl.fromTo(text, 
+          { opacity: 0, y: 150, scale: 0.9 },
+          { opacity: 1, y: 0, scale: 1, duration: 1.5, ease: "power2.out" },
+          "+=0.5" 
+        );
+
+        // Fade out and slide up (except for the last one)
+        if (i !== texts.length - 1) {
+          tl.to(text, 
+            { opacity: 0, y: -150, scale: 1.1, duration: 1.5, ease: "power2.in" },
+            "+=1.5" // Allow reading time
+          );
         }
-      );
+      });
 
     }, containerRef);
 
@@ -46,34 +65,25 @@ const About = () => {
   }, []);
 
   return (
-    <section className="about-editorial-container" ref={containerRef}>
+    <section className="about-monolith-container" ref={containerRef}>
       
-      <div className="about-editorial-header">
-        <p className="about-meta-tag">01 // THE MANIFESTO</p>
-        <h2 className="about-editorial-title">
-          WE BUILD <br />
-          <span className="serif-italic">digital environments</span> <br />
-          BEYOND THE GRID.
-        </h2>
+      {/* Deep cinematic background */}
+      <div className="about-monolith-bg" ref={bgRef}>
+        <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2000&auto=format&fit=crop" alt="Abstract Architecture" />
       </div>
 
-      <div className="about-editorial-body">
-        <div className="about-editorial-image-wrapper">
-          <img 
-            src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2000&auto=format&fit=crop" 
-            alt="Editorial Architecture" 
-            ref={imageRef}
-            className="about-editorial-img"
-          />
-        </div>
-        
-        <div className="about-editorial-text-content">
-          <p>
-            TAT STUDIO rejects the stereotypic template. We curate fluid, high-end digital experiences that behave like modern art installations.
-          </p>
-          <p>
-            Every interaction is engineered for maximum narrative impact, blending brutalist structural design with cinematic motion.
-          </p>
+      <div className="about-monolith-content">
+        <p className="about-meta">01 // THE MANIFESTO</p>
+        <div className="about-narrative-wrapper">
+          {narrative.map((line, index) => (
+            <h2 
+              className="about-monolith-line" 
+              key={index}
+              ref={el => textRefs.current[index] = el}
+            >
+              {line}
+            </h2>
+          ))}
         </div>
       </div>
 

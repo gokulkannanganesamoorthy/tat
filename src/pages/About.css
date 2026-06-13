@@ -1,93 +1,76 @@
-.about-editorial-container {
+.about-monolith-container {
   width: 100vw;
-  min-height: 100vh;
-  padding: 10rem 5vw;
-  background-color: var(--bg-color); /* Starts cream, GSAP will animate to dark */
-  color: var(--text-primary);
+  height: 100vh;
+  background-color: #0A0A0A; /* Unified dark cinematic theme */
+  color: #F7F4ED;
+  position: relative;
+  overflow: hidden;
   display: flex;
-  flex-direction: column;
-  gap: 10rem;
-  transition: background-color 0.1s ease, color 0.1s ease; /* Let GSAP handle the heavy lifting, but add a tiny buffer */
+  align-items: center;
+  justify-content: center;
 }
 
-.about-editorial-header {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+.about-monolith-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0; /* GSAP fades this in */
 }
 
-.about-meta-tag {
+.about-monolith-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(50%) contrast(1.2);
+}
+
+.about-monolith-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-meta {
+  position: absolute;
+  top: 5rem;
+  left: 5vw;
   font-family: var(--font-body);
   font-size: 0.8rem;
   letter-spacing: 0.2em;
+  color: rgba(247, 244, 237, 0.5);
   text-transform: uppercase;
-  margin: 0;
 }
 
-.about-editorial-title {
+.about-narrative-wrapper {
+  position: relative;
+  width: 80vw;
+  height: 30vh; /* Fixed height so lines overlap perfectly */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-monolith-line {
+  position: absolute;
   font-family: var(--font-display);
-  font-size: clamp(3rem, 7vw, 7rem);
-  line-height: 0.95;
-  margin: 0;
+  font-size: clamp(2rem, 5vw, 6rem);
+  line-height: 1;
+  text-align: center;
   text-transform: uppercase;
-}
-
-.serif-italic {
-  font-family: "Playfair Display", serif; /* Highly elegant, standard Awwwards pairing */
-  font-style: italic;
-  font-weight: 400;
-  text-transform: lowercase;
-  color: var(--color-burgundy);
-}
-
-.about-editorial-body {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 100%;
-}
-
-.about-editorial-image-wrapper {
-  width: 50vw;
-  height: 80vh;
-  overflow: hidden;
-  border-radius: 4px;
-}
-
-.about-editorial-img {
-  width: 100%;
-  height: 140%; /* Taller than wrapper to allow parallax */
-  object-fit: cover;
-  filter: grayscale(10%) contrast(1.1);
-  /* The transform is handled by GSAP yPercent */
-}
-
-.about-editorial-text-content {
-  width: 35vw;
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  padding-top: 20vh; /* Push it down relative to the image */
-}
-
-.about-editorial-text-content p {
-  font-family: var(--font-body);
-  font-size: 1.5rem;
-  line-height: 1.6;
   margin: 0;
+  opacity: 0; /* GSAP reveals */
 }
 
 @media (max-width: 1024px) {
-  .about-editorial-body {
-    flex-direction: column;
-    gap: 5rem;
-  }
-  .about-editorial-image-wrapper {
-    width: 100%;
-    height: 60vh;
-  }
-  .about-editorial-text-content {
-    width: 100%;
-    padding-top: 0;
+  .about-narrative-wrapper {
+    width: 90vw;
   }
 }
