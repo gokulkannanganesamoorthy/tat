@@ -1,116 +1,67 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './About.css';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
   const containerRef = useRef(null);
-  const leftPanelRef = useRef(null);
-  const imageRef = useRef(null);
-  const textLinesRef = useRef([]);
 
   useEffect(() => {
     let ctx = gsap.context(() => {
-      // Pin the left image panel while the right side scrolls
-      ScrollTrigger.create({
-        trigger: containerRef.current,
-        start: "top top",
-        end: "bottom bottom",
-        pin: leftPanelRef.current,
-        pinSpacing: false, // The right side dictates the height
-      });
+      
+      // We use GSAP quickSetter for ultra-high-performance CSS variable updates
+      const xSet = gsap.quickSetter(containerRef.current, "--x", "px");
+      const ySet = gsap.quickSetter(containerRef.current, "--y", "px");
 
-      // Subtle, constant zoom on the pinned image for a cinematic feel
-      gsap.to(imageRef.current, {
-        scale: 1.15,
-        ease: "none",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true
-        }
-      });
+      const handleMouseMove = (e) => {
+        const rect = containerRef.current.getBoundingClientRect();
+        // Calculate mouse position relative to the container
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        xSet(x);
+        ySet(y);
+      };
 
-      // Advanced staggered line mask reveal
-      textLinesRef.current.forEach((line) => {
-        gsap.fromTo(line, 
-          { y: 100 }, // Start pushed down inside the hidden overflow wrapper
-          {
-            y: 0,
-            duration: 1.5,
-            ease: "power4.out",
-            scrollTrigger: {
-              trigger: line,
-              start: "top 90%", // Trigger when the line is 90% down the screen
-            }
-          }
-        );
-      });
+      // Center the spotlight initially
+      const rect = containerRef.current.getBoundingClientRect();
+      xSet(rect.width / 2);
+      ySet(rect.height / 2);
 
+      containerRef.current.addEventListener("mousemove", handleMouseMove);
+
+      return () => {
+        containerRef.current.removeEventListener("mousemove", handleMouseMove);
+      };
     }, containerRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section className="about-split-container" ref={containerRef}>
+    <section className="about-spotlight-container" ref={containerRef}>
       
-      {/* Pinned Left Panel */}
-      <div className="about-split-left" ref={leftPanelRef}>
-        <div className="about-pinned-image-wrapper">
-          <img 
-            src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1200&auto=format&fit=crop" 
-            alt="TAT STUDIO Essence" 
-            ref={imageRef}
-          />
-          <div className="about-pinned-overlay">
-            <span className="about-pinned-meta">DOC. REF: 001-TAT</span>
-          </div>
-        </div>
+      {/* Background hint (very dark) so it's not totally empty if mouse is off-screen */}
+      <div className="about-spotlight-hint">
+        <h2>EXPLORE</h2>
       </div>
 
-      {/* Scrolling Right Panel */}
-      <div className="about-split-right">
-        
-        <div className="about-text-content">
-          <div className="about-line-wrapper">
-            <h2 className="about-split-heading" ref={el => textLinesRef.current[0] = el}>THE</h2>
+      {/* The Revealed Content (Masked by CSS) */}
+      <div className="about-spotlight-reveal">
+        <div className="about-reveal-content">
+          <h2 className="about-reveal-title">
+            BEYOND <br />
+            <span className="indent-text">THE</span> <br />
+            GRID
+          </h2>
+          <div className="about-reveal-image-wrapper">
+             <img 
+              src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2000&auto=format&fit=crop" 
+              alt="Futuristic Concept" 
+            />
           </div>
-          <div className="about-line-wrapper">
-            <h2 className="about-split-heading" ref={el => textLinesRef.current[1] = el}>MANI</h2>
-          </div>
-          <div className="about-line-wrapper">
-            <h2 className="about-split-heading" ref={el => textLinesRef.current[2] = el}>FESTO</h2>
-          </div>
+          <p className="about-reveal-body">
+            We abandon the template. We reject the standard. TAT STUDIO constructs fluid, experimental digital environments that react, breathe, and exist entirely outside the bounds of traditional web engineering.
+          </p>
         </div>
-
-        <div className="about-text-content">
-          <div className="about-line-wrapper">
-            <p className="about-split-body" ref={el => textLinesRef.current[3] = el}>
-              TAT STUDIO exists at the exact intersection of spatial design, creative engineering, and brutalist architecture. We believe that digital and physical spaces are no longer separate entities. They are a single, continuous fabric that must be constructed with intention, precision, and absolute ruthlessness.
-            </p>
-          </div>
-        </div>
-        
-        <div className="about-text-content">
-          <div className="about-line-wrapper">
-            <p className="about-split-body" ref={el => textLinesRef.current[4] = el}>
-              Our methodology is simple: subtract the unnecessary until only the undeniable remains. We build platforms, experiences, and environments for those who refuse to blend into the noise. 
-            </p>
-          </div>
-        </div>
-
-        <div className="about-text-content">
-          <div className="about-line-wrapper">
-            <p className="about-split-body" ref={el => textLinesRef.current[5] = el}>
-              If you are looking for templates, trends, or safety, you are in the wrong place. If you are looking to build something unseen, initialize the sequence.
-            </p>
-          </div>
-        </div>
-
       </div>
 
     </section>

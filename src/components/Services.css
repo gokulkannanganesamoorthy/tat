@@ -1,98 +1,84 @@
-.services-accordion-container {
+.services-trail-container {
   width: 100vw;
-  min-height: 100vh;
+  height: 100vh;
   background-color: var(--bg-color);
-  color: var(--text-primary);
-  padding: 10rem 5vw;
-  display: flex;
-  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  cursor: crosshair;
 }
 
-.services-accordion-meta-header {
-  margin-bottom: 4rem;
+/* Scattered Background Text */
+.services-scattered-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Crucial so it doesn't block the mousemove events */
+  z-index: 1;
 }
 
-.services-accordion-meta {
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  letter-spacing: 0.2em;
-  color: var(--text-secondary);
-}
-
-.services-accordion-list {
-  display: flex;
-  flex-direction: column;
-}
-
-.service-accordion-row {
-  display: flex;
-  flex-direction: column;
-  border-bottom: 1px solid rgba(12, 24, 39, 0.1);
-  overflow: hidden; /* Crucial for the accordion masking */
-}
-
-.service-accordion-header {
-  display: flex;
-  align-items: center;
-  padding: 2.5rem 0;
-  cursor: pointer;
-  transition: padding-left 0.5s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.5s ease;
-}
-
-.service-accordion-header:hover {
-  padding-left: 2vw;
-  background-color: rgba(12, 24, 39, 0.02);
-}
-
-.service-accordion-id {
-  font-family: var(--font-body);
-  font-size: 1.2rem;
-  width: 10vw;
-  color: var(--text-secondary);
-}
-
-.service-accordion-title {
+.services-scattered-text h2 {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 4rem);
-  line-height: 1.1;
+  font-size: clamp(3rem, 8vw, 10rem);
+  line-height: 1;
   margin: 0;
   color: var(--text-primary);
+  opacity: 0.1; /* Very faint ghost text */
   text-transform: uppercase;
-  transition: color 0.4s ease;
+  position: absolute;
 }
 
-/* Active State Colors */
-.service-accordion-row.active .service-accordion-title {
-  color: var(--color-burgundy);
+.scatter-1 { top: 10%; left: -5%; }
+.scatter-2 { top: 30%; right: 10%; }
+.scatter-3 { top: 50%; left: 20%; }
+.scatter-4 { bottom: 20%; left: -10%; }
+.scatter-5 { bottom: 5%; right: -5%; }
+
+/* Instruction Overlay */
+.services-trail-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  pointer-events: none;
 }
 
-.service-accordion-row.active .service-accordion-header {
-  padding-bottom: 1rem; /* Tighten gap when open */
+.services-trail-overlay h2 {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  letter-spacing: 0.3em;
+  color: var(--text-primary);
+  border: 1px solid var(--text-primary);
+  padding: 1rem 2rem;
+  border-radius: 50px;
 }
 
-/* The Expanding Image Container */
-.service-accordion-content {
-  height: 0; /* GSAP animates this */
-  width: 100%;
-  overflow: hidden;
-}
-
-.service-accordion-image-wrapper {
+/* The Image Trail Elements */
+.services-image-pool {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  padding-bottom: 2rem; /* Spacing inside the open accordion */
+  pointer-events: none;
 }
 
-.service-accordion-image-wrapper img {
-  width: 100%;
-  height: 100%;
+.trail-image-element {
+  position: absolute;
+  width: 25vw;
+  height: 35vh;
   object-fit: cover;
   border-radius: 4px;
-  filter: grayscale(20%);
+  opacity: 0; /* Hidden until spawned */
+  will-change: transform, opacity; /* Hardware acceleration for buttery smoothness */
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
 }
 
 @media (max-width: 1024px) {
-  .service-accordion-header:hover {
-    padding-left: 0;
+  .trail-image-element {
+    width: 40vw;
+    height: 25vh;
   }
 }
