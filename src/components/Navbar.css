@@ -1,61 +1,77 @@
 .global-navbar {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  padding: 2rem 4rem;
+  top: 2rem;
+  left: 50%;
+  width: 90vw;
+  max-width: 1200px;
+  padding: 1.5rem 3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 50; /* Above most content, but below preloader/cursor */
+  z-index: 100;
   pointer-events: auto;
-  mix-blend-mode: difference;
+  
+  /* Artistic floating glass effect */
+  background: rgba(247, 244, 237, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(247, 244, 237, 0.1);
+  border-radius: 100px;
+  mix-blend-mode: difference; /* This makes the white text invert if it scrolls over white background */
 }
 
 .navbar-logo a {
   font-family: var(--font-display);
   font-size: 1.5rem;
-  color: #fff; /* White to invert perfectly against white background */
-  text-decoration: none;
+  font-weight: 700;
+  color: var(--bg-color); /* Creamy color, will invert due to difference blend mode */
   letter-spacing: 0.1em;
 }
 
 .navbar-links {
   display: flex;
-  gap: 2.5rem;
+  gap: 3rem;
 }
 
 .nav-item {
   font-family: var(--font-body);
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  color: #fff; /* Will invert */
-  text-decoration: none;
+  font-size: 0.9rem;
+  color: var(--bg-color);
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  transition: opacity 0.3s ease;
   position: relative;
-}
-
-.nav-item:hover {
   opacity: 0.7;
+  transition: opacity 0.3s ease;
 }
 
-.nav-item.active::after {
+.nav-item:hover, .nav-item.active {
+  opacity: 1;
+}
+
+.nav-item::after {
   content: '';
   position: absolute;
   bottom: -4px;
   left: 0;
-  width: 100%;
+  width: 0%;
   height: 1px;
-  background-color: #fff;
+  background-color: var(--bg-color);
+  transition: width 0.3s ease;
+}
+
+.nav-item:hover::after, .nav-item.active::after {
+  width: 100%;
 }
 
 @media (max-width: 768px) {
   .global-navbar {
-    padding: 1.5rem 2rem;
+    width: 95vw;
+    padding: 1rem 1.5rem;
   }
   .navbar-links {
     gap: 1.5rem;
+  }
+  .nav-item {
+    font-size: 0.75rem;
   }
 }

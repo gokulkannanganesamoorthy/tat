@@ -6,8 +6,8 @@ const Navbar = () => {
   return (
     <motion.nav 
       className="global-navbar"
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
+      initial={{ y: -100, x: "-50%", opacity: 0 }}
+      animate={{ y: 0, x: "-50%", opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 1 }}
     >
       <div className="navbar-logo">
