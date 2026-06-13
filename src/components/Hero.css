@@ -20,8 +20,8 @@
 
 .hero-massive-void-title {
   font-family: var(--font-display);
-  font-size: clamp(5rem, 15vw, 18rem);
-  line-height: 0.85;
+  font-size: clamp(2.5rem, 6vw, 6rem); /* Reduced to a normal, elegant size */
+  line-height: 1.1; /* Increased line height slightly for better readability at normal sizes */
   text-transform: uppercase;
   margin: 0;
   text-align: left;
