@@ -47,8 +47,8 @@
 
 .service-elegant-title {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 6vw, 8rem);
-  line-height: 0.9;
+  font-size: clamp(2rem, 4vw, 4rem); /* Scaled down */
+  line-height: 1.1;
   margin: 0;
   color: var(--text-primary);
   text-transform: uppercase;

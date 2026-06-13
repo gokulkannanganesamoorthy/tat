@@ -45,8 +45,8 @@
 
 .footer-monolith-title {
   font-family: var(--font-display);
-  font-size: 18vw; /* Scales massively with the screen */
-  line-height: 0.8;
+  font-size: clamp(3rem, 8vw, 8rem); /* Scaled down from 18vw */
+  line-height: 1;
   margin: 0;
   text-transform: uppercase;
   color: var(--text-primary);
