@@ -66,7 +66,7 @@ const About = () => {
   }, []);
 
   return (
-    <>
+    <div className="about-page-safe-wrapper">
       <SEO 
         title="About Us" 
         description="Learn more about THE ADS TAG. We build beyond the grid, architecting fluid digital environments." 
@@ -116,7 +116,7 @@ const About = () => {
         <div className="about-premium-image-overlay"></div>
       </div>
     </section>
-    </>
+    </div>
   );
 };
 

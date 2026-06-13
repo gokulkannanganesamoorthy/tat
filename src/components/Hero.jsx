@@ -7,105 +7,92 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
   const containerRef = useRef(null);
-  const textRef = useRef(null);
   const mediaRef = useRef(null);
-  const dialRef = useRef(null); // Reference for the rotating dial
+  const dialRef = useRef(null);
 
   useEffect(() => {
     let ctx = gsap.context(() => {
       // Infinite slow rotation for the clock dial
       gsap.to(dialRef.current, {
         rotation: 360,
-        duration: 60, // Extremely slow, mechanical rotation (1 minute per revolution)
+        duration: 60,
         ease: "none",
         repeat: -1
       });
 
-      // Create a timeline that pins the container and scales the text mask
+      // Create a timeline that pins the container and scales the mask layer
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "+=300%", // Pin for 3x viewport height for a long, smooth zoom
+          end: "+=250%", // Pin for a long, smooth zoom
           pin: true,
-          scrub: 0.5, // Slight scrub delay for buttery smoothness
+          scrub: 0.5,
         }
       });
 
-      // Scale the text infinitely until a letter's negative space consumes the screen
-      tl.to(textRef.current, {
-        scale: 150, // Massive scale
-        transformOrigin: "50% 50%", // Target the center
-        ease: "power2.in",
-        duration: 1
+      // Step 1: Scale the mask up massively.
+      // This takes up the first 85% of the scroll. The white background stays SOLID opaque!
+      tl.to(mediaRef.current, {
+        scale: 80, 
+        transformOrigin: "48% 50%", // Zoom into a thick part of the drawing
+        duration: 0.85,
+        ease: "power3.in"
       });
 
-      // Fade out the entire mask right at the end to guarantee a flawless transition
-      tl.to(".hero-mask-layer", {
-        opacity: 0,
-        duration: 0.1,
-        ease: "none"
-      }, "-=0.1"); // Start right before the scale finishes
-
-      // Subtle zoom on the background media to add depth during the scroll
+      // Step 2: At the VERY END of the scroll, when the transparent hole is already massive,
+      // we quickly fade out the mask layer to hide the jagged GIF pixels and perfectly reveal the full photo.
       tl.to(mediaRef.current, {
-        scale: 1.1,
-        ease: "none",
-        duration: 1
-      }, 0);
+        opacity: 0,
+        duration: 0.15,
+        ease: "none"
+      });
+
+      // Rotate the subliminal dial slowly as they zoom
+      tl.to(".hero-subliminal-dial", {
+        rotation: 90,
+        duration: 1,
+        ease: "none"
+      }, "<");
 
     }, containerRef);
-
+    
     return () => ctx.revert();
   }, []);
 
   return (
-    <section className="hero-awwwards-container" ref={containerRef}>
-      
-      {/* Background Media Layer (The "Inside" of the text) */}
-      <div className="hero-media-layer">
-        <video 
-          src="/tat_hero.mp4" 
-          autoPlay 
-          muted 
-          loop 
-          playsInline
-          ref={mediaRef}
-          className="hero-background-video"
-        />
+    <div className="hero-safe-wrapper">
+      <section className="hero-awwwards-container" ref={containerRef}>
         
-        {/* Massive Rotating Subliminal Clock Dial */}
-        <div className="hero-subliminal-dial" ref={dialRef}>
-          <svg viewBox="0 0 100 100" className="hero-dial-svg">
-            <circle cx="50" cy="50" r="48" fill="none" stroke="rgba(247, 244, 237, 0.3)" strokeWidth="0.2" />
-            <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(247, 244, 237, 0.15)" strokeWidth="0.1" strokeDasharray="1 2" />
-            <circle cx="50" cy="50" r="36" fill="none" stroke="rgba(247, 244, 237, 0.05)" strokeWidth="0.1" strokeDasharray="0.5 4" />
-            {/* The 12 Hour Tick Marks */}
-            {Array.from({ length: 12 }).map((_, i) => (
-              <line 
-                key={i} 
-                x1="50" y1="2" 
-                x2="50" y2="5" 
-                stroke="rgba(247, 244, 237, 0.6)" 
-                strokeWidth="0.4" 
-                transform={`rotate(${i * 30} 50 50)`} 
-              />
-            ))}
-          </svg>
+        {/* The Media Layer (The Photo) */}
+        <div className="hero-media-layer">
+          <img 
+            src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2500&auto=format&fit=crop" 
+            alt="Abstract Architecture"
+            className="hero-background-video"
+          />
+          
+          {/* Massive Rotating Subliminal Clock Dial */}
+          <div className="hero-subliminal-dial" ref={dialRef}>
+            <svg viewBox="0 0 100 100" className="hero-dial-svg">
+              <circle cx="50" cy="50" r="48" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="0.5" strokeDasharray="1 4" />
+              <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.02)" strokeWidth="0.2" />
+              <path d="M50 2 L50 6 M50 94 L50 98 M2 50 L6 50 M94 50 L98 50" stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />
+            </svg>
+          </div>
         </div>
-      </div>
 
-      {/* Foreground Mask Layer */}
-      <div className="hero-mask-layer">
-        <img 
-          src="/logo.png" 
-          alt="THE ADS TAG Logo Mask" 
-          className="hero-mask-img" 
-          ref={textRef} 
-        />
-      </div>
+        {/* Foreground Mask Layer (Solid White Box with GIF) */}
+        <div className="hero-mask-layer" ref={mediaRef}>
+          <img 
+            src="/hero.gif" 
+            alt="Hero Mask"
+            className="hero-mask-gif"
+          />
+        </div>
 
-    </section>
+      </section>
+    </div>
   );
 };
 

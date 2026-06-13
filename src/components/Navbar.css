@@ -11,11 +11,12 @@
   z-index: 9999;
   pointer-events: auto;
   
-  /* Premium Dark Glass Effect */
-  background: rgba(10, 10, 10, 0.65); /* Dark translucent background */
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(247, 244, 237, 0.1);
+  /* Premium Apple Liquid Glass Effect */
+  background: rgba(20, 20, 20, 0.45); /* Highly translucent */
+  backdrop-filter: saturate(180%) blur(40px);
+  -webkit-backdrop-filter: saturate(180%) blur(40px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 100px;
   /* Removed mix-blend-mode because it conflicts with backdrop-filter in Safari/Chrome */
 }
@@ -50,7 +51,8 @@
   font-family: var(--font-display);
   font-size: 0.9rem;
   letter-spacing: 0.05em;
-  color: var(--bg-color);
+  color: #1a1a1a; /* Dark text so it is visible! */
+  font-weight: 600;
   line-height: 1;
 }
 

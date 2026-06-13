@@ -14,6 +14,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
 import Contact from './pages/Contact';
+import ErrorBoundary from './components/ErrorBoundary';
 import './App.css';
 
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -108,12 +109,14 @@ function App() {
 
           {/* Scrollable sections wrapped in a z-indexed container */}
           <div className="scrollable-content">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/contact" element={<Contact />} />
-            </Routes>
+            <ErrorBoundary>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/contact" element={<Contact />} />
+              </Routes>
+            </ErrorBoundary>
           </div>
 
           {/* Cinematic Global Footer */}

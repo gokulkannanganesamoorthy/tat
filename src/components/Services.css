@@ -1,72 +1,60 @@
-.services-slices-container {
+.services-page-safe-wrapper {
+  background-color: #0A0A0A;
   width: 100vw;
-  height: 100vh;
-  position: relative;
-  background-color: #0A0A0A; /* Unified dark theme */
-  color: #F7F4ED;
-  display: flex;
-  flex-direction: column;
-  padding: 5rem 5vw;
-  gap: 3rem;
-  overflow: hidden;
-}
-
-/* The Caliper Scale */
-.services-caliper-scale {
-  position: absolute;
-  top: 5rem;
-  bottom: 5rem;
-  left: 2vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  pointer-events: none;
-  z-index: 5;
-}
-
-.caliper-tick {
-  background-color: rgba(247, 244, 237, 0.3);
-  height: 1px;
-}
-
-.caliper-tick.major { width: 20px; background-color: rgba(247, 244, 237, 0.8); }
-.caliper-tick.medium { width: 12px; background-color: rgba(247, 244, 237, 0.5); }
-.caliper-tick.minor { width: 6px; }
-
-.services-slices-meta {
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  letter-spacing: 0.2em;
-  color: rgba(247, 244, 237, 0.6);
-  text-transform: uppercase;
+  min-height: 100vh;
   margin: 0;
+  padding: 0;
+  color: #F7F4ED;
 }
 
-.services-slices-wrapper {
+.services-stack-header {
+  padding: 10rem 5vw 5rem 5vw; /* Enough padding to clear nav and introduce section */
   display: flex;
-  width: 100%;
-  height: 75vh;
-  gap: 1vw; /* Elegant spacing between slices */
+  flex-direction: column;
+  gap: 2rem;
 }
 
-/* The physics engine of the expanding layout */
-.services-slice {
+.services-awwwards-meta {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  letter-spacing: 0.2em;
+  color: var(--color-green);
+}
+
+.services-stack-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6vw, 6rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.services-stack-title .serif-italic {
+  font-family: 'Times New Roman', Times, serif;
+  font-style: italic;
+  font-weight: 300;
+  color: rgba(247, 244, 237, 0.7);
+}
+
+.services-stack-container {
+  padding: 0 5vw;
   position: relative;
-  height: 100%;
-  flex: 1; /* By default, every slice takes up 1 unit of space */
-  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 5vh; /* Initial gap between cards before they stack */
+}
+
+.services-stack-card {
+  position: sticky; /* This makes the magic happen natively! */
+  height: 75vh; /* Takes up most of the screen */
+  width: 100%;
+  border-radius: 20px;
   overflow: hidden;
-  cursor: pointer;
-  transition: flex 0.7s cubic-bezier(0.16, 1, 0.3, 1); /* Buttery smooth elastic expansion */
+  box-shadow: 0 -20px 40px rgba(0,0,0,0.5);
+  transform-origin: top center; /* When GSAP scales it down, it shrinks towards the top edge! */
+  background-color: #1a1a1a;
 }
 
-.services-slice.active {
-  flex: 7; /* The active slice takes up 7 times more space than the inactive ones */
-}
-
-/* Background Image Layer */
-.services-slice-bg {
+.services-card-img-wrapper {
   position: absolute;
   top: 0;
   left: 0;
@@ -75,134 +63,89 @@
   z-index: 1;
 }
 
-.services-slice-bg img {
+.services-card-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   filter: grayscale(40%) contrast(1.1);
-  transition: filter 0.7s ease, transform 0.7s ease;
-  transform: scale(1.1); /* Provide room for slight parallax/zoom on hover */
 }
 
-.services-slice.active .services-slice-bg img {
-  filter: grayscale(0%) contrast(1.1); /* Bring back color when active */
-  transform: scale(1);
-}
-
-.services-slice-overlay {
+.services-card-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    to bottom,
-    rgba(10, 10, 10, 0.1) 0%,
-    rgba(10, 10, 10, 0.8) 100%
-  );
-  z-index: 2;
+  background: linear-gradient(to bottom, rgba(10,10,10,0.8) 0%, rgba(10,10,10,0.2) 50%, rgba(10,10,10,0.9) 100%);
 }
 
-/* Typography Content inside the slice */
-.services-slice-content {
-  position: absolute;
-  bottom: 0;
-  left: 0;
+.services-card-content {
+  position: relative;
+  z-index: 5;
   width: 100%;
-  padding: 3rem;
-  z-index: 3;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  opacity: 0; /* Hidden when compressed */
-  transform: translateY(20px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
-  transition-delay: 0s;
+  justify-content: space-between;
+  padding: 4rem;
 }
 
-.services-slice.active .services-slice-content {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.3s; /* Wait for the slice to expand before showing text */
-}
-
-.services-slice-header {
+.services-card-top {
   display: flex;
-  align-items: baseline;
-  gap: 2rem;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.services-slice-id {
+.services-card-id {
   font-family: var(--font-body);
-  font-size: 1.2rem;
-  color: var(--color-burgundy);
+  font-size: 1.5rem;
+  letter-spacing: 0.1em;
+  opacity: 0.6;
 }
 
-.services-slice-title {
-  font-family: var(--font-display);
-  font-size: clamp(3rem, 6vw, 6rem);
-  line-height: 0.9;
-  text-transform: uppercase;
-  margin: 0;
-}
-
-.services-slice-desc {
-  font-family: var(--font-body);
-  font-size: 1.2rem;
-  color: rgba(247, 244, 237, 0.8);
-  max-width: 400px;
-  margin: 0;
-}
-
-/* Vertical text for the compressed slices */
-.services-slice::after {
-  content: "VIEW"; /* Default text for compressed slices */
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(-90deg);
-  font-family: var(--font-body);
-  font-size: 1rem;
-  letter-spacing: 0.4em;
+.services-card-btn {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
   color: #F7F4ED;
-  z-index: 4;
-  opacity: 1;
-  transition: opacity 0.3s ease;
-}
-
-.services-slice.active::after {
-  opacity: 0; /* Hide the "VIEW" text when expanded */
-}
-
-/* New CTA Button inside expanded slice */
-.services-cta {
-  margin-top: 1.5rem;
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  letter-spacing: 0.2em;
-  color: #0A0A0A;
-  background-color: var(--color-green);
-  border: none;
   padding: 1rem 2rem;
-  width: fit-content;
-  cursor: pointer;
-  border-radius: 4px;
+  border-radius: 50px;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  cursor: none;
+  transition: all 0.3s ease;
+}
+
+.services-card-btn:hover {
+  background: #F7F4ED;
+  color: #0A0A0A;
+}
+
+.services-card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.services-card-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 10rem);
+  line-height: 0.8;
+  letter-spacing: -0.02em;
   text-transform: uppercase;
-  font-weight: bold;
-  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-.services-cta:hover {
-  background-color: var(--color-burgundy);
-  color: #F7F4ED;
-  transform: translateX(10px);
+.services-card-desc {
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  max-width: 300px;
+  line-height: 1.4;
+  opacity: 0.8;
+  text-align: right;
 }
 
-@media (max-width: 1024px) {
-  .services-slices-wrapper {
-    flex-direction: column; /* Stack vertically on mobile */
-  }
-  .services-slice::after {
-    transform: translate(-50%, -50%) rotate(0deg); /* Normal text rotation on mobile */
-  }
+/* Buffer at the bottom so the last card has room to exist before footer */
+.services-stack-buffer {
+  height: 50vh;
 }

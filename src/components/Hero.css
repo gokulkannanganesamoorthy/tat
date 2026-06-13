@@ -3,10 +3,10 @@
   height: 100vh;
   position: relative;
   overflow: hidden;
-  background-color: #000; /* Fallback */
+  background-color: #ffffff; /* The surrounding screen is white */
 }
 
-/* The Background Media (Visible through the mask) */
+/* The Background Media (The Photo) */
 .hero-media-layer {
   position: absolute;
   top: 0;
@@ -16,49 +16,31 @@
   z-index: 1;
 }
 
-.hero-media-layer video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Change to contain if you want it smaller than the screen */
-  filter: contrast(1.1) saturate(1.2);
+.hero-background-video {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  display: block;
 }
 
-/* The Subliminal Rotating Dial */
-.hero-subliminal-dial {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 150vh; /* Massive so the edges bleed off the screen */
-  height: 150vh;
-  transform: translate(-50%, -50%); /* Centers the dial perfectly */
-  pointer-events: none;
-  z-index: 2; /* Sits on top of the image */
-}
-
-.hero-dial-svg {
-  width: 100%;
-  height: 100%;
-}
-
-/* The Mask Layer (Black background, White text, Multiply blend mode) */
+/* The Mask Layer (Solid White background, GIF drawing) */
 .hero-mask-layer {
   position: absolute;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 2;
-  background-color: #000000; /* Pitch black background */
+  z-index: 2; /* Sits on top of the media */
+  background-color: #ffffff; /* The screen is solid white! */
   display: flex;
   align-items: center;
   justify-content: center;
-  mix-blend-mode: multiply; /* The magic property that makes white transparent and black solid */
+  mix-blend-mode: screen; /* White stays White, Black ink turns transparent */
   pointer-events: none;
 }
 
-.hero-mask-img {
-  width: 40vw; /* Massive initial size, scales dynamically */
+.hero-mask-gif {
+  width: 45vw; /* Massive initial size */
   height: auto;
-  filter: brightness(0) invert(1); /* Forces the logo to be pure white so it becomes perfectly transparent under multiply */
   pointer-events: none;
 }

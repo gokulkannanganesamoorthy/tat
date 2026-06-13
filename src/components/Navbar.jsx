@@ -1,10 +1,12 @@
-import { NavLink } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import './Navbar.css';
 
 const Navbar = () => {
   const [sessionTime, setSessionTime] = useState("00:00:00:000");
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const startTime = Date.now();
@@ -24,6 +26,11 @@ const Navbar = () => {
     return () => cancelAnimationFrame(animFrame);
   }, []);
 
+  const handleNavigate = (e, path) => {
+    e.preventDefault();
+    navigate(path);
+  };
+
   return (
     <>
       <motion.nav 
@@ -32,11 +39,14 @@ const Navbar = () => {
         animate={{ y: 0, x: "-50%", opacity: 1 }}
         transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 1 }}
       >
-        <div className="navbar-brand-group">
+        {/* The entire brand group is now a massive clickable home button */}
+        <div 
+          className="navbar-brand-group interactive" 
+          onClick={(e) => handleNavigate(e, '/')}
+          style={{ cursor: 'pointer' }}
+        >
           <div className="navbar-logo">
-            <NavLink to="/">
-              <img src="/logo.png" alt="THE ADS TAG Logo" className="navbar-logo-img" />
-            </NavLink>
+            <img src="/logo.png" alt="THE ADS TAG Logo" className="navbar-logo-img" />
           </div>
           
           <div className="navbar-text-branding">
@@ -46,15 +56,27 @@ const Navbar = () => {
         </div>
         
         <div className="navbar-links">
-          <NavLink to="/about" className={({ isActive }) => isActive ? 'nav-item active interactive' : 'nav-item interactive'}>
+          <a 
+            href="/about"
+            onClick={(e) => handleNavigate(e, '/about')}
+            className={location.pathname === '/about' ? 'nav-item active interactive' : 'nav-item interactive'}
+          >
             ABOUT
-          </NavLink>
-          <NavLink to="/services" className={({ isActive }) => isActive ? 'nav-item active interactive' : 'nav-item interactive'}>
+          </a>
+          <a 
+            href="/services"
+            onClick={(e) => handleNavigate(e, '/services')}
+            className={location.pathname === '/services' ? 'nav-item active interactive' : 'nav-item interactive'}
+          >
             SERVICES
-          </NavLink>
-          <NavLink to="/contact" className={({ isActive }) => isActive ? 'nav-item active interactive' : 'nav-item interactive'}>
+          </a>
+          <a 
+            href="/contact"
+            onClick={(e) => handleNavigate(e, '/contact')}
+            className={location.pathname === '/contact' ? 'nav-item active interactive' : 'nav-item interactive'}
+          >
             CONTACT
-          </NavLink>
+          </a>
         </div>
       </motion.nav>
 
