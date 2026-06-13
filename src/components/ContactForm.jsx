@@ -16,6 +16,8 @@ const ContactForm = () => {
   const [status, setStatus] = useState('idle');
   const containerRef = useRef(null);
 
+  const [sessionTime, setSessionTime] = useState("00:00:00:000");
+
   useEffect(() => {
     let ctx = gsap.context(() => {
       // Reveal animation for the form
@@ -34,8 +36,21 @@ const ContactForm = () => {
       );
     }, containerRef);
 
+    // Live REC Tracker
+    const startTime = Date.now();
+    const updateTimer = () => {
+      const elapsed = Date.now() - startTime;
+      const ms = (elapsed % 1000).toString().padStart(3, '0');
+      const seconds = Math.floor((elapsed / 1000) % 60).toString().padStart(2, '0');
+      const minutes = Math.floor((elapsed / (1000 * 60)) % 60).toString().padStart(2, '0');
+      setSessionTime(`00:${minutes}:${seconds}:${ms}`);
+      requestAnimationFrame(updateTimer);
+    };
+    const animFrame = requestAnimationFrame(updateTimer);
+
     return () => {
       ctx.revert();
+      cancelAnimationFrame(animFrame);
     };
   }, []);
 
@@ -69,6 +84,18 @@ const ContactForm = () => {
         </div>
       ) : (
         <form className="contact-sentence-form interactive" onSubmit={handleSubmit}>
+          
+          {/* Structural Targeting Grid */}
+          <div className="contact-targeting-bracket top-left"></div>
+          <div className="contact-targeting-bracket top-right"></div>
+          <div className="contact-targeting-bracket bottom-left"></div>
+          <div className="contact-targeting-bracket bottom-right"></div>
+          
+          {/* High-speed REC Indicator */}
+          <div className="contact-rec-indicator">
+            <span className="rec-dot"></span> REC: {sessionTime}
+          </div>
+
           <div className="contact-sentence-wrapper">
             <span>HI, I AM </span>
             <input 

@@ -1,6 +1,7 @@
 .services-slices-container {
   width: 100vw;
   height: 100vh;
+  position: relative;
   background-color: #0A0A0A; /* Unified dark theme */
   color: #F7F4ED;
   display: flex;
@@ -9,6 +10,29 @@
   gap: 3rem;
   overflow: hidden;
 }
+
+/* The Caliper Scale */
+.services-caliper-scale {
+  position: absolute;
+  top: 5rem;
+  bottom: 5rem;
+  left: 2vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.caliper-tick {
+  background-color: rgba(247, 244, 237, 0.3);
+  height: 1px;
+}
+
+.caliper-tick.major { width: 20px; background-color: rgba(247, 244, 237, 0.8); }
+.caliper-tick.medium { width: 12px; background-color: rgba(247, 244, 237, 0.5); }
+.caliper-tick.minor { width: 6px; }
 
 .services-slices-meta {
   font-family: var(--font-body);

@@ -21,8 +21,8 @@ const Cursor = () => {
     }, 1000);
 
     const moveCursor = (e) => {
-      cursorX.set(e.clientX - 20); // Center the 40px container
-      cursorY.set(e.clientY - 20);
+      cursorX.set(e.clientX - 40); // Center the 80px container
+      cursorY.set(e.clientY - 40);
     };
 
     const handleMouseOver = (e) => {

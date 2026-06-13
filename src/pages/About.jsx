@@ -87,8 +87,19 @@ const About = () => {
 
       </div>
 
+      {/* Edge Typography (Fixed to the screen edges) */}
+      <div className="about-edge-text left-edge">[ T - A - T : STRUCTURAL ]</div>
+      <div className="about-edge-text right-edge">[ 00:00:24:00 - REC ]</div>
+
       {/* The Fullscreen Image Layer (Shrinks down) */}
       <div className="about-premium-image-layer" ref={imageWrapperRef}>
+        
+        {/* Structural Crosshairs (Attached to the frame corners) */}
+        <div className="about-crosshair top-left">+</div>
+        <div className="about-crosshair top-right">+</div>
+        <div className="about-crosshair bottom-left">+</div>
+        <div className="about-crosshair bottom-right">+</div>
+
         <img
           src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2000&auto=format&fit=crop"
           alt="Abstract Architecture"

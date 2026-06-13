@@ -97,3 +97,42 @@
     gap: 30vh; /* Make more room for the image on mobile */
   }
 }
+
+/* Edge Typography */
+.about-edge-text {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+  font-family: monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  color: rgba(247, 244, 237, 0.4);
+  z-index: 5;
+  pointer-events: none;
+}
+
+.about-edge-text.left-edge {
+  left: -4rem;
+}
+
+.about-edge-text.right-edge {
+  right: -4rem;
+}
+
+/* Structural Crosshairs */
+.about-crosshair {
+  position: absolute;
+  font-family: monospace;
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: var(--color-green); /* Target acquired green */
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0.8;
+  line-height: 1;
+}
+
+.about-crosshair.top-left { top: -10px; left: -10px; }
+.about-crosshair.top-right { top: -10px; right: -10px; }
+.about-crosshair.bottom-left { bottom: -10px; left: -10px; }
+.about-crosshair.bottom-right { bottom: -10px; right: -10px; }

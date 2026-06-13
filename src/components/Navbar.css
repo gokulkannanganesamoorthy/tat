@@ -20,12 +20,28 @@
   mix-blend-mode: difference; /* This makes the white text invert if it scrolls over white background */
 }
 
+.navbar-brand-group {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
 .navbar-logo a {
   font-family: var(--font-display);
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--bg-color); /* Creamy color, will invert due to difference blend mode */
   letter-spacing: 0.1em;
+}
+
+.navbar-session-tracker {
+  font-family: monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.8rem;
+  color: var(--bg-color);
+  opacity: 0.5;
+  letter-spacing: 0.1em;
+  margin-top: 4px; /* Align visually with TAT text */
 }
 
 .navbar-links {

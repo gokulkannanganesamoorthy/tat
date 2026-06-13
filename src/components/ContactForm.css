@@ -18,7 +18,58 @@
 }
 
 .contact-sentence-form {
-  max-width: 1400px;
+  position: relative; /* Required for absolute brackets */
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Structural Targeting Brackets */
+.contact-targeting-bracket {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(247, 244, 237, 0.2);
+  pointer-events: none;
+  transition: border-color 0.3s ease;
+}
+
+.contact-sentence-form:hover .contact-targeting-bracket {
+  border-color: rgba(247, 244, 237, 0.6); /* Grid lights up on hover */
+}
+
+.contact-targeting-bracket.top-left { top: -30px; left: -30px; border-right: none; border-bottom: none; }
+.contact-targeting-bracket.top-right { top: -30px; right: -30px; border-left: none; border-bottom: none; }
+.contact-targeting-bracket.bottom-left { bottom: -30px; left: -30px; border-right: none; border-top: none; }
+.contact-targeting-bracket.bottom-right { bottom: -30px; right: -30px; border-left: none; border-top: none; }
+
+/* REC Indicator */
+.contact-rec-indicator {
+  position: absolute;
+  top: -50px;
+  right: -30px;
+  font-family: monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.8rem;
+  color: rgba(247, 244, 237, 0.6);
+  letter-spacing: 0.2em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rec-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #E63946; /* High-alert Red */
+  animation: recFlash 1s infinite;
+}
+
+@keyframes recFlash {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 .contact-sentence-wrapper {

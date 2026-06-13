@@ -15,6 +15,13 @@ const Services = () => {
   return (
     <section className="services-slices-container">
       
+      {/* The Caliper Scale (Left Edge) */}
+      <div className="services-caliper-scale">
+        {Array.from({ length: 50 }).map((_, i) => (
+          <div key={i} className={`caliper-tick ${i % 10 === 0 ? 'major' : i % 5 === 0 ? 'medium' : 'minor'}`}></div>
+        ))}
+      </div>
+      
       <p className="services-slices-meta">02 // CAPABILITIES</p>
       
       <div className="services-slices-wrapper">
