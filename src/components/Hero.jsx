@@ -112,7 +112,7 @@ const Hero = () => {
       <div className="hero-typography-container">
         <h1 className="hero-main-title">
           <span className="hero-line top-title">TAT STUDIO</span>
-          <span className="hero-line bottom-title">SHAPING VOID</span>
+          <span className="hero-line bottom-title">CREATIVE AGENCY</span>
         </h1>
       </div>
 
