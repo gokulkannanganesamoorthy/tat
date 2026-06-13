@@ -3,12 +3,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import './Preloader.css';
 
 const terminalLines = [
-  "INITIALIZING KINETIC ENGINE...",
-  "ESTABLISHING SECURE CONNECTION...",
-  "BYPASSING MAINFRAME PROTOCOLS...",
-  "LOADING SPATIAL ASSETS: 100%",
-  "DECRYPTING MANIFESTO...",
-  "SYS.BOOT SUCCESSFUL."
+  'INITIALIZING KINETIC ENGINE...',
+  'ESTABLISHING SECURE CONNECTION...',
+  'BYPASSING MAINFRAME PROTOCOLS...',
+  'LOADING SPATIAL ASSETS: 100%',
+  'DECRYPTING MANIFESTO...',
+  'SYS.BOOT SUCCESSFUL.',
 ];
 
 const Preloader = () => {
@@ -48,10 +48,10 @@ const Preloader = () => {
   return (
     <AnimatePresence>
       {loading && (
-        <motion.div 
+        <motion.div
           className="terminal-preloader"
           initial={{ y: 0 }}
-          exit={{ y: "-100vh" }}
+          exit={{ y: '-100vh' }}
           transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
         >
           <div className="terminal-container">
@@ -59,18 +59,23 @@ const Preloader = () => {
               <span>TAT.SYS_v2.0</span>
               <span>PORT: 8080</span>
             </div>
-            
+
             <div className="terminal-body">
               {terminalLines.slice(0, lineIndex + 1).map((line, i) => (
-                <div key={i} className="terminal-line">> {line}</div>
+                <div key={i} className="terminal-line">
+                  {' '}
+                  {line}
+                </div>
               ))}
               {lineIndex < terminalLines.length - 1 && (
                 <div className="terminal-cursor">_</div>
               )}
             </div>
-            
+
             <div className="terminal-footer">
-              <span className="terminal-progress">{progress.toString().padStart(3, '0')}%</span>
+              <span className="terminal-progress">
+                {progress.toString().padStart(3, '0')}%
+              </span>
               <span className="terminal-status">AWAITING ENGAGEMENT</span>
             </div>
           </div>

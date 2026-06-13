@@ -41,24 +41,26 @@ const Works = () => {
   const itemsRef = useRef([]);
 
   useEffect(() => {
-    // Parallax effect for each item
-    itemsRef.current.forEach((item, index) => {
-      const speed = works[index].speed;
-      
-      gsap.to(item, {
-        y: () => -100 * speed + "px",
-        ease: "none",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        }
+    let ctx = gsap.context(() => {
+      // Parallax effect for each item
+      itemsRef.current.forEach((item, index) => {
+        const speed = works[index].speed;
+        
+        gsap.to(item, {
+          y: () => -100 * speed + "px",
+          ease: "none",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          }
+        });
       });
-    });
+    }, containerRef);
 
     return () => {
-      ScrollTrigger.getAll().forEach(t => t.kill());
+      ctx.revert();
     };
   }, []);
 

@@ -15,7 +15,11 @@ import './App.css';
 const ScrollToTop = () => {
   const { pathname } = useLocation();
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if (window.lenis) {
+      window.lenis.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo(0, 0);
+    }
   }, [pathname]);
   return null;
 };
@@ -54,6 +58,8 @@ function App() {
       touchMultiplier: 2,
       infinite: false,
     });
+    
+    window.lenis = lenis; // Expose globally for ScrollToTop
 
     function raf(time) {
       lenis.raf(time);
@@ -64,6 +70,7 @@ function App() {
 
     return () => {
       lenis.destroy();
+      window.lenis = null;
     };
   }, []);
 

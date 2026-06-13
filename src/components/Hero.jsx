@@ -15,38 +15,40 @@ const Hero = () => {
     const blueprint = blueprintRef.current;
     const grid = gridRef.current;
 
-    // Pin the hero section and scale down the blueprint artwork
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: container,
-        start: "top top",
-        end: "+=150%", // Pin for 1.5x viewport height
-        pin: true,
-        scrub: 1,
-      }
-    });
+    let ctx = gsap.context(() => {
+      // Pin the hero section and scale down the blueprint artwork
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: container,
+          start: "top top",
+          end: "+=150%", // Pin for 1.5x viewport height
+          pin: true,
+          scrub: 1,
+        }
+      });
 
-    // Simultaneously scale up the grid while shrinking the blueprint
-    tl.to(grid, {
-      scale: 1,
-      opacity: 1,
-      duration: 1,
-      ease: "power2.inOut"
-    }, 0);
+      // Simultaneously scale up the grid while shrinking the blueprint
+      tl.to(grid, {
+        scale: 1,
+        opacity: 1,
+        duration: 1,
+        ease: "power2.inOut"
+      }, 0);
 
-    // The zoom-out mechanic for the blueprint
-    tl.to(blueprint, {
-      scale: 0.3,
-      y: "-10vh",
-      borderRadius: "40px",
-      opacity: 0.2, // Fade it out slightly as it becomes a relic
-      filter: "grayscale(100%) blur(4px)", // Add blur to make it recede
-      duration: 1,
-      ease: "power2.inOut"
-    }, 0);
+      // The zoom-out mechanic for the blueprint
+      tl.to(blueprint, {
+        scale: 0.3,
+        y: "-10vh",
+        borderRadius: "40px",
+        opacity: 0.2, // Fade it out slightly as it becomes a relic
+        filter: "grayscale(100%) blur(4px)", // Add blur to make it recede
+        duration: 1,
+        ease: "power2.inOut"
+      }, 0);
+    }, containerRef); // Scope the context to the container
 
     return () => {
-      ScrollTrigger.getAll().forEach(t => t.kill());
+      ctx.revert(); // Safely kill only this component's animations
     };
   }, []);
 

@@ -9,27 +9,29 @@ const About = () => {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    // Reveal text elements as they scroll into view
-    const textElements = gsap.utils.toArray('.reveal-text');
-    
-    textElements.forEach((text) => {
-      gsap.fromTo(text, 
-        { y: 50, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: text,
-            start: "top 85%",
+    let ctx = gsap.context(() => {
+      // Reveal text elements as they scroll into view
+      const textElements = gsap.utils.toArray('.reveal-text');
+      
+      textElements.forEach((text) => {
+        gsap.fromTo(text, 
+          { y: 50, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: text,
+              start: "top 85%",
+            }
           }
-        }
-      );
-    });
+        );
+      });
+    }, containerRef); // Scope to the container
 
     return () => {
-      ScrollTrigger.getAll().forEach(t => t.kill());
+      ctx.revert();
     };
   }, []);
 

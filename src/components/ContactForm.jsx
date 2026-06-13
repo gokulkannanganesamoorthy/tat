@@ -17,23 +17,25 @@ const ContactForm = () => {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    // Reveal animation for the form
-    gsap.fromTo(".contact-sentence-wrapper",
-      { y: 100, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 70%",
+    let ctx = gsap.context(() => {
+      // Reveal animation for the form
+      gsap.fromTo(".contact-sentence-wrapper",
+        { y: 100, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 70%",
+          }
         }
-      }
-    );
+      );
+    }, containerRef);
 
     return () => {
-      ScrollTrigger.getAll().forEach(t => t.kill());
+      ctx.revert();
     };
   }, []);
 
