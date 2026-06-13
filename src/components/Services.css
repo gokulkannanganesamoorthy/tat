@@ -79,8 +79,8 @@
   font-size: clamp(3rem, 6vw, 6rem);
   color: var(--text-primary);
   text-transform: uppercase;
-  line-height: 0.9;
-  letter-spacing: -0.03em;
+  line-height: 1.1;
+  letter-spacing: normal;
   transition: color 0.4s ease;
 }
 
