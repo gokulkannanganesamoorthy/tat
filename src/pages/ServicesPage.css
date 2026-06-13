@@ -1,0 +1,173 @@
+.services-page-layout {
+  position: relative;
+  width: 100vw;
+  background-color: var(--bg-color);
+  display: flex;
+}
+
+/* LEFT PANEL: Sticky Typography */
+.services-left-panel {
+  width: 50%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0 4rem;
+  /* GSAP handles the pinning, but this is the structural base */
+}
+
+.services-left-content {
+  width: 100%;
+  position: relative;
+}
+
+.services-counter {
+  font-family: var(--font-body);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--color-burgundy);
+  margin-bottom: 2rem;
+  letter-spacing: 0.1em;
+}
+
+.services-title-wrapper {
+  position: relative;
+  height: 200px; /* fixed height to hold the absolute titles */
+  display: flex;
+  align-items: center;
+}
+
+.services-sticky-title {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 5vw, 6rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s ease, transform 0.6s ease, visibility 0.6s;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.services-sticky-title.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) scale(1);
+}
+
+.services-sticky-title:not(.active) {
+  transform: translateY(-40%) scale(0.95);
+}
+
+.services-desc-wrapper {
+  position: relative;
+  height: 100px;
+  margin-top: 2rem;
+}
+
+.services-sticky-desc {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 500px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
+  transform: translateY(20px);
+}
+
+.services-sticky-desc.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* RIGHT PANEL: Scrolling Images */
+.services-right-panel {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.services-spacer-top, .services-spacer-bottom {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  color: var(--text-secondary);
+  opacity: 0.5;
+}
+
+.service-right-item {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+}
+
+.service-image-container {
+  width: 100%;
+  height: 70vh;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+}
+
+.service-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(20%);
+  transition: filter 0.5s ease, transform 0.5s ease;
+}
+
+.service-image-container:hover img {
+  filter: grayscale(0%);
+  transform: scale(1.05);
+}
+
+/* Cinematic grain on images */
+.image-noise-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+@media (max-width: 1024px) {
+  .services-page-layout {
+    flex-direction: column;
+  }
+  .services-left-panel {
+    width: 100%;
+    height: 50vh; /* Adjust pin height for mobile */
+    padding: 0 2rem;
+  }
+  .services-right-panel {
+    width: 100%;
+  }
+  .service-right-item {
+    height: auto;
+    padding: 2rem;
+    margin-bottom: 4rem;
+  }
+  .services-spacer-top { height: 20vh; }
+}

@@ -1,9 +1,30 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './ContactForm.css';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const ContactForm = () => {
   const [formState, setFormState] = useState('idle');
+  const containerRef = useRef(null);
+  const leftPanelRef = useRef(null);
+
+  useEffect(() => {
+    // Pin the left panel while the right panel (the form) scrolls up naturally
+    ScrollTrigger.create({
+      trigger: containerRef.current,
+      start: "top top",
+      end: "bottom bottom",
+      pin: leftPanelRef.current,
+      pinSpacing: false,
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach(t => t.kill());
+    };
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -14,10 +35,11 @@ const ContactForm = () => {
   };
 
   return (
-    <section className="contact-section">
+    <section className="contact-section" ref={containerRef}>
       <div className="contact-container">
         <motion.div 
           className="contact-info-panel"
+          ref={leftPanelRef}
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}

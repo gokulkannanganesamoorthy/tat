@@ -75,6 +75,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-top: 50vh; /* Pushes the form down so it scrolls into view while left is pinned */
+  padding-bottom: 20vh; /* Extra breathing room at the bottom */
 }
 
 .contact-form {

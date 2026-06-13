@@ -1,25 +1,66 @@
-import { motion } from 'framer-motion';
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import './About.css';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
+  const containerRef = useRef(null);
+  const textGroupRef = useRef(null);
+  
+  useEffect(() => {
+    const container = containerRef.current;
+    const textGroup = textGroupRef.current;
+
+    // Get the total height of the text block to calculate the scroll distance
+    const getScrollAmount = () => -(textGroup.scrollHeight - window.innerHeight + 200);
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: container,
+        start: "top top",
+        end: () => `+=${Math.abs(getScrollAmount())}`,
+        pin: true,
+        scrub: 1,
+        invalidateOnRefresh: true
+      }
+    });
+
+    tl.to(textGroup, {
+      y: getScrollAmount,
+      ease: "none"
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach(t => t.kill());
+    };
+  }, []);
+
   return (
-    <section className="page-section" style={{ paddingTop: '25vh', minHeight: '100vh', backgroundColor: 'var(--bg-color)' }}>
-      <div className="container" style={{ padding: '0 4rem', maxWidth: '1400px', margin: '0 auto' }}>
-        <motion.h1 
-          style={{ fontSize: 'var(--text-h1)', color: 'var(--text-primary)', marginBottom: '2rem', fontFamily: 'var(--font-display)', lineHeight: 0.9 }}
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-        >
-          WE ARE TAT.
-        </motion.h1>
-        <motion.p 
-          style={{ fontSize: '1.5rem', color: 'var(--text-secondary)', maxWidth: '800px', lineHeight: 1.6, fontFamily: 'var(--font-body)' }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3, duration: 1 }}
-        >
-          A spatial design and creative engineering agency built for the unseen. We craft digital and physical experiences that challenge the status quo, utilizing relentless creativity and technical mastery to drive unapologetic growth for visionary brands.
-        </motion.p>
+    <section className="about-pinned-section" ref={containerRef}>
+      <div className="about-label">THE MANIFESTO</div>
+      <div className="about-text-group" ref={textGroupRef}>
+        <p className="about-manifesto-line">WE ARE A SPATIAL DESIGN</p>
+        <p className="about-manifesto-line right">AND CREATIVE ENGINEERING AGENCY</p>
+        <p className="about-manifesto-line">BUILT FOR THE UNSEEN.</p>
+        
+        <div className="about-spacer"></div>
+        
+        <p className="about-manifesto-line right">WE CRAFT DIGITAL</p>
+        <p className="about-manifesto-line">AND PHYSICAL EXPERIENCES</p>
+        <p className="about-manifesto-line right">THAT CHALLENGE</p>
+        <p className="about-manifesto-line">THE STATUS QUO.</p>
+        
+        <div className="about-spacer"></div>
+
+        <p className="about-manifesto-line right">UTILIZING RELENTLESS CREATIVITY</p>
+        <p className="about-manifesto-line">AND TECHNICAL MASTERY</p>
+        <p className="about-manifesto-line right">TO DRIVE UNAPOLOGETIC GROWTH</p>
+        <p className="about-manifesto-line">FOR VISIONARY BRANDS.</p>
+        
+        <div className="about-spacer"></div>
+        <div className="about-spacer"></div>
       </div>
     </section>
   );
