@@ -1,108 +1,93 @@
-.about-spotlight-container {
+.about-editorial-container {
   width: 100vw;
   min-height: 100vh;
-  background-color: #050505; /* Pitch black canvas */
-  position: relative;
-  overflow: hidden;
-  --x: 50vw; /* Default center until mouse moves */
-  --y: 50vh;
-  cursor: crosshair; /* Adds to the experimental vibe */
-}
-
-/* Faint hint text in the background so it's not totally dead */
-.about-spotlight-hint {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0.05;
-  pointer-events: none;
-}
-
-.about-spotlight-hint h2 {
-  font-family: var(--font-display);
-  font-size: 20vw;
-  color: #fff;
-  margin: 0;
-}
-
-/* The magic layer */
-.about-spotlight-reveal {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: var(--bg-color); /* The actual cream content background */
-  
-  /* The flashlight mask using the GSAP-updated variables */
-  -webkit-mask-image: radial-gradient(circle 25vw at var(--x) var(--y), black 0%, transparent 100%);
-  mask-image: radial-gradient(circle 25vw at var(--x) var(--y), black 0%, transparent 100%);
-  
-  pointer-events: none; /* Let the mouse events pass through to the container */
-}
-
-/* Content styling inside the revealed flashlight */
-.about-reveal-content {
   padding: 10rem 5vw;
+  background-color: var(--bg-color); /* Starts cream, GSAP will animate to dark */
+  color: var(--text-primary);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 5rem;
-  width: 100%;
-  height: 100%;
+  gap: 10rem;
+  transition: background-color 0.1s ease, color 0.1s ease; /* Let GSAP handle the heavy lifting, but add a tiny buffer */
 }
 
-.about-reveal-title {
-  font-family: var(--font-display);
-  font-size: clamp(4rem, 8vw, 8rem);
-  line-height: 0.9;
+.about-editorial-header {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.about-meta-tag {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--text-primary);
   margin: 0;
-  text-align: center;
 }
 
-.indent-text {
+.about-editorial-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 7rem);
+  line-height: 0.95;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.serif-italic {
+  font-family: "Playfair Display", serif; /* Highly elegant, standard Awwwards pairing */
+  font-style: italic;
+  font-weight: 400;
+  text-transform: lowercase;
   color: var(--color-burgundy);
-  padding-left: 5vw;
 }
 
-.about-reveal-image-wrapper {
-  width: 60vw;
-  height: 40vh;
+.about-editorial-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.about-editorial-image-wrapper {
+  width: 50vw;
+  height: 80vh;
   overflow: hidden;
   border-radius: 4px;
 }
 
-.about-reveal-image-wrapper img {
+.about-editorial-img {
   width: 100%;
-  height: 100%;
+  height: 140%; /* Taller than wrapper to allow parallax */
   object-fit: cover;
+  filter: grayscale(10%) contrast(1.1);
+  /* The transform is handled by GSAP yPercent */
 }
 
-.about-reveal-body {
+.about-editorial-text-content {
+  width: 35vw;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  padding-top: 20vh; /* Push it down relative to the image */
+}
+
+.about-editorial-text-content p {
   font-family: var(--font-body);
   font-size: 1.5rem;
   line-height: 1.6;
-  max-width: 60vw;
-  text-align: center;
-  color: var(--text-primary);
+  margin: 0;
 }
 
 @media (max-width: 1024px) {
-  .about-spotlight-reveal {
-    /* Larger spotlight on mobile since you tap to move it */
-    -webkit-mask-image: radial-gradient(circle 40vw at var(--x) var(--y), black 0%, transparent 100%);
-    mask-image: radial-gradient(circle 40vw at var(--x) var(--y), black 0%, transparent 100%);
+  .about-editorial-body {
+    flex-direction: column;
+    gap: 5rem;
   }
-  .about-reveal-image-wrapper {
-    width: 90vw;
-    height: 30vh;
+  .about-editorial-image-wrapper {
+    width: 100%;
+    height: 60vh;
   }
-  .about-reveal-body {
-    max-width: 90vw;
-    font-size: 1.2rem;
+  .about-editorial-text-content {
+    width: 100%;
+    padding-top: 0;
   }
 }

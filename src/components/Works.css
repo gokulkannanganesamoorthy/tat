@@ -1,102 +1,88 @@
-.works-stack-container {
+.works-carousel-container {
   width: 100vw;
-  background-color: var(--bg-color);
-  color: var(--text-primary);
-  padding: 10rem 5vw 5rem 5vw; /* Reduced bottom padding to fix dead space */
+  height: 100vh;
+  background-color: #0A0A0A; /* Matches the unified dark theme from About/Services */
+  color: #F7F4ED;
   position: relative;
-}
-
-.works-stack-header {
+  overflow: hidden; /* Hide the scrollbar, mouse movement controls it */
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 10vh;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.works-stack-title {
-  font-family: var(--font-display);
-  font-size: clamp(3rem, 6vw, 6rem);
-  line-height: 1;
-  margin: 0;
-  text-transform: uppercase;
+.works-carousel-header {
+  position: absolute;
+  top: 5rem;
+  left: 5vw;
+  z-index: 10;
 }
 
-.works-stack-meta {
+.works-meta-tag {
   font-family: var(--font-body);
   font-size: 0.8rem;
   letter-spacing: 0.2em;
-  color: var(--text-secondary);
-}
-
-.works-stack-wrapper {
-  position: relative;
-  width: 100%;
-}
-
-.works-sticky-card {
-  position: sticky;
-  width: 100%;
-  height: 80vh;
-  margin-bottom: 10vh; /* Space between cards before they stack */
-  transform-origin: top center; /* Crucial so it scales down from the top edge */
-}
-
-.works-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.2); /* Deep shadow to separate stacked cards */
-}
-
-.works-card-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: grayscale(10%) contrast(1.1);
-}
-
-.works-card-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 3rem;
-  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  color: #fff;
-}
-
-.works-card-project-title {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 5rem);
-  line-height: 1;
-  margin: 0;
+  color: rgba(247, 244, 237, 0.6);
   text-transform: uppercase;
 }
 
-.works-card-project-type {
+.works-carousel-slider {
+  display: flex;
+  gap: 5vw;
+  padding: 0 10vw; /* Padding so the first and last cards aren't stuck to the edge */
+  width: max-content; /* Critical: allows it to flow beyond the screen width */
+}
+
+.works-carousel-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 45vw; /* Each card takes up almost half the screen */
+}
+
+.works-carousel-image-wrapper {
+  width: 100%;
+  height: 60vh;
+  overflow: hidden; /* This acts as the window mask for the parallax */
+  border-radius: 4px;
+}
+
+.works-carousel-img {
+  width: 130%; /* MUST be wider than the wrapper to allow horizontal panning */
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(20%) contrast(1.1);
+  transform: translateX(-15%); /* Center it initially */
+}
+
+.works-carousel-text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(247, 244, 237, 0.2);
+  padding-top: 1.5rem;
+}
+
+.works-carousel-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3vw, 4rem);
+  line-height: 1;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.works-carousel-type {
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: 0.9rem;
   letter-spacing: 0.2em;
+  color: var(--color-burgundy);
+  text-transform: uppercase;
 }
 
 @media (max-width: 1024px) {
-  .works-stack-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2rem;
+  .works-carousel-card {
+    width: 80vw; /* Takes up most of the screen on mobile */
   }
-  .works-sticky-card {
-    height: 60vh;
-  }
-  .works-card-overlay {
-    padding: 2rem;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
+  .works-carousel-image-wrapper {
+    height: 50vh;
   }
 }

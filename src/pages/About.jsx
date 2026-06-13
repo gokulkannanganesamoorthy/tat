@@ -1,65 +1,78 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './About.css';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
   const containerRef = useRef(null);
+  const imageRef = useRef(null);
 
   useEffect(() => {
     let ctx = gsap.context(() => {
       
-      // We use GSAP quickSetter for ultra-high-performance CSS variable updates
-      const xSet = gsap.quickSetter(containerRef.current, "--x", "px");
-      const ySet = gsap.quickSetter(containerRef.current, "--y", "px");
+      // Elegant background color transition
+      gsap.to(containerRef.current, {
+        backgroundColor: "#0A0A0A", // Very deep, luxurious charcoal/black
+        color: "#F7F4ED", // Shift text to cream
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 60%", // Start shifting when section is 60% up the viewport
+          end: "top 20%",
+          scrub: true,
+        }
+      });
 
-      const handleMouseMove = (e) => {
-        const rect = containerRef.current.getBoundingClientRect();
-        // Calculate mouse position relative to the container
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        xSet(x);
-        ySet(y);
-      };
+      // Deep parallax on the inner image
+      // The wrapper has overflow hidden, the image scales up slightly and moves Y
+      gsap.fromTo(imageRef.current, 
+        { yPercent: -20, scale: 1.1 },
+        { 
+          yPercent: 20, 
+          ease: "none",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true
+          }
+        }
+      );
 
-      // Center the spotlight initially
-      const rect = containerRef.current.getBoundingClientRect();
-      xSet(rect.width / 2);
-      ySet(rect.height / 2);
-
-      containerRef.current.addEventListener("mousemove", handleMouseMove);
-
-      return () => {
-        containerRef.current.removeEventListener("mousemove", handleMouseMove);
-      };
     }, containerRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section className="about-spotlight-container" ref={containerRef}>
+    <section className="about-editorial-container" ref={containerRef}>
       
-      {/* Background hint (very dark) so it's not totally empty if mouse is off-screen */}
-      <div className="about-spotlight-hint">
-        <h2>EXPLORE</h2>
+      <div className="about-editorial-header">
+        <p className="about-meta-tag">01 // THE MANIFESTO</p>
+        <h2 className="about-editorial-title">
+          WE BUILD <br />
+          <span className="serif-italic">digital environments</span> <br />
+          BEYOND THE GRID.
+        </h2>
       </div>
 
-      {/* The Revealed Content (Masked by CSS) */}
-      <div className="about-spotlight-reveal">
-        <div className="about-reveal-content">
-          <h2 className="about-reveal-title">
-            BEYOND <br />
-            <span className="indent-text">THE</span> <br />
-            GRID
-          </h2>
-          <div className="about-reveal-image-wrapper">
-             <img 
-              src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2000&auto=format&fit=crop" 
-              alt="Futuristic Concept" 
-            />
-          </div>
-          <p className="about-reveal-body">
-            We abandon the template. We reject the standard. TAT STUDIO constructs fluid, experimental digital environments that react, breathe, and exist entirely outside the bounds of traditional web engineering.
+      <div className="about-editorial-body">
+        <div className="about-editorial-image-wrapper">
+          <img 
+            src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2000&auto=format&fit=crop" 
+            alt="Editorial Architecture" 
+            ref={imageRef}
+            className="about-editorial-img"
+          />
+        </div>
+        
+        <div className="about-editorial-text-content">
+          <p>
+            TAT STUDIO rejects the stereotypic template. We curate fluid, high-end digital experiences that behave like modern art installations.
+          </p>
+          <p>
+            Every interaction is engineered for maximum narrative impact, blending brutalist structural design with cinematic motion.
           </p>
         </div>
       </div>

@@ -1,9 +1,6 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './Works.css';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   { id: 1, title: "LUMINA", type: "SPATIAL", img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000&auto=format&fit=crop" },
@@ -14,56 +11,82 @@ const projects = [
 
 const Works = () => {
   const containerRef = useRef(null);
-  const cardsRef = useRef([]);
+  const sliderRef = useRef(null);
+  const imageRefs = useRef([]);
 
   useEffect(() => {
     let ctx = gsap.context(() => {
-      
-      // For each card (except the last), scale it down and darken it as the next card scrolls over it
-      cardsRef.current.forEach((card, index) => {
-        if (index === cardsRef.current.length - 1) return; // Skip last card
+      const container = containerRef.current;
+      const slider = sliderRef.current;
+      const images = imageRefs.current;
 
-        gsap.to(card, {
-          scale: 0.9,
-          opacity: 0.5,
-          ease: "none",
-          scrollTrigger: {
-            trigger: card,
-            start: "top 10%", // When it reaches the sticky position
-            end: "bottom top", // As the next section pushes it up
-            scrub: true,
-          }
+      const handleMouseMove = (e) => {
+        // Only trigger if we are hovered over this section
+        const { clientX } = e;
+        const { innerWidth } = window;
+        const xProgress = clientX / innerWidth; // 0 to 1
+
+        // Calculate how far the slider can actually move
+        const maxScroll = slider.scrollWidth - innerWidth;
+        
+        // Smoothly pan the entire slider wrapper based on mouse X
+        gsap.to(slider, {
+          x: -xProgress * maxScroll,
+          ease: "power3.out",
+          duration: 1.2,
+          overwrite: "auto"
         });
-      });
 
+        // Parallax the images inside their frames in the opposite direction
+        images.forEach((img) => {
+          gsap.to(img, {
+            x: xProgress * 150, // Pushes image right as frame moves left
+            ease: "power3.out",
+            duration: 1.2,
+            overwrite: "auto"
+          });
+        });
+      };
+
+      if (container) {
+        container.addEventListener("mousemove", handleMouseMove);
+      }
+
+      return () => {
+        if (container) {
+          container.removeEventListener("mousemove", handleMouseMove);
+        }
+      };
     }, containerRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section className="works-stack-container" ref={containerRef}>
+    <section className="works-carousel-container" ref={containerRef}>
       
-      <div className="works-stack-header">
-        <h2 className="works-stack-title">SELECTED WORKS</h2>
-        <p className="works-stack-meta">ARCHIVE // 2026</p>
+      <div className="works-carousel-header">
+        <p className="works-meta-tag">03 // SELECTED WORKS</p>
       </div>
 
-      <div className="works-stack-wrapper">
+      <div className="works-carousel-slider" ref={sliderRef}>
         {projects.map((project, index) => (
-          <div 
-            key={project.id} 
-            className="works-sticky-card" 
-            ref={el => cardsRef.current[index] = el}
-            style={{ zIndex: index, top: `calc(10vh + ${index * 20}px)` }} // Slight cascading offset
-          >
-            <div className="works-card-inner">
-              <img src={project.img} alt={project.title} className="works-card-img" />
-              <div className="works-card-overlay">
-                <h3 className="works-card-project-title">{project.title}</h3>
-                <span className="works-card-project-type">{project.type}</span>
-              </div>
+          <div className="works-carousel-card" key={project.id}>
+            
+            <div className="works-carousel-image-wrapper">
+              <img 
+                src={project.img} 
+                alt={project.title} 
+                ref={el => imageRefs.current[index] = el}
+                className="works-carousel-img"
+              />
             </div>
+            
+            <div className="works-carousel-text">
+              <h3 className="works-carousel-title">{project.title}</h3>
+              <span className="works-carousel-type">{project.type}</span>
+            </div>
+
           </div>
         ))}
       </div>
