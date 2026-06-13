@@ -1,15 +1,48 @@
-.services-focus-container {
+.services-slices-container {
   width: 100vw;
-  min-height: 100vh;
-  position: relative;
-  background-color: #050505; /* Unified pitch black */
+  height: 100vh;
+  background-color: #0A0A0A; /* Unified dark theme */
   color: #F7F4ED;
+  display: flex;
+  flex-direction: column;
+  padding: 5rem 5vw;
+  gap: 3rem;
   overflow: hidden;
-  padding: 10rem 5vw;
 }
 
-/* Background Cinematic Image Layer */
-.services-focus-bg-layer {
+.services-slices-meta {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  color: rgba(247, 244, 237, 0.6);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.services-slices-wrapper {
+  display: flex;
+  width: 100%;
+  height: 75vh;
+  gap: 1vw; /* Elegant spacing between slices */
+}
+
+/* The physics engine of the expanding layout */
+.services-slice {
+  position: relative;
+  height: 100%;
+  flex: 1; /* By default, every slice takes up 1 unit of space */
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: flex 0.7s cubic-bezier(0.16, 1, 0.3, 1); /* Buttery smooth elastic expansion */
+}
+
+.services-slice.active {
+  flex: 7; /* The active slice takes up 7 times more space than the inactive ones */
+}
+
+/* Background Image Layer */
+.services-slice-bg {
   position: absolute;
   top: 0;
   left: 0;
@@ -18,100 +51,110 @@
   z-index: 1;
 }
 
-.services-focus-img {
-  position: absolute;
-  top: 0;
-  left: 0;
+.services-slice-bg img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(40%) contrast(1.2);
-  opacity: 0;
-  transform: scale(1.05);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  filter: grayscale(40%) contrast(1.1);
+  transition: filter 0.7s ease, transform 0.7s ease;
+  transform: scale(1.1); /* Provide room for slight parallax/zoom on hover */
 }
 
-.services-focus-img.active {
-  opacity: 1;
-  transform: scale(1); /* Slight zoom out as it fades in */
+.services-slice.active .services-slice-bg img {
+  filter: grayscale(0%) contrast(1.1); /* Bring back color when active */
+  transform: scale(1);
 }
 
-.services-focus-overlay {
+.services-slice-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(5, 5, 5, 0.7); /* Aggressive dark overlay to ensure text pops */
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 10, 0.1) 0%,
+    rgba(10, 10, 10, 0.8) 100%
+  );
   z-index: 2;
 }
 
-/* Foreground List Content */
-.services-focus-content {
-  position: relative;
+/* Typography Content inside the slice */
+.services-slice-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 3rem;
   z-index: 3;
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
-}
-
-.services-meta {
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  letter-spacing: 0.2em;
-  color: rgba(247, 244, 237, 0.5);
-  text-transform: uppercase;
-  margin-bottom: 5vh;
-}
-
-.services-focus-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  width: 100%;
-}
-
-.services-focus-item {
-  display: flex;
-  align-items: center;
-  padding: 3rem 0;
-  border-bottom: 1px solid rgba(247, 244, 237, 0.1);
-  cursor: pointer;
+  gap: 1rem;
+  opacity: 0; /* Hidden when compressed */
+  transform: translateY(20px);
   transition: opacity 0.4s ease, transform 0.4s ease;
+  transition-delay: 0s;
 }
 
-.services-focus-id {
+.services-slice.active .services-slice-content {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.3s; /* Wait for the slice to expand before showing text */
+}
+
+.services-slice-header {
+  display: flex;
+  align-items: baseline;
+  gap: 2rem;
+}
+
+.services-slice-id {
   font-family: var(--font-body);
   font-size: 1.2rem;
-  width: 10vw;
   color: var(--color-burgundy);
 }
 
-.services-focus-title {
+.services-slice-title {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 6vw, 7rem);
-  line-height: 1;
+  font-size: clamp(3rem, 6vw, 6rem);
+  line-height: 0.9;
   text-transform: uppercase;
   margin: 0;
-  transition: padding-left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Hover Dynamics */
-.services-focus-item.active-item {
+.services-slice-desc {
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  color: rgba(247, 244, 237, 0.8);
+  max-width: 400px;
+  margin: 0;
+}
+
+/* Vertical text for the compressed slices */
+.services-slice::after {
+  content: "VIEW"; /* Default text for compressed slices */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  letter-spacing: 0.4em;
+  color: #F7F4ED;
+  z-index: 4;
   opacity: 1;
+  transition: opacity 0.3s ease;
 }
 
-.services-focus-item.active-item .services-focus-title {
-  padding-left: 2vw; /* Slight push right */
-}
-
-.services-focus-item.dimmed-item {
-  opacity: 0.2; /* Dim the items you aren't hovering */
+.services-slice.active::after {
+  opacity: 0; /* Hide the "VIEW" text when expanded */
 }
 
 @media (max-width: 1024px) {
-  .services-focus-item.active-item .services-focus-title {
-    padding-left: 0;
+  .services-slices-wrapper {
+    flex-direction: column; /* Stack vertically on mobile */
+  }
+  .services-slice::after {
+    transform: translate(-50%, -50%) rotate(0deg); /* Normal text rotation on mobile */
   }
 }

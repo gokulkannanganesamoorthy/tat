@@ -5,59 +5,51 @@ import './About.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const narrative = [
-  'WE REJECT THE TEMPLATE.',
-  'WE ABANDON THE GRID.',
-  'TAT STUDIO ARCHITECTS FLUID DIGITAL ENVIRONMENTS.',
-  'ENGINEERED FOR MAXIMUM NARRATIVE IMPACT.',
-  'BEYOND THE BROWSER.'
-];
-
 const About = () => {
   const containerRef = useRef(null);
-  const textRefs = useRef([]);
-  const bgRef = useRef(null);
+  const imageWrapperRef = useRef(null);
+  const imageInnerRef = useRef(null);
+  const textRef = useRef(null);
 
   useEffect(() => {
     let ctx = gsap.context(() => {
       const container = containerRef.current;
-      const texts = textRefs.current;
+      const imgWrapper = imageWrapperRef.current;
+      const imgInner = imageInnerRef.current;
+      const text = textRef.current;
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: container,
           start: "top top",
-          end: "+=400%", // Deep pin
+          end: "+=200%", // Scroll depth for the animation
           pin: true,
-          scrub: 1,
+          scrub: 1, // Buttery smooth scrubbing
         }
       });
 
-      // Slowly fade in the dark background image over the course of the entire pin
-      tl.to(bgRef.current, {
-        opacity: 0.3,
-        scale: 1.1,
-        duration: 10, // Span the timeline
-        ease: "none"
+      // 1. Shrink the massive fullscreen wrapper down to a center frame
+      tl.to(imgWrapper, {
+        width: "35vw",
+        height: "60vh",
+        borderRadius: "8px", // Soften the edges as it becomes a frame
+        ease: "power2.inOut",
+        duration: 1
       }, 0);
 
-      // Staggered reveal and hide for each narrative line
-      texts.forEach((text, i) => {
-        // Fade in and slide up
-        tl.fromTo(text, 
-          { opacity: 0, y: 150, scale: 0.9 },
-          { opacity: 1, y: 0, scale: 1, duration: 1.5, ease: "power2.out" },
-          "+=0.5" 
-        );
+      // 2. Counter-scale the image inside to maintain aspect ratio and add parallax
+      tl.to(imgInner, {
+        scale: 1.2,
+        ease: "power2.inOut",
+        duration: 1
+      }, 0);
 
-        // Fade out and slide up (except for the last one)
-        if (i !== texts.length - 1) {
-          tl.to(text, 
-            { opacity: 0, y: -150, scale: 1.1, duration: 1.5, ease: "power2.in" },
-            "+=1.5" // Allow reading time
-          );
-        }
-      });
+      // 3. Fade in and scale up the typography from the background
+      tl.fromTo(text, 
+        { opacity: 0, scale: 0.8 },
+        { opacity: 1, scale: 1, ease: "power2.inOut", duration: 1 },
+        0.2 // Start slightly after the image begins shrinking
+      );
 
     }, containerRef);
 
@@ -65,26 +57,28 @@ const About = () => {
   }, []);
 
   return (
-    <section className="about-monolith-container" ref={containerRef}>
+    <section className="about-premium-container" ref={containerRef}>
       
-      {/* Deep cinematic background */}
-      <div className="about-monolith-bg" ref={bgRef}>
-        <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2000&auto=format&fit=crop" alt="Abstract Architecture" />
+      {/* The Typography Layer (Sits behind the image) */}
+      <div className="about-premium-text-layer" ref={textRef}>
+         <p className="about-premium-meta">01 // THE MANIFESTO</p>
+         <h2 className="about-premium-title">
+           WE REJECT <br /> THE <span className="serif-italic">template</span>
+         </h2>
+         <p className="about-premium-subtitle">
+           Architecting fluid digital environments engineered for maximum narrative impact. We build beyond the grid.
+         </p>
       </div>
 
-      <div className="about-monolith-content">
-        <p className="about-meta">01 // THE MANIFESTO</p>
-        <div className="about-narrative-wrapper">
-          {narrative.map((line, index) => (
-            <h2 
-              className="about-monolith-line" 
-              key={index}
-              ref={el => textRefs.current[index] = el}
-            >
-              {line}
-            </h2>
-          ))}
-        </div>
+      {/* The Fullscreen Image Layer (Shrinks down) */}
+      <div className="about-premium-image-layer" ref={imageWrapperRef}>
+        <img 
+          src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2000&auto=format&fit=crop" 
+          alt="Abstract Architecture" 
+          ref={imageInnerRef}
+        />
+        {/* Dark overlay to ensure text contrast later */}
+        <div className="about-premium-image-overlay"></div>
       </div>
 
     </section>
