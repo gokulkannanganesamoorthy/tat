@@ -4,6 +4,7 @@ import Lenis from 'lenis';
 import Cursor from './components/Cursor';
 import Preloader from './components/Preloader';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
@@ -87,43 +88,8 @@ function App() {
           </Routes>
         </div>
 
-        {/* Sticky Reveal Footer sitting behind the scrollable content */}
-        <footer className="footer-reveal-container">
-          <div className="footer-marquee-section">
-            <div className="footer-marquee-track">
-              <span>TAT STUDIO • COLLABORATE • TAT STUDIO • COLLABORATE • TAT STUDIO • COLLABORATE • TAT STUDIO • COLLABORATE • </span>
-              <span>TAT STUDIO • COLLABORATE • TAT STUDIO • COLLABORATE • TAT STUDIO • COLLABORATE • TAT STUDIO • COLLABORATE • </span>
-            </div>
-          </div>
-
-          <div className="footer-main-content">
-            <div className="footer-cta-container">
-              <span className="cta-label">HAVE A CONCEPT?</span>
-              <a href="mailto:hello@tatstudio.com" className="footer-email-link interactive">
-                HELLO@TATSTUDIO.COM
-              </a>
-            </div>
-
-            <div className="footer-details-grid">
-              <div className="footer-detail-col">
-                <h4>LOCAL TIME</h4>
-                <p className="footer-clock">{time} IST</p>
-              </div>
-              <div className="footer-detail-col">
-                <h4>SOCIALS</h4>
-                <div className="social-links">
-                  <a href="#" className="interactive">INSTAGRAM</a>
-                  <a href="#" className="interactive">TWITTER</a>
-                  <a href="#" className="interactive">LINKEDIN</a>
-                </div>
-              </div>
-              <div className="footer-detail-col align-right">
-                <h4>TAT STUDIO</h4>
-                <p>&copy; {new Date().getFullYear()} — COIMBATORE, IN</p>
-              </div>
-            </div>
-          </div>
-        </footer>
+        {/* Cinematic Global Footer */}
+        <Footer />
       </div>
     </Router>
   );
