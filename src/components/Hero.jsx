@@ -7,70 +7,66 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
   const containerRef = useRef(null);
-  const imageWrapperRef = useRef(null);
-  const imageRef = useRef(null);
-  const titleRef = useRef(null);
+  const textRef = useRef(null);
+  const mediaRef = useRef(null);
 
   useEffect(() => {
     let ctx = gsap.context(() => {
-      // Gentle parallax scroll effect for the central image
-      gsap.to(imageWrapperRef.current, {
-        yPercent: -20,
-        ease: "none",
+      // Create a timeline that pins the container and scales the text mask
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "bottom top",
-          scrub: true
+          end: "+=300%", // Pin for 3x viewport height for a long, smooth zoom
+          pin: true,
+          scrub: 0.5, // Slight scrub delay for buttery smoothness
         }
       });
 
-      // Subtle image scale on scroll
-      gsap.to(imageRef.current, {
+      // Scale the text infinitely until a letter's negative space consumes the screen
+      tl.to(textRef.current, {
+        scale: 150, // Massive scale
+        transformOrigin: "50% 50%", // Target the center
+        ease: "power2.in",
+        duration: 1
+      });
+
+      // Fade out the entire mask right at the end to guarantee a flawless transition
+      tl.to(".hero-mask-layer", {
+        opacity: 0,
+        duration: 0.1,
+        ease: "none"
+      }, "-=0.1"); // Start right before the scale finishes
+
+      // Subtle zoom on the background media to add depth during the scroll
+      tl.to(mediaRef.current, {
         scale: 1.1,
         ease: "none",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true
-        }
-      });
+        duration: 1
+      }, 0);
 
-      // Fade out title on scroll
-      gsap.to(titleRef.current, {
-        y: -100,
-        opacity: 0,
-        ease: "none",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true
-        }
-      });
     }, containerRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section className="hero-void-container" ref={containerRef}>
+    <section className="hero-awwwards-container" ref={containerRef}>
       
-      <div className="hero-void-text-wrapper" ref={titleRef}>
-        <h1 className="hero-massive-void-title">
-          <span>CURATING</span><br />
-          <span className="indent-text">SPATIAL</span><br />
-          <span>REALITIES</span>
-        </h1>
+      {/* Background Media Layer (The "Inside" of the text) */}
+      <div className="hero-media-layer">
+        <img 
+          src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2500&auto=format&fit=crop" 
+          alt="Abstract Architecture" 
+          ref={mediaRef}
+        />
       </div>
 
-      <div className="hero-elegant-image-wrapper" ref={imageWrapperRef}>
-        <img 
-          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2000&auto=format&fit=crop" 
-          alt="Curated Space" 
-          ref={imageRef}
-        />
+      {/* Foreground Mask Layer */}
+      <div className="hero-mask-layer">
+        <h1 className="hero-mask-text" ref={textRef}>
+          TAT
+        </h1>
       </div>
 
     </section>
