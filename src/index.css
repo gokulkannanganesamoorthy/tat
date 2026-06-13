@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 :root {
   /* The Creamy Blue Lavish Palette */
@@ -8,8 +8,8 @@
   --color-burgundy: #7d1d2b; /* Burgundy */
   --color-green: #1c3d27; /* Lavish Green */
   
-  --font-body: 'Inter', sans-serif;
-  --font-display: 'Anton', sans-serif;
+  --font-body: 'Courier Prime', monospace;
+  --font-display: 'Courier Prime', monospace;
 
   /* Extreme Typography */
   --text-hero: clamp(4rem, 12vw, 15rem);
