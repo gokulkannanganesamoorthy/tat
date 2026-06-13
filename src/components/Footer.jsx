@@ -25,16 +25,18 @@ const Footer = () => {
       {/* Massive Echo Dial (Bleeds off the bottom) */}
       <div className="footer-echo-dial" ref={dialRef}>
         <svg viewBox="0 0 100 100" className="footer-dial-svg">
-          <circle cx="50" cy="50" r="48" fill="none" stroke="rgba(247, 244, 237, 0.1)" strokeWidth="0.2" />
-          <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(247, 244, 237, 0.05)" strokeWidth="0.1" strokeDasharray="1 3" />
+          {/* Outer thick ring */}
+          <circle cx="50" cy="50" r="48" fill="none" stroke="rgba(247, 244, 237, 0.8)" strokeWidth="0.5" />
+          {/* Inner dotted ring */}
+          <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(247, 244, 237, 0.4)" strokeWidth="0.3" strokeDasharray="1 3" />
           {/* 24-hour tick marks */}
           {Array.from({ length: 24 }).map((_, i) => (
             <line 
               key={i} 
               x1="50" y1="2" 
-              x2="50" y2="6" 
-              stroke="rgba(247, 244, 237, 0.2)" 
-              strokeWidth="0.3" 
+              x2="50" y2="7" 
+              stroke="rgba(247, 244, 237, 0.9)" 
+              strokeWidth="0.6" 
               transform={`rotate(${i * 15} 50 50)`} 
             />
           ))}
@@ -57,7 +59,8 @@ const Footer = () => {
       </div>
 
       <div className="footer-massive-text-wrapper">
-        <h1 className="footer-monolith-title">TAT STUDIO</h1>
+        <h1 className="footer-monolith-title">THE ADS TAG</h1>
+        <p className="footer-tagline">BEYOND ADS</p>
       </div>
 
       <div className="footer-bottom-row">

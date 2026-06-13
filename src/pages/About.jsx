@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import SEO from '../components/SEO';
 import './About.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -65,7 +66,13 @@ const About = () => {
   }, []);
 
   return (
-    <section className="about-premium-container" ref={containerRef}>
+    <>
+      <SEO 
+        title="About Us" 
+        description="Learn more about THE ADS TAG. We build beyond the grid, architecting fluid digital environments." 
+        url="/about" 
+      />
+      <section className="about-premium-container" ref={containerRef}>
       {/* The Typography Layer (Sits on top, split left/right) */}
       <div className="about-premium-text-layer" ref={textRef}>
          
@@ -109,6 +116,7 @@ const About = () => {
         <div className="about-premium-image-overlay"></div>
       </div>
     </section>
+    </>
   );
 };
 

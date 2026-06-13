@@ -25,34 +25,44 @@ const Navbar = () => {
   }, []);
 
   return (
-    <motion.nav 
-      className="global-navbar"
-      initial={{ y: -100, x: "-50%", opacity: 0 }}
-      animate={{ y: 0, x: "-50%", opacity: 1 }}
-      transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 1 }}
-    >
-      <div className="navbar-brand-group">
-        <div className="navbar-logo">
-          <NavLink to="/" className="interactive">TAT.</NavLink>
+    <>
+      <motion.nav 
+        className="global-navbar"
+        initial={{ y: -100, x: "-50%", opacity: 0 }}
+        animate={{ y: 0, x: "-50%", opacity: 1 }}
+        transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 1 }}
+      >
+        <div className="navbar-brand-group">
+          <div className="navbar-logo">
+            <NavLink to="/">
+              <img src="/logo.png" alt="THE ADS TAG Logo" className="navbar-logo-img" />
+            </NavLink>
+          </div>
+          
+          <div className="navbar-text-branding">
+            <span className="navbar-title">THE ADS TAG</span>
+            <span className="navbar-subtitle">BEYOND ADS</span>
+          </div>
         </div>
-        {/* The Live Tracker */}
-        <div className="navbar-session-tracker">
-          T: {sessionTime}
+        
+        <div className="navbar-links">
+          <NavLink to="/about" className={({ isActive }) => isActive ? 'nav-item active interactive' : 'nav-item interactive'}>
+            ABOUT
+          </NavLink>
+          <NavLink to="/services" className={({ isActive }) => isActive ? 'nav-item active interactive' : 'nav-item interactive'}>
+            SERVICES
+          </NavLink>
+          <NavLink to="/contact" className={({ isActive }) => isActive ? 'nav-item active interactive' : 'nav-item interactive'}>
+            CONTACT
+          </NavLink>
         </div>
+      </motion.nav>
+
+      {/* Global Bottom-Right Chronometer */}
+      <div className="global-chronometer">
+        T: {sessionTime}
       </div>
-      
-      <div className="navbar-links">
-        <NavLink to="/about" className={({ isActive }) => isActive ? 'nav-item active interactive' : 'nav-item interactive'}>
-          ABOUT
-        </NavLink>
-        <NavLink to="/services" className={({ isActive }) => isActive ? 'nav-item active interactive' : 'nav-item interactive'}>
-          SERVICES
-        </NavLink>
-        <NavLink to="/contact" className={({ isActive }) => isActive ? 'nav-item active interactive' : 'nav-item interactive'}>
-          CONTACT
-        </NavLink>
-      </div>
-    </motion.nav>
+    </>
   );
 };
 

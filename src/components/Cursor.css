@@ -20,13 +20,13 @@
 .custom-cursor::before {
   content: '';
   position: absolute;
-  top: 0; /* Extends from the top edge... */
+  top: 50%; /* Starts exactly at the center (the mouse cursor) */
   left: 50%;
   transform: translateX(-50%);
-  width: 3px; /* Thicker for extreme visibility */
-  height: 50%; /* ...down to the absolute center */
-  background-color: #ffffff; /* Pure white guarantees perfect inversion */
-  transform-origin: bottom center; /* It rotates around the center of the 80x80 container */
+  width: 3px; 
+  height: 50%; /* Extends outwards */
+  background-color: #ffffff; 
+  transform-origin: top center; /* Rotates exactly around the top tip (pinned to your mouse) */
   transition: height 0.3s ease, opacity 0.3s ease;
 }
 
@@ -37,7 +37,7 @@
 }
 
 .custom-cursor.hovered::before {
-  height: 0; /* Hand shrinks into the center */
+  height: 0; 
   opacity: 0;
 }
 

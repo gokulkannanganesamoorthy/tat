@@ -64,10 +64,14 @@ const Hero = () => {
       
       {/* Background Media Layer (The "Inside" of the text) */}
       <div className="hero-media-layer">
-        <img 
-          src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2500&auto=format&fit=crop" 
-          alt="Abstract Architecture" 
+        <video 
+          src="/tat_hero.mp4" 
+          autoPlay 
+          muted 
+          loop 
+          playsInline
           ref={mediaRef}
+          className="hero-background-video"
         />
         
         {/* Massive Rotating Subliminal Clock Dial */}
@@ -93,9 +97,12 @@ const Hero = () => {
 
       {/* Foreground Mask Layer */}
       <div className="hero-mask-layer">
-        <h1 className="hero-mask-text" ref={textRef}>
-          TAT
-        </h1>
+        <img 
+          src="/logo.png" 
+          alt="THE ADS TAG Logo Mask" 
+          className="hero-mask-img" 
+          ref={textRef} 
+        />
       </div>
 
     </section>

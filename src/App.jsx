@@ -1,5 +1,10 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from 'react-router-dom';
 import Lenis from 'lenis';
 import Cursor from './components/Cursor';
 import Preloader from './components/Preloader';
@@ -12,6 +17,9 @@ import Contact from './pages/Contact';
 import './App.css';
 
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import gsap from 'gsap';
+
+import { HelmetProvider } from 'react-helmet-async';
 
 // ScrollToTop component to reset scroll on route change
 const ScrollToTop = () => {
@@ -22,13 +30,12 @@ const ScrollToTop = () => {
     } else {
       window.scrollTo(0, 0);
     }
-    
+
     // Force GSAP to recalculate pin spacers and layout heights
     // This eliminates the "black void" on redirect and fixes bottom gaps
     setTimeout(() => {
       ScrollTrigger.refresh();
     }, 100);
-
   }, [pathname]);
   return null;
 };
@@ -44,7 +51,7 @@ function App() {
         hour: '2-digit',
         minute: '2-digit',
         second: '2-digit',
-        hour12: false
+        hour12: false,
       };
       setTime(new Intl.DateTimeFormat('en-US', options).format(new Date()));
     };
@@ -67,47 +74,53 @@ function App() {
       touchMultiplier: 2,
       infinite: false,
     });
-    
+
     window.lenis = lenis; // Expose globally for ScrollToTop
 
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+    // CRITICAL FIX: Synchronize Lenis with GSAP ScrollTrigger to prevent redirect breaking
+    lenis.on('scroll', ScrollTrigger.update);
 
-    requestAnimationFrame(raf);
+    const updateLenis = (time) => {
+      lenis.raf(time * 1000);
+    };
+
+    gsap.ticker.add(updateLenis);
+    gsap.ticker.lagSmoothing(0);
 
     return () => {
       lenis.destroy();
       window.lenis = null;
+      gsap.ticker.remove(updateLenis);
     };
   }, []);
 
   return (
-    <Router>
-      <ScrollToTop />
-      <div className="app-container">
-        {/* Macro Element: Cinematic Noise Overlay */}
-        <div className="noise-overlay"></div>
-        
-        <Cursor />
-        <Preloader />
-        <Navbar />
-        
-        {/* Scrollable sections wrapped in a z-indexed container */}
-        <div className="scrollable-content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </div>
+    <HelmetProvider>
+      <Router>
+        <ScrollToTop />
+        <div className="app-container">
+          {/* Macro Element: Cinematic Noise Overlay */}
+          <div className="noise-overlay"></div>
 
-        {/* Cinematic Global Footer */}
-        <Footer />
-      </div>
-    </Router>
+          <Cursor />
+          <Preloader />
+          <Navbar />
+
+          {/* Scrollable sections wrapped in a z-indexed container */}
+          <div className="scrollable-content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/contact" element={<Contact />} />
+            </Routes>
+          </div>
+
+          {/* Cinematic Global Footer */}
+          <Footer />
+        </div>
+      </Router>
+    </HelmetProvider>
   );
 }
 

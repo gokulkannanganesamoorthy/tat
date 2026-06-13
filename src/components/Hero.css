@@ -16,10 +16,10 @@
   z-index: 1;
 }
 
-.hero-media-layer img {
+.hero-media-layer video {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* Change to contain if you want it smaller than the screen */
   filter: contrast(1.1) saturate(1.2);
 }
 
@@ -40,7 +40,7 @@
   height: 100%;
 }
 
-/* The Mask Layer (White background, Black text, Screen blend mode) */
+/* The Mask Layer (Black background, White text, Multiply blend mode) */
 .hero-mask-layer {
   position: absolute;
   top: 0;
@@ -48,20 +48,17 @@
   width: 100vw;
   height: 100vh;
   z-index: 2;
-  background-color: #ffffff; /* Must be pure white for the screen blend trick to work perfectly */
+  background-color: #000000; /* Pitch black background */
   display: flex;
   align-items: center;
   justify-content: center;
-  mix-blend-mode: screen; /* The magic property */
-  pointer-events: none; /* Let clicks pass through to anything underneath if needed */
+  mix-blend-mode: multiply; /* The magic property that makes white transparent and black solid */
+  pointer-events: none;
 }
 
-.hero-mask-text {
-  font-family: var(--font-display);
-  font-size: 30vw; /* Massive initial size */
-  line-height: 1;
-  margin: 0;
-  color: #000000; /* Must be pure black to become perfectly transparent */
-  text-transform: uppercase;
-  white-space: nowrap;
+.hero-mask-img {
+  width: 40vw; /* Massive initial size, scales dynamically */
+  height: auto;
+  filter: brightness(0) invert(1); /* Forces the logo to be pure white so it becomes perfectly transparent under multiply */
+  pointer-events: none;
 }

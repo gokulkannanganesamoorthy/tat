@@ -1,27 +1,28 @@
 .footer-monolith-container {
   width: 100vw;
-  min-height: 100vh; /* Takes up full screen height for dramatic impact */
-  background-color: var(--text-primary); /* Dark theme */
+  height: 100vh; /* Exactly fullscreen */
+  background-color: var(--text-primary);
   color: var(--bg-color);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 2rem 5vw;
+  justify-content: space-between; /* Snaps top row to top, bottom row to bottom */
+  padding: 4rem 5vw 2rem 5vw;
   position: relative;
-  overflow: hidden; /* Contains the massive dial */
+  overflow: hidden; 
 }
 
 /* Echo Dial Background */
 .footer-echo-dial {
   position: absolute;
-  bottom: -50vw; /* Push half of it off the bottom edge */
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
-  width: 150vw; /* Extremely massive */
-  height: 150vw;
+  transform: translate(-50%, -50%); 
+  height: 130vh; /* Massive, bleeds off the screen edges */
+  aspect-ratio: 1 / 1; 
+  width: auto;
   pointer-events: none;
-  z-index: 1; /* Sits behind the text */
-  opacity: 0.6;
+  z-index: 1; 
+  opacity: 1;
 }
 
 .footer-dial-svg {
@@ -33,6 +34,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  position: relative;
   z-index: 2;
 }
 
@@ -44,42 +46,62 @@
 
 .footer-link {
   font-family: var(--font-body);
-  font-size: 1.2rem;
-  letter-spacing: 0.1em;
-  color: var(--text-primary);
+  font-size: 0.9rem;
+  color: var(--bg-color);
   text-decoration: none;
-  text-transform: uppercase;
-  transition: opacity 0.3s ease;
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+  transition: opacity 0.3s ease, color 0.3s ease;
 }
 
 .footer-link:hover {
-  opacity: 0.5;
+  opacity: 1;
+  color: var(--color-green);
 }
 
 .footer-massive-text-wrapper {
-  flex-grow: 1;
+  position: absolute; /* Pinned exactly to the center of the clock */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  padding-bottom: 2rem;
+  width: 100%;
 }
 
 .footer-monolith-title {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 8vw, 8rem); /* Scaled down from 18vw */
-  line-height: 1;
+  font-size: clamp(3rem, 12vw, 20rem); /* Scaled slightly to fit the longer phrase */
+  line-height: 0.9;
   margin: 0;
-  text-transform: uppercase;
-  color: var(--text-primary);
+  color: var(--bg-color);
+  letter-spacing: -0.05em;
   text-align: center;
+}
+
+.footer-tagline {
+  font-family: monospace;
+  font-size: clamp(1rem, 3vw, 4rem);
+  letter-spacing: 0.8em; /* Extremely wide tracking for premium feel */
+  color: var(--color-green); /* Using the brand accent color */
+  margin-top: 1rem;
+  margin-right: -0.8em; /* Offsets the letter-spacing to keep it perfectly centered */
+  opacity: 0.9;
 }
 
 .footer-bottom-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid rgba(12, 24, 39, 0.1);
-  padding-top: 1rem;
+  align-items: flex-end;
+  font-family: monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  opacity: 0.4;
+  position: relative;
+  z-index: 2;
 }
 
 .footer-bottom-row p {

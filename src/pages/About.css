@@ -12,16 +12,34 @@
 
 /* Typography Layer */
 .about-premium-text-layer {
-  position: relative;
-  z-index: 4; /* Brought to the very front */
-  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
   display: flex;
-  flex-direction: column;
+  flex-direction: row; /* Split left and right */
+  justify-content: space-between;
   align-items: center;
-  text-align: center;
-  gap: 2rem;
+  z-index: 4; /* Brought to the very front */
   opacity: 0; /* GSAP will reveal this */
   pointer-events: none; /* Let clicks pass through to the image */
+}
+
+.about-text-left, .about-text-right {
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-text-left {
+  text-align: left;
+  align-items: flex-start;
+}
+
+.about-text-right {
+  text-align: right;
+  align-items: flex-end;
 }
 
 .about-premium-meta {
@@ -30,19 +48,15 @@
   letter-spacing: 0.2em;
   color: rgba(247, 244, 237, 0.5);
   text-transform: uppercase;
+  margin-bottom: 1rem;
 }
 
 .about-premium-title {
   font-family: var(--font-display);
-  font-size: clamp(4rem, 10vw, 12rem);
+  font-size: clamp(3rem, 6vw, 8rem);
   line-height: 0.9;
   text-transform: uppercase;
   margin: 0;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem; /* Removed the massive gap */
 }
 
 .serif-italic {
@@ -59,6 +73,7 @@
   max-width: 400px;
   line-height: 1.6;
   color: rgba(247, 244, 237, 0.7);
+  margin-top: 2rem;
 }
 
 /* Image Layer (Starts Fullscreen, Shrinks down) */
