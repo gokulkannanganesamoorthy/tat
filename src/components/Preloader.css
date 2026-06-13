@@ -1,101 +1,112 @@
-.preloader-overlay {
+.terminal-preloader {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
+  background-color: var(--text-primary);
+  color: var(--bg-color);
   z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  pointer-events: none; /* Let clicks pass through when it is animating away */
+  font-family: var(--font-body); /* Using the Courier Prime font */
 }
 
-.shutter-grid {
+.terminal-container {
+  width: 90vw;
+  max-width: 800px;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid rgba(247, 244, 237, 0.2);
+  padding: 2rem;
+  position: relative;
+}
+
+.terminal-container::before {
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  z-index: 1;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(247, 244, 237, 0.03) 0px,
+    rgba(247, 244, 237, 0.03) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  pointer-events: none;
 }
 
-.shutter-col {
-  height: 100%;
-  background-color: var(--text-primary); /* Dark blue shutter columns in light theme */
+.terminal-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+  border-bottom: 1px solid rgba(247, 244, 237, 0.2);
+  padding-bottom: 1rem;
 }
 
-.preloader-content-wrapper {
-  position: relative;
-  z-index: 10;
+.terminal-body {
+  flex-grow: 1;
+  padding: 2rem 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  color: var(--bg-color); /* Creamy text against the dark blue shutter columns */
-}
-
-.svg-container {
-  width: 120px;
-  height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.preloader-svg {
-  width: 100%;
-  height: 100%;
-}
-
-.preloader-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: flex-end;
   gap: 0.5rem;
-}
-
-.preloader-progress-text {
-  font-family: var(--font-display);
-  font-size: 4rem;
-  line-height: 1;
-  font-weight: 800;
-  display: flex;
-  align-items: baseline;
-}
-
-.percent-sign {
-  font-size: 2rem;
-  opacity: 0.7;
-}
-
-.preloader-status-container {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.status-dot {
-  width: 6px;
-  height: 6px;
-  background-color: var(--color-burgundy, #6b1426);
-  border-radius: 50%;
-  animation: pulse 1.5s infinite ease-in-out;
-}
-
-.preloader-subtext {
-  font-family: var(--font-body);
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
-@keyframes pulse {
-  0% { transform: scale(0.8); opacity: 0.5; }
-  50% { transform: scale(1.2); opacity: 1; }
-  100% { transform: scale(0.8); opacity: 0.5; }
+.terminal-line {
+  color: rgba(247, 244, 237, 0.8);
+}
+
+.terminal-cursor {
+  display: inline-block;
+  width: 10px;
+  animation: blink 1s step-end infinite;
+  color: var(--bg-color);
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.terminal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: 1px solid rgba(247, 244, 237, 0.2);
+  padding-top: 1rem;
+}
+
+.terminal-progress {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 8vw, 6rem);
+  line-height: 0.8;
+  color: var(--bg-color);
+}
+
+.terminal-status {
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+  .terminal-container {
+    height: 80vh;
+    padding: 1.5rem;
+  }
+  .terminal-body {
+    font-size: 0.8rem;
+  }
 }

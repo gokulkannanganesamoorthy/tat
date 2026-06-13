@@ -1,173 +1,152 @@
-.contact-section {
-  background-color: var(--bg-color);
+.contact-terminal-container {
   width: 100vw;
-  padding: 8rem 0;
-}
-
-.contact-container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 4rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8rem;
-}
-
-/* Left Panel - Typography & Details */
-.contact-info-panel {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.contact-header {
-  margin-bottom: 6rem;
-}
-
-.contact-main-title {
-  font-family: var(--font-display);
-  font-size: clamp(4rem, 8vw, 8rem);
+  min-height: 100vh;
+  background-color: var(--bg-color);
   color: var(--text-primary);
-  line-height: 1.1;
-  text-transform: uppercase;
-  margin: 0 0 1rem 0;
-  letter-spacing: normal;
-}
-
-.contact-subtitle {
-  font-family: var(--font-body);
-  font-size: 1.5rem;
-  color: var(--text-secondary);
-}
-
-.contact-details-list {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-}
-
-.detail-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.detail-label {
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  letter-spacing: 0.2em;
-  color: var(--text-secondary);
-}
-
-.detail-link, .detail-text {
-  font-family: var(--font-body);
-  font-size: 2rem;
-  color: var(--text-primary);
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-.detail-link:hover {
-  color: var(--color-burgundy);
-}
-
-/* Right Panel - Form Layout */
-.contact-form-panel {
+  padding: 15rem 5vw 10rem 5vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 50vh; /* Pushes the form down so it scrolls into view while left is pinned */
-  padding-bottom: 20vh; /* Extra breathing room at the bottom */
 }
 
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
+.contact-meta-header {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  color: var(--color-burgundy);
+  margin-bottom: 4rem;
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-  position: relative;
+.contact-sentence-form {
+  max-width: 1400px;
 }
 
-input, textarea {
+.contact-sentence-wrapper {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6vw, 7rem);
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+.contact-sentence-wrapper span {
+  opacity: 0.5; /* Dim the static text so inputs pop */
+}
+
+.blank-input {
+  font-family: var(--font-display);
+  font-size: inherit;
+  color: var(--color-green);
   background: transparent;
   border: none;
-  border-bottom: 2px solid rgba(12, 24, 39, 0.1);
-  color: var(--text-primary);
-  font-family: var(--font-body);
-  font-size: 1.2rem;
-  padding: 1rem 0;
-  transition: border-color 0.4s ease;
-}
-
-input:focus, textarea:focus {
+  border-bottom: 2px solid var(--text-primary);
+  padding: 0 1rem;
+  margin: 0 1rem;
+  width: 300px;
+  text-align: center;
+  transition: border-color 0.3s ease, color 0.3s ease;
   outline: none;
-  border-bottom-color: var(--text-primary);
 }
 
-input::placeholder, textarea::placeholder {
-  color: var(--text-secondary);
-  font-weight: 400;
+.blank-input.long-input {
+  width: 500px;
 }
 
-/* Custom Submit Button */
-.form-submit-wrapper {
-  margin-top: 2rem;
+.blank-input::placeholder {
+  color: rgba(12, 24, 39, 0.2);
+  text-transform: uppercase;
 }
 
-.btn-submit {
-  font-family: var(--font-display);
-  font-size: 2rem;
-  letter-spacing: 0.05em;
+.blank-input:focus {
+  border-bottom-color: var(--color-burgundy);
+  color: var(--color-burgundy);
+}
+
+.terminal-submit-btn {
+  margin-top: 6rem;
+  font-family: var(--font-body);
+  font-size: 1.5rem;
+  letter-spacing: 0.1em;
   color: var(--bg-color);
   background-color: var(--text-primary);
+  border: none;
   padding: 1.5rem 3rem;
   border-radius: 4px;
-  cursor: none; /* Let custom cursor handle it */
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-.btn-submit:hover {
+.terminal-submit-btn:hover {
   background-color: var(--color-burgundy);
   transform: translateY(-5px);
 }
 
-.btn-submit:disabled {
+.terminal-submit-btn:disabled {
   opacity: 0.5;
-  pointer-events: none;
+  cursor: not-allowed;
+  transform: none;
 }
 
 /* Success Message */
-.success-message {
+.contact-success-message {
   display: flex;
   flex-direction: column;
+  gap: 2rem;
   align-items: flex-start;
-  gap: 1.5rem;
 }
 
-.success-title {
+.contact-success-message h2 {
   font-family: var(--font-display);
-  font-size: 4rem;
-  color: var(--color-green);
+  font-size: clamp(4rem, 8vw, 8rem);
   line-height: 0.9;
+  margin: 0;
+  color: var(--color-green);
 }
 
-.success-desc {
+.contact-success-message p {
   font-family: var(--font-body);
   font-size: 1.2rem;
+  letter-spacing: 0.1em;
   color: var(--text-secondary);
 }
 
+.reset-btn {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  color: var(--text-primary);
+  background: transparent;
+  border: 1px solid var(--text-primary);
+  padding: 1rem 2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.reset-btn:hover {
+  background-color: var(--text-primary);
+  color: var(--bg-color);
+}
+
 @media (max-width: 1024px) {
-  .contact-container {
-    grid-template-columns: 1fr;
-    gap: 4rem;
-    padding: 0 2rem;
+  .blank-input {
+    width: 200px;
   }
-  .contact-main-title {
-    font-size: var(--text-h1);
+  .blank-input.long-input {
+    width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-sentence-wrapper {
+    line-height: 1.5;
+  }
+  .blank-input {
+    width: 100%;
+    margin: 1rem 0;
+    text-align: left;
+    padding: 0;
+  }
+  .blank-input.long-input {
+    width: 100%;
   }
 }

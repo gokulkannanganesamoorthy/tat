@@ -1,91 +1,172 @@
-.works-scroll-container {
+.works-canvas-container {
+  width: 100vw;
+  min-height: 250vh; /* Extremely tall to allow for deep scrolling/parallax */
   background-color: var(--bg-color);
-  overflow: hidden;
-  /* Height is managed by ScrollTrigger pinning */
-}
-
-.works-track {
-  display: flex;
-  width: max-content;
-  height: 100vh;
-  padding: 0 4rem;
-  align-items: center;
-}
-
-.works-intro, .works-outro {
-  width: 40vw;
-  flex-shrink: 0;
-}
-
-.works-intro h2, .works-outro h2 {
-  font-size: var(--text-h2);
   color: var(--text-primary);
+  position: relative;
+  overflow: hidden; /* Prevent horizontal scroll from absolute positioning */
+  padding-top: 10rem;
 }
 
-.work-item {
-  width: 60vw;
-  height: 70vh;
-  flex-shrink: 0;
-  margin-right: 5vw;
+.works-canvas-header {
+  position: absolute;
+  top: 15rem;
+  left: 5vw;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.works-massive-title {
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 12vw, 15rem);
+  line-height: 0.85;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  margin: 0;
+  mix-blend-mode: multiply;
+  opacity: 0.1; /* Massive ghost text in background */
+}
+
+/* The scattered grid */
+.works-scatter-grid {
   position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.work-scatter-item {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .work-image-wrapper {
-  width: 100%;
-  height: 100%;
   position: relative;
   overflow: hidden;
+  border-radius: 4px; /* Slightly sharp, brutalist border */
+  box-shadow: 0 20px 50px rgba(12, 24, 39, 0.1);
+  cursor: pointer;
 }
 
 .work-image-wrapper img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(100%);
-  transition: filter 0.5s ease, transform 0.5s ease;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+  filter: grayscale(80%);
 }
 
-.work-image-wrapper:hover img {
-  filter: grayscale(0%);
-  transform: scale(1.05);
-}
-
-.work-overlay {
+.work-image-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  background-color: rgba(12, 24, 39, 0.4);
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 2rem;
-  pointer-events: none;
-  mix-blend-mode: difference;
-  color: #fff;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
-.work-overlay h3 {
-  font-size: var(--text-h2);
-}
-
-.work-overlay span {
+.overlay-text {
   font-family: var(--font-body);
-  font-size: var(--text-p);
-  align-self: flex-end;
+  font-size: 1.5rem;
+  color: var(--bg-color);
+  border: 1px solid var(--bg-color);
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  transform: translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.work-scatter-item:hover .work-image-wrapper img {
+  transform: scale(1.05);
+  filter: grayscale(0%);
+}
+
+.work-scatter-item:hover .work-image-overlay {
+  opacity: 1;
+}
+
+.work-scatter-item:hover .overlay-text {
+  transform: translateY(0);
+}
+
+.work-scatter-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0 0.5rem;
+}
+
+.work-scatter-meta h3 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 4rem);
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1;
+}
+
+.work-scatter-meta p {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  color: var(--text-secondary);
+}
+
+/* Asymmetrical Layout Coordinates */
+.item-1 {
+  top: 15vh;
+  left: 10vw;
+  width: 35vw;
+  height: 45vw; /* Portrait */
+  z-index: 2;
+}
+
+.item-2 {
+  top: 45vh;
+  right: 10vw;
+  width: 45vw;
+  height: 30vw; /* Landscape */
+  z-index: 3;
+}
+
+.item-3 {
+  top: 110vh;
+  left: 15vw;
+  width: 50vw;
+  height: 35vw; /* Large Landscape */
+  z-index: 1;
+}
+
+.item-4 {
+  top: 140vh;
+  right: 15vw;
+  width: 30vw;
+  height: 40vw; /* Portrait */
+  z-index: 4;
 }
 
 @media (max-width: 768px) {
-  .works-track {
-    padding: 0 2rem;
+  .works-canvas-container {
+    min-height: 200vh;
   }
-  .works-intro, .works-outro {
-    width: 80vw;
+  
+  .work-scatter-item {
+    position: relative !important; /* Disable absolute positioning on mobile */
+    width: 90vw !important;
+    height: auto !important;
+    margin: 0 auto 4rem auto;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important; /* Disable parallax on mobile for smooth reading */
   }
-  .work-item {
-    width: 85vw;
-  }
-  .work-overlay h3 {
-    font-size: var(--text-h1); /* Scale down slightly via clamp */
+
+  .work-image-wrapper {
+    aspect-ratio: 4/5;
   }
 }

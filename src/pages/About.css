@@ -1,93 +1,140 @@
-.about-mask-section {
+.about-editorial-container {
   width: 100vw;
-  height: 100vh;
-  position: relative;
+  min-height: 100vh;
   background-color: var(--bg-color);
-  overflow: hidden;
-}
-
-/* Background Typography Layer */
-.about-text-layer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  color: var(--text-primary);
+  padding: 15rem 5vw 10rem 5vw;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 1; /* Below the image */
+  gap: 8rem;
 }
 
-.manifesto-text-reveal {
+/* Massive Staggered Header */
+.about-header {
+  display: flex;
+  flex-direction: column;
+}
+
+.editorial-huge-title {
   font-family: var(--font-display);
-  font-size: clamp(4rem, 10vw, 12rem);
-  line-height: 1.1;
-  color: var(--text-primary);
-  text-transform: uppercase;
-  letter-spacing: normal;
+  font-size: clamp(6rem, 18vw, 22rem);
+  line-height: 0.8;
   margin: 0;
-  white-space: nowrap;
+  text-transform: uppercase;
+  color: var(--text-primary);
 }
 
-.manifesto-center-gap {
-  height: 45vh; /* Leaves room for the shrunk image to sit perfectly in the middle */
+.indent-1 { padding-left: 10vw; }
+.indent-2 { padding-left: 20vw; color: var(--color-burgundy); }
+
+/* Editorial Layout Grid */
+.about-editorial-grid {
+  display: grid;
+  grid-template-columns: 3fr 7fr;
+  gap: 5vw;
+  border-top: 2px solid var(--text-primary);
+  padding-top: 3rem;
 }
 
-.manifesto-text-reveal.sub-text {
-  position: absolute;
-  bottom: 10vh;
+/* Left Column: Meta & Postage Stamp */
+.editorial-col-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.editorial-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   font-family: var(--font-body);
-  font-size: 1.25rem;
-  font-weight: 500;
-  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
   color: var(--text-secondary);
-  text-align: center;
-  line-height: 1.6;
-  text-transform: none;
-  max-width: 600px;
 }
 
-/* Foreground Image Layer */
-.about-image-layer {
-  position: absolute;
-  top: 0;
-  left: 0;
+.editorial-stamp-img {
   width: 100%;
-  height: 100%;
-  z-index: 2; /* Above the text */
-  will-change: transform, border-radius;
-  overflow: hidden;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+  max-width: 200px;
+  border: 1px solid var(--text-primary);
+  padding: 0.5rem;
 }
 
-.about-image-layer img {
+.editorial-stamp-img img {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 3/4;
   object-fit: cover;
-  filter: grayscale(10%) contrast(1.1);
+  filter: grayscale(100%) contrast(1.2);
 }
 
-.mask-overlay-noise {
-  position: absolute;
-  top: 0;
-  left: 0;
+.stamp-caption {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  text-align: center;
+  margin-top: 0.5rem;
+  letter-spacing: 0.1em;
+}
+
+/* Right Column: Core Text */
+.editorial-col-right {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  padding-right: 5vw;
+}
+
+.editorial-subheading {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 5rem);
+  line-height: 1;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.editorial-body {
+  font-family: var(--font-body);
+  font-size: clamp(1.2rem, 1.5vw, 1.8rem);
+  line-height: 1.6;
+  max-width: 800px;
+  color: var(--text-secondary);
+}
+
+.editorial-large-img {
   width: 100%;
-  height: 100%;
-  background: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
-  opacity: 0.08;
-  mix-blend-mode: overlay;
-  pointer-events: none;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
 }
 
-@media (max-width: 768px) {
-  .manifesto-center-gap {
-    height: 35vh; /* Smaller gap on mobile */
+.editorial-large-img img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  filter: grayscale(30%);
+}
+
+.img-overlay-data {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  display: flex;
+  gap: 2rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--bg-color);
+  letter-spacing: 0.1em;
+  background-color: var(--text-primary);
+  padding: 0.5rem 1rem;
+}
+
+@media (max-width: 1024px) {
+  .about-editorial-grid {
+    grid-template-columns: 1fr;
+    gap: 4rem;
   }
-  .manifesto-text-reveal.sub-text {
-    bottom: 5vh;
-    font-size: 1rem;
-    padding: 0 2rem;
+  .indent-1 { padding-left: 5vw; }
+  .indent-2 { padding-left: 10vw; }
+  .editorial-col-right {
+    padding-right: 0;
   }
 }

@@ -6,40 +6,27 @@ import './About.css';
 gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
-  const sectionRef = useRef(null);
-  const imageWrapperRef = useRef(null);
-  const textWrapperRef = useRef(null);
+  const containerRef = useRef(null);
 
   useEffect(() => {
-    const section = sectionRef.current;
-    const imageWrapper = imageWrapperRef.current;
-    const texts = gsap.utils.toArray('.manifesto-text-reveal');
-
-    // Create the pinned timeline
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        start: "top top",
-        end: "+=300%", // Pin for 3 viewport heights
-        pin: true,
-        scrub: 1,
-      }
+    // Reveal text elements as they scroll into view
+    const textElements = gsap.utils.toArray('.reveal-text');
+    
+    textElements.forEach((text) => {
+      gsap.fromTo(text, 
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: text,
+            start: "top 85%",
+          }
+        }
+      );
     });
-
-    // 1. Scale down the massive image to act like a floating center card
-    tl.to(imageWrapper, {
-      scale: 0.4,
-      borderRadius: "24px",
-      duration: 2,
-      ease: "power2.inOut"
-    }, 0);
-
-    // 2. Fade and float the manifesto text in from behind the image as it shrinks
-    tl.fromTo(texts, 
-      { opacity: 0, y: 50, scale: 0.9 },
-      { opacity: 1, y: 0, scale: 1, duration: 1.5, stagger: 0.2, ease: "power3.out" },
-      0.5 // Start revealing text halfway through the image scale
-    );
 
     return () => {
       ScrollTrigger.getAll().forEach(t => t.kill());
@@ -47,30 +34,60 @@ const About = () => {
   }, []);
 
   return (
-    <section className="about-mask-section" ref={sectionRef}>
+    <div className="about-editorial-container" ref={containerRef}>
       
-      {/* Background Text Layer */}
-      <div className="about-text-layer" ref={textWrapperRef}>
-        <h1 className="manifesto-text-reveal top-text">WE CRAFT</h1>
-        <div className="manifesto-center-gap"></div>
-        <h1 className="manifesto-text-reveal bottom-text">THE UNSEEN</h1>
+      {/* Massive Header Section */}
+      <section className="about-header">
+        <h1 className="editorial-huge-title reveal-text">THE</h1>
+        <h1 className="editorial-huge-title reveal-text indent-1">MANI</h1>
+        <h1 className="editorial-huge-title reveal-text indent-2">FESTO</h1>
+      </section>
+
+      {/* Editorial Content Grid */}
+      <section className="about-editorial-grid">
         
-        <p className="manifesto-text-reveal sub-text">
-          TAT Studio is a spatial design and creative engineering agency. <br/>
-          We build digital experiences that drive unapologetic growth for visionary brands.
-        </p>
-      </div>
+        {/* Left Column - Metadata & Small Images */}
+        <div className="editorial-col-left">
+          <div className="editorial-meta reveal-text">
+            <span>DOC. REF: 001-TAT</span>
+            <span>UPDATED: {new Date().getFullYear()}</span>
+            <span>COORDINATES: IN</span>
+          </div>
+          
+          <div className="editorial-stamp-img interactive reveal-text">
+            <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=400&auto=format&fit=crop" alt="Abstract Concept" />
+            <p className="stamp-caption">FIG 1. THE VOID</p>
+          </div>
+        </div>
 
-      {/* Foreground Image Mask Layer */}
-      <div className="about-image-layer interactive" ref={imageWrapperRef}>
-        <img 
-          src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2000&auto=format&fit=crop" 
-          alt="TAT Studio Creative" 
-        />
-        <div className="mask-overlay-noise"></div>
-      </div>
+        {/* Right Column - The Core Text */}
+        <div className="editorial-col-right">
+          <h2 className="editorial-subheading reveal-text">WE DO NOT DECORATE SPACE. WE ENGINEER REALITIES.</h2>
+          
+          <p className="editorial-body reveal-text">
+            TAT STUDIO exists at the exact intersection of spatial design, creative engineering, and brutalist architecture. We believe that digital and physical spaces are no longer separate entities. They are a single, continuous fabric that must be constructed with intention, precision, and absolute ruthlessness.
+          </p>
+          
+          <p className="editorial-body reveal-text">
+            Our methodology is simple: subtract the unnecessary until only the undeniable remains. We build platforms, experiences, and environments for those who refuse to blend into the noise. 
+          </p>
 
-    </section>
+          <div className="editorial-large-img interactive reveal-text">
+            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop" alt="Brutalist Structure" />
+            <div className="img-overlay-data">
+              <span>SYS_NOMINAL</span>
+              <span>100%</span>
+            </div>
+          </div>
+          
+          <p className="editorial-body reveal-text">
+            If you are looking for templates, trends, or safety, you are in the wrong place. If you are looking to build something unseen, initialize the sequence.
+          </p>
+        </div>
+
+      </section>
+      
+    </div>
   );
 };
 

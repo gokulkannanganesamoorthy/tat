@@ -1,5 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './ContactForm.css';
@@ -7,113 +6,127 @@ import './ContactForm.css';
 gsap.registerPlugin(ScrollTrigger);
 
 const ContactForm = () => {
-  const [formState, setFormState] = useState('idle');
+  const [formData, setFormData] = useState({
+    name: '',
+    company: '',
+    project: '',
+    budget: '',
+    email: ''
+  });
+  const [status, setStatus] = useState('idle');
   const containerRef = useRef(null);
-  const leftPanelRef = useRef(null);
 
   useEffect(() => {
-    // Pin the left panel while the right panel (the form) scrolls up naturally
-    ScrollTrigger.create({
-      trigger: containerRef.current,
-      start: "top top",
-      end: "bottom bottom",
-      pin: leftPanelRef.current,
-      pinSpacing: false,
-    });
+    // Reveal animation for the form
+    gsap.fromTo(".contact-sentence-wrapper",
+      { y: 100, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 70%",
+        }
+      }
+    );
 
     return () => {
       ScrollTrigger.getAll().forEach(t => t.kill());
     };
   }, []);
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    setFormState('submitting');
+    setStatus('submitting');
     setTimeout(() => {
-      setFormState('success');
+      setStatus('success');
+      setFormData({ name: '', company: '', project: '', budget: '', email: '' });
     }, 1500);
   };
 
   return (
-    <section className="contact-section" ref={containerRef}>
-      <div className="contact-container">
-        <motion.div 
-          className="contact-info-panel"
-          ref={leftPanelRef}
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="contact-header">
-            <h2 className="contact-main-title">LET'S BUILD</h2>
-            <p className="contact-subtitle">Transmit your vision. Our engineers are ready.</p>
-          </div>
-          
-          <div className="contact-details-list">
-            <div className="detail-item">
-              <span className="detail-label">EMAIL</span>
-              <a href="mailto:hello@tatstudio.com" className="detail-link interactive">HELLO@TATSTUDIO.COM</a>
-            </div>
-            <div className="detail-item">
-              <span className="detail-label">PHONE</span>
-              <a href="tel:+919999999999" className="detail-link interactive">+91 99999 99999</a>
-            </div>
-            <div className="detail-item">
-              <span className="detail-label">LOCATION</span>
-              <p className="detail-text">COIMBATORE, INDIA</p>
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div 
-          className="contact-form-panel"
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          {formState === 'success' ? (
-            <motion.div 
-              className="success-message"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-            >
-              <h3 className="success-title">TRANSMISSION RECEIVED</h3>
-              <p className="success-desc">We will respond within 24 hours.</p>
-              <button className="btn-submit interactive" onClick={() => setFormState('idle')}>SEND ANOTHER</button>
-            </motion.div>
-          ) : (
-            <form className="contact-form" onSubmit={handleSubmit}>
-              <div className="form-group">
-                <input className="interactive" type="text" id="name" required placeholder="NAME / ORGANIZATION" />
-              </div>
-              
-              <div className="form-group">
-                <input className="interactive" type="email" id="email" required placeholder="EMAIL ADDRESS" />
-              </div>
-
-              <div className="form-group">
-                <input className="interactive" type="text" id="budget" required placeholder="ESTIMATED BUDGET" />
-              </div>
-
-              <div className="form-group">
-                <textarea className="interactive" id="message" required placeholder="TELL US ABOUT YOUR CHALLENGE..." rows="4"></textarea>
-              </div>
-
-              <div className="form-submit-wrapper">
-                <button 
-                  type="submit" 
-                  className="btn-submit interactive"
-                  disabled={formState === 'submitting'}
-                >
-                  {formState === 'submitting' ? 'TRANSMITTING...' : "INITIALIZE PROJECT"}
-                </button>
-              </div>
-            </form>
-          )}
-        </motion.div>
+    <section className="contact-terminal-container" ref={containerRef}>
+      
+      <div className="contact-meta-header">
+        <span>[ TRANSMIT DIRECTIVE ]</span>
       </div>
+
+      {status === 'success' ? (
+        <div className="contact-success-message interactive">
+          <h2>TRANSMISSION RECEIVED.</h2>
+          <p>OUR SYSTEMS ARE ANALYZING YOUR COORDINATES. WE WILL INITIATE CONTACT SHORTLY.</p>
+          <button className="reset-btn interactive" onClick={() => setStatus('idle')}>
+            INITIALIZE NEW DIRECTIVE
+          </button>
+        </div>
+      ) : (
+        <form className="contact-sentence-form interactive" onSubmit={handleSubmit}>
+          <div className="contact-sentence-wrapper">
+            <span>HI, I AM </span>
+            <input 
+              type="text" 
+              name="name" 
+              placeholder="[YOUR NAME]" 
+              value={formData.name} 
+              onChange={handleChange} 
+              required 
+              className="blank-input"
+            />
+            <span> FROM </span>
+            <input 
+              type="text" 
+              name="company" 
+              placeholder="[COMPANY]" 
+              value={formData.company} 
+              onChange={handleChange} 
+              required 
+              className="blank-input"
+            />
+            <span>. I WANT TO BUILD </span>
+            <input 
+              type="text" 
+              name="project" 
+              placeholder="[A PLATFORM / AN EXPERIENCE]" 
+              value={formData.project} 
+              onChange={handleChange} 
+              required 
+              className="blank-input long-input"
+            />
+            <span> WITH A BUDGET OF </span>
+            <input 
+              type="text" 
+              name="budget" 
+              placeholder="[BUDGET]" 
+              value={formData.budget} 
+              onChange={handleChange} 
+              required 
+              className="blank-input"
+            />
+            <span>. YOU CAN REACH ME AT </span>
+            <input 
+              type="email" 
+              name="email" 
+              placeholder="[EMAIL ADDRESS]" 
+              value={formData.email} 
+              onChange={handleChange} 
+              required 
+              className="blank-input long-input"
+            />
+            <span>.</span>
+          </div>
+
+          <button type="submit" className="terminal-submit-btn interactive" disabled={status === 'submitting'}>
+            {status === 'submitting' ? 'TRANSMITTING...' : 'EXECUTE DIRECTIVE'}
+          </button>
+        </form>
+      )}
+
     </section>
   );
 };

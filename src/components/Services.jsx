@@ -1,87 +1,102 @@
+import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
-import { ArrowRight } from 'lucide-react';
+import gsap from 'gsap';
 import './Services.css';
 
 const servicesList = [
   {
-    id: '01',
-    title: 'Performance Marketing',
-    description: 'We hack the algorithm so your visibility skyrockets overnight. Clicks mean nothing without conversions. Our campaigns are designed for unapologetic scaling.',
+    id: "01",
+    title: "SPATIAL DESIGN",
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop"
   },
   {
-    id: '02',
-    title: 'Digital Branding',
-    description: 'Crafting bespoke identities that subordinate the agency ego to your brand narrative. We create visual systems that command attention and define categories.',
+    id: "02",
+    title: "CREATIVE ENG.",
+    image: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=800&auto=format&fit=crop"
   },
   {
-    id: '03',
-    title: 'Web Engineering',
-    description: 'Smart UI. Impactful UX. Scalable growth. That is our code. We build kinetic, highly-optimized environments that convert visitors into loyal clientele.',
+    id: "03",
+    title: "VIRTUAL PROD.",
+    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop"
   },
   {
-    id: '04',
-    title: 'Content Production',
-    description: 'Immersive 3D, cinematic video, and high-fidelity assets designed for the tactile maximalism era. Visuals that refuse to be ignored.',
+    id: "04",
+    title: "SYSTEM ARCH.",
+    image: "https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?q=80&w=800&auto=format&fit=crop"
   }
 ];
 
 const Services = () => {
-  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [hoveredService, setHoveredService] = useState(null);
+  const imageRef = useRef(null);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    // GSAP quickTo for ultra-smooth cursor tracking
+    const xTo = gsap.quickTo(imageRef.current, "left", { duration: 0.4, ease: "power3" });
+    const yTo = gsap.quickTo(imageRef.current, "top", { duration: 0.4, ease: "power3" });
+
+    const moveImage = (e) => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      // Calculate relative position within the container
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      xTo(x);
+      yTo(y);
+    };
+
+    const container = containerRef.current;
+    if (container) {
+      container.addEventListener("mousemove", moveImage);
+    }
+
+    return () => {
+      if (container) {
+        container.removeEventListener("mousemove", moveImage);
+      }
+    };
+  }, []);
 
   return (
-    <section className="services-section">
-      <div className="services-container">
-        <motion.div 
-          className="services-header"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="services-main-title">OUR CAPABILITIES</h2>
-          <p className="services-subtitle">Full-stack spatial and digital solutions for ambitious enterprises.</p>
-        </motion.div>
+    <section className="services-cursor-container" ref={containerRef}>
+      
+      <div className="services-header">
+        <p className="services-meta">CAPABILITIES // INVENTORY</p>
+      </div>
 
-        <div className="services-list">
-          {servicesList.map((service, index) => (
-            <motion.div 
+      <div className="services-list-wrapper">
+        {servicesList.map((service) => (
+          <div 
+            key={service.id}
+            className="service-list-row interactive"
+            onMouseEnter={() => setHoveredService(service)}
+            onMouseLeave={() => setHoveredService(null)}
+          >
+            <span className="service-id">{service.id}</span>
+            <h2 className="service-massive-text">{service.title}</h2>
+          </div>
+        ))}
+      </div>
+
+      {/* Floating Cursor Image Reveal */}
+      <div 
+        className={`service-hover-image ${hoveredService ? 'active' : ''}`}
+        ref={imageRef}
+      >
+        <div className="service-image-inner">
+          {servicesList.map((service) => (
+            <img 
               key={service.id}
-              className={`service-item interactive ${hoveredIndex === index ? 'active' : ''}`}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <div className="service-number">{service.id}</div>
-              
-              <div className="service-content">
-                <h3 className="service-title">{service.title}</h3>
-                <motion.div 
-                  className="service-description-wrapper"
-                  initial={false}
-                  animate={{ 
-                    height: hoveredIndex === index ? 'auto' : 0, 
-                    opacity: hoveredIndex === index ? 1 : 0,
-                    marginTop: hoveredIndex === index ? '1.5rem' : '0'
-                  }}
-                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  <p className="service-description">{service.description}</p>
-                </motion.div>
-              </div>
-
-              <div className="service-arrow-wrapper">
-                <div className="service-arrow">
-                  <ArrowRight className="arrow-icon" size={32} strokeWidth={1.5} />
-                </div>
-              </div>
-            </motion.div>
+              src={service.image} 
+              alt={service.title}
+              className={hoveredService?.id === service.id ? 'active-img' : ''}
+            />
           ))}
         </div>
       </div>
+
     </section>
   );
 };

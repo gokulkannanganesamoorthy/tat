@@ -2,108 +2,79 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Preloader.css';
 
+const terminalLines = [
+  "INITIALIZING KINETIC ENGINE...",
+  "ESTABLISHING SECURE CONNECTION...",
+  "BYPASSING MAINFRAME PROTOCOLS...",
+  "LOADING SPATIAL ASSETS: 100%",
+  "DECRYPTING MANIFESTO...",
+  "SYS.BOOT SUCCESSFUL."
+];
+
 const Preloader = () => {
+  const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [lineIndex, setLineIndex] = useState(0);
 
   useEffect(() => {
-    let interval;
-    if (progress < 100) {
-      interval = setInterval(() => {
-        setProgress(prev => {
-          const next = prev + Math.floor(Math.random() * 8) + 2;
-          return next >= 100 ? 100 : next;
-        });
-      }, 50);
-    } else {
-      setTimeout(() => setIsLoaded(true), 800);
-    }
+    // Fake progress counter
+    const interval = setInterval(() => {
+      setProgress((prev) => {
+        const next = prev + Math.floor(Math.random() * 15);
+        if (next >= 100) {
+          clearInterval(interval);
+          setTimeout(() => setLoading(false), 500); // Wait half a second at 100% before closing
+          return 100;
+        }
+        return next;
+      });
+    }, 100);
 
-    return () => clearInterval(interval);
-  }, [progress]);
+    // Fake terminal line updater
+    const lineInterval = setInterval(() => {
+      setLineIndex((prev) => {
+        if (prev < terminalLines.length - 1) return prev + 1;
+        clearInterval(lineInterval);
+        return prev;
+      });
+    }, 300);
 
-  const shutterVariants = {
-    initial: { scaleY: 1 },
-    exit: (i) => ({
-      scaleY: 0,
-      transition: {
-        duration: 0.9,
-        ease: [0.85, 0, 0.15, 1],
-        delay: i * 0.08,
-      }
-    })
-  };
-
-  const contentVariants = {
-    initial: { opacity: 1, y: 0 },
-    exit: { 
-      opacity: 0, 
-      y: -50,
-      transition: { duration: 0.6, ease: [0.85, 0, 0.15, 1] } 
-    }
-  };
+    return () => {
+      clearInterval(interval);
+      clearInterval(lineInterval);
+    };
+  }, []);
 
   return (
     <AnimatePresence>
-      {!isLoaded && (
-        <div className="preloader-overlay">
-          {/* Alternating Shutter Columns */}
-          <div className="shutter-grid">
-            {[...Array(5)].map((_, i) => (
-              <motion.div
-                key={i}
-                custom={i}
-                className="shutter-col"
-                style={{ transformOrigin: i % 2 === 0 ? 'top' : 'bottom' }}
-                variants={shutterVariants}
-                initial="initial"
-                exit="exit"
-              />
-            ))}
+      {loading && (
+        <motion.div 
+          className="terminal-preloader"
+          initial={{ y: 0 }}
+          exit={{ y: "-100vh" }}
+          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+        >
+          <div className="terminal-container">
+            <div className="terminal-header">
+              <span>TAT.SYS_v2.0</span>
+              <span>PORT: 8080</span>
+            </div>
+            
+            <div className="terminal-body">
+              {terminalLines.slice(0, lineIndex + 1).map((line, i) => (
+                <div key={i} className="terminal-line">> {line}</div>
+              ))}
+              {lineIndex < terminalLines.length - 1 && (
+                <div className="terminal-cursor">_</div>
+              )}
+            </div>
+            
+            <div className="terminal-footer">
+              <span className="terminal-progress">{progress.toString().padStart(3, '0')}%</span>
+              <span className="terminal-status">AWAITING ENGAGEMENT</span>
+            </div>
           </div>
-
-          <motion.div 
-            className="preloader-content-wrapper"
-            variants={contentVariants}
-            initial="initial"
-            exit="exit"
-          >
-            <div className="svg-container">
-              <svg className="preloader-svg" viewBox="0 0 100 100">
-                <motion.path
-                  d="M 20 25 L 80 25 M 50 25 L 50 75 M 35 75 L 65 75"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: progress / 100 }}
-                  transition={{ ease: "easeInOut" }}
-                />
-                <motion.circle
-                  cx="50"
-                  cy="50"
-                  r="42"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="0.75"
-                  strokeDasharray="4 4"
-                  animate={{ rotate: 360 }}
-                  transition={{ repeat: Infinity, duration: 12, ease: "linear" }}
-                />
-              </svg>
-            </div>
-
-            <div className="preloader-info">
-              <div className="preloader-progress-text">
-                {progress}<span className="percent-sign">%</span>
-              </div>
-              <div className="preloader-status-container">
-                <span className="status-dot"></span>
-                <p className="preloader-subtext">CRAFTING SPATIAL EXPERIENCES</p>
-              </div>
-            </div>
-          </motion.div>
-        </div>
+        </motion.div>
       )}
     </AnimatePresence>
   );
