@@ -5,93 +5,69 @@ import './Works.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const works = [
-  {
-    id: 1,
-    title: "Project Alpha",
-    category: "SPATIAL DESIGN",
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop",
-    speed: 1.2
-  },
-  {
-    id: 2,
-    title: "Neon Echoes",
-    category: "CREATIVE ENGINEERING",
-    image: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1200&auto=format&fit=crop",
-    speed: 0.8
-  },
-  {
-    id: 3,
-    title: "Brutalist Base",
-    category: "ARCHITECTURE",
-    image: "https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?q=80&w=1200&auto=format&fit=crop",
-    speed: 1.5
-  },
-  {
-    id: 4,
-    title: "Void Construct",
-    category: "VIRTUAL PRODUCTION",
-    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop",
-    speed: 0.9
-  }
+const projects = [
+  { id: 1, title: "LUMINA", type: "SPATIAL", img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000&auto=format&fit=crop" },
+  { id: 2, title: "VOID", type: "VIRTUAL", img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2000&auto=format&fit=crop" },
+  { id: 3, title: "NEXUS", type: "SYSTEM", img: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=2000&auto=format&fit=crop" },
+  { id: 4, title: "ECHO", type: "ENGINEERING", img: "https://images.unsplash.com/photo-1520085601670-ee14aa5fa3e8?q=80&w=2000&auto=format&fit=crop" }
 ];
 
 const Works = () => {
   const containerRef = useRef(null);
-  const itemsRef = useRef([]);
+  const cardsRef = useRef([]);
 
   useEffect(() => {
     let ctx = gsap.context(() => {
-      // Parallax effect for each item
-      itemsRef.current.forEach((item, index) => {
-        const speed = works[index].speed;
-        
-        gsap.to(item, {
-          y: () => -100 * speed + "px",
+      
+      // For each card (except the last), scale it down and darken it as the next card scrolls over it
+      cardsRef.current.forEach((card, index) => {
+        if (index === cardsRef.current.length - 1) return; // Skip last card
+
+        gsap.to(card, {
+          scale: 0.9,
+          opacity: 0.5,
           ease: "none",
           scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top bottom",
-            end: "bottom top",
+            trigger: card,
+            start: "top 10%", // When it reaches the sticky position
+            end: "bottom top", // As the next section pushes it up
             scrub: true,
           }
         });
       });
+
     }, containerRef);
 
-    return () => {
-      ctx.revert();
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
-    <section className="works-canvas-container" ref={containerRef}>
+    <section className="works-stack-container" ref={containerRef}>
       
-      <div className="works-canvas-header">
-        <h2 className="works-massive-title">SELECTED<br/>ARCHIVE</h2>
+      <div className="works-stack-header">
+        <h2 className="works-stack-title">SELECTED WORKS</h2>
+        <p className="works-stack-meta">ARCHIVE // 2026</p>
       </div>
 
-      <div className="works-scatter-grid">
-        {works.map((work, index) => (
+      <div className="works-stack-wrapper">
+        {projects.map((project, index) => (
           <div 
-            key={work.id} 
-            className={`work-scatter-item item-${index + 1} interactive`}
-            ref={el => itemsRef.current[index] = el}
+            key={project.id} 
+            className="works-sticky-card" 
+            ref={el => cardsRef.current[index] = el}
+            style={{ zIndex: index, top: `calc(10vh + ${index * 20}px)` }} // Slight cascading offset
           >
-            <div className="work-image-wrapper">
-              <img src={work.image} alt={work.title} />
-              <div className="work-image-overlay">
-                <span className="overlay-text">VIEW CASE</span>
+            <div className="works-card-inner">
+              <img src={project.img} alt={project.title} className="works-card-img" />
+              <div className="works-card-overlay">
+                <h3 className="works-card-project-title">{project.title}</h3>
+                <span className="works-card-project-type">{project.type}</span>
               </div>
-            </div>
-            <div className="work-scatter-meta">
-              <h3>{work.title}</h3>
-              <p>[ {work.category} ]</p>
             </div>
           </div>
         ))}
       </div>
-      
+
     </section>
   );
 };

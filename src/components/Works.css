@@ -1,172 +1,102 @@
-.works-canvas-container {
+.works-stack-container {
   width: 100vw;
-  min-height: 250vh; /* Extremely tall to allow for deep scrolling/parallax */
   background-color: var(--bg-color);
   color: var(--text-primary);
+  padding: 10rem 5vw 5rem 5vw; /* Reduced bottom padding to fix dead space */
   position: relative;
-  overflow: hidden; /* Prevent horizontal scroll from absolute positioning */
-  padding-top: 10rem;
 }
 
-.works-canvas-header {
-  position: absolute;
-  top: 15rem;
-  left: 5vw;
-  z-index: 10;
-  pointer-events: none;
-}
-
-.works-massive-title {
-  font-family: var(--font-display);
-  font-size: clamp(3rem, 6vw, 6rem); /* Scaled down */
-  line-height: 1;
-  color: var(--text-primary);
-  text-transform: uppercase;
-  margin: 0;
-  mix-blend-mode: multiply;
-  opacity: 0.1; /* Massive ghost text in background */
-}
-
-/* The scattered grid */
-.works-scatter-grid {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.work-scatter-item {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.work-image-wrapper {
-  position: relative;
-  overflow: hidden;
-  border-radius: 4px; /* Slightly sharp, brutalist border */
-  box-shadow: 0 20px 50px rgba(12, 24, 39, 0.1);
-  cursor: pointer;
-}
-
-.work-image-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
-  filter: grayscale(80%);
-}
-
-.work-image-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(12, 24, 39, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.overlay-text {
-  font-family: var(--font-body);
-  font-size: 1.5rem;
-  color: var(--bg-color);
-  border: 1px solid var(--bg-color);
-  padding: 1rem 2rem;
-  border-radius: 50px;
-  transform: translateY(20px);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.work-scatter-item:hover .work-image-wrapper img {
-  transform: scale(1.05);
-  filter: grayscale(0%);
-}
-
-.work-scatter-item:hover .work-image-overlay {
-  opacity: 1;
-}
-
-.work-scatter-item:hover .overlay-text {
-  transform: translateY(0);
-}
-
-.work-scatter-meta {
+.works-stack-header {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
-  padding: 0 0.5rem;
+  align-items: flex-end;
+  margin-bottom: 10vh;
 }
 
-.work-scatter-meta h3 {
+.works-stack-title {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 4rem);
-  text-transform: uppercase;
-  margin: 0;
+  font-size: clamp(3rem, 6vw, 6rem);
   line-height: 1;
+  margin: 0;
+  text-transform: uppercase;
 }
 
-.work-scatter-meta p {
+.works-stack-meta {
   font-family: var(--font-body);
   font-size: 0.8rem;
   letter-spacing: 0.2em;
   color: var(--text-secondary);
 }
 
-/* Asymmetrical Layout Coordinates */
-.item-1 {
-  top: 15vh;
-  left: 10vw;
-  width: 35vw;
-  height: 45vw; /* Portrait */
-  z-index: 2;
+.works-stack-wrapper {
+  position: relative;
+  width: 100%;
 }
 
-.item-2 {
-  top: 45vh;
-  right: 10vw;
-  width: 45vw;
-  height: 30vw; /* Landscape */
-  z-index: 3;
+.works-sticky-card {
+  position: sticky;
+  width: 100%;
+  height: 80vh;
+  margin-bottom: 10vh; /* Space between cards before they stack */
+  transform-origin: top center; /* Crucial so it scales down from the top edge */
 }
 
-.item-3 {
-  top: 110vh;
-  left: 15vw;
-  width: 50vw;
-  height: 35vw; /* Large Landscape */
-  z-index: 1;
+.works-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.2); /* Deep shadow to separate stacked cards */
 }
 
-.item-4 {
-  top: 140vh;
-  right: 15vw;
-  width: 30vw;
-  height: 40vw; /* Portrait */
-  z-index: 4;
+.works-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(10%) contrast(1.1);
 }
 
-@media (max-width: 768px) {
-  .works-canvas-container {
-    min-height: 200vh;
+.works-card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 3rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  color: #fff;
+}
+
+.works-card-project-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 5rem);
+  line-height: 1;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.works-card-project-type {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  letter-spacing: 0.2em;
+}
+
+@media (max-width: 1024px) {
+  .works-stack-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
   }
-  
-  .work-scatter-item {
-    position: relative !important; /* Disable absolute positioning on mobile */
-    width: 90vw !important;
-    height: auto !important;
-    margin: 0 auto 4rem auto;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    transform: none !important; /* Disable parallax on mobile for smooth reading */
+  .works-sticky-card {
+    height: 60vh;
   }
-
-  .work-image-wrapper {
-    aspect-ratio: 4/5;
+  .works-card-overlay {
+    padding: 2rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
   }
 }

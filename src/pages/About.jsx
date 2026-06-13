@@ -7,89 +7,113 @@ gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
   const containerRef = useRef(null);
+  const leftPanelRef = useRef(null);
+  const imageRef = useRef(null);
+  const textLinesRef = useRef([]);
 
   useEffect(() => {
     let ctx = gsap.context(() => {
-      // Reveal text elements as they scroll into view
-      const textElements = gsap.utils.toArray('.reveal-text');
-      
-      textElements.forEach((text) => {
-        gsap.fromTo(text, 
-          { y: 50, opacity: 0 },
+      // Pin the left image panel while the right side scrolls
+      ScrollTrigger.create({
+        trigger: containerRef.current,
+        start: "top top",
+        end: "bottom bottom",
+        pin: leftPanelRef.current,
+        pinSpacing: false, // The right side dictates the height
+      });
+
+      // Subtle, constant zoom on the pinned image for a cinematic feel
+      gsap.to(imageRef.current, {
+        scale: 1.15,
+        ease: "none",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+
+      // Advanced staggered line mask reveal
+      textLinesRef.current.forEach((line) => {
+        gsap.fromTo(line, 
+          { y: 100 }, // Start pushed down inside the hidden overflow wrapper
           {
             y: 0,
-            opacity: 1,
-            duration: 1,
-            ease: "power3.out",
+            duration: 1.5,
+            ease: "power4.out",
             scrollTrigger: {
-              trigger: text,
-              start: "top 85%",
+              trigger: line,
+              start: "top 90%", // Trigger when the line is 90% down the screen
             }
           }
         );
       });
-    }, containerRef); // Scope to the container
 
-    return () => {
-      ctx.revert();
-    };
+    }, containerRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
-    <div className="about-editorial-container" ref={containerRef}>
+    <section className="about-split-container" ref={containerRef}>
       
-      {/* Massive Header Section */}
-      <section className="about-header">
-        <h1 className="editorial-huge-title reveal-text">THE</h1>
-        <h1 className="editorial-huge-title reveal-text indent-1">MANI</h1>
-        <h1 className="editorial-huge-title reveal-text indent-2">FESTO</h1>
-      </section>
+      {/* Pinned Left Panel */}
+      <div className="about-split-left" ref={leftPanelRef}>
+        <div className="about-pinned-image-wrapper">
+          <img 
+            src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1200&auto=format&fit=crop" 
+            alt="TAT STUDIO Essence" 
+            ref={imageRef}
+          />
+          <div className="about-pinned-overlay">
+            <span className="about-pinned-meta">DOC. REF: 001-TAT</span>
+          </div>
+        </div>
+      </div>
 
-      {/* Editorial Content Grid */}
-      <section className="about-editorial-grid">
+      {/* Scrolling Right Panel */}
+      <div className="about-split-right">
         
-        {/* Left Column - Metadata & Small Images */}
-        <div className="editorial-col-left">
-          <div className="editorial-meta reveal-text">
-            <span>DOC. REF: 001-TAT</span>
-            <span>UPDATED: {new Date().getFullYear()}</span>
-            <span>COORDINATES: IN</span>
+        <div className="about-text-content">
+          <div className="about-line-wrapper">
+            <h2 className="about-split-heading" ref={el => textLinesRef.current[0] = el}>THE</h2>
           </div>
-          
-          <div className="editorial-stamp-img interactive reveal-text">
-            <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=400&auto=format&fit=crop" alt="Abstract Concept" />
-            <p className="stamp-caption">FIG 1. THE VOID</p>
+          <div className="about-line-wrapper">
+            <h2 className="about-split-heading" ref={el => textLinesRef.current[1] = el}>MANI</h2>
+          </div>
+          <div className="about-line-wrapper">
+            <h2 className="about-split-heading" ref={el => textLinesRef.current[2] = el}>FESTO</h2>
           </div>
         </div>
 
-        {/* Right Column - The Core Text */}
-        <div className="editorial-col-right">
-          <h2 className="editorial-subheading reveal-text">WE DO NOT DECORATE SPACE. WE ENGINEER REALITIES.</h2>
-          
-          <p className="editorial-body reveal-text">
-            TAT STUDIO exists at the exact intersection of spatial design, creative engineering, and brutalist architecture. We believe that digital and physical spaces are no longer separate entities. They are a single, continuous fabric that must be constructed with intention, precision, and absolute ruthlessness.
-          </p>
-          
-          <p className="editorial-body reveal-text">
-            Our methodology is simple: subtract the unnecessary until only the undeniable remains. We build platforms, experiences, and environments for those who refuse to blend into the noise. 
-          </p>
-
-          <div className="editorial-large-img interactive reveal-text">
-            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop" alt="Brutalist Structure" />
-            <div className="img-overlay-data">
-              <span>SYS_NOMINAL</span>
-              <span>100%</span>
-            </div>
+        <div className="about-text-content">
+          <div className="about-line-wrapper">
+            <p className="about-split-body" ref={el => textLinesRef.current[3] = el}>
+              TAT STUDIO exists at the exact intersection of spatial design, creative engineering, and brutalist architecture. We believe that digital and physical spaces are no longer separate entities. They are a single, continuous fabric that must be constructed with intention, precision, and absolute ruthlessness.
+            </p>
           </div>
-          
-          <p className="editorial-body reveal-text">
-            If you are looking for templates, trends, or safety, you are in the wrong place. If you are looking to build something unseen, initialize the sequence.
-          </p>
+        </div>
+        
+        <div className="about-text-content">
+          <div className="about-line-wrapper">
+            <p className="about-split-body" ref={el => textLinesRef.current[4] = el}>
+              Our methodology is simple: subtract the unnecessary until only the undeniable remains. We build platforms, experiences, and environments for those who refuse to blend into the noise. 
+            </p>
+          </div>
         </div>
 
-      </section>
-      
-    </div>
+        <div className="about-text-content">
+          <div className="about-line-wrapper">
+            <p className="about-split-body" ref={el => textLinesRef.current[5] = el}>
+              If you are looking for templates, trends, or safety, you are in the wrong place. If you are looking to build something unseen, initialize the sequence.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
   );
 };
 
