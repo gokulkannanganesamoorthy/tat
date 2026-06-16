@@ -27,26 +27,16 @@ const WhyUs = () => {
         scrollTrigger: {
           trigger: container,
           start: 'top top',
-          end: '+=400%', // Extended pin duration
+          end: '+=1000%', // Drastically extended pin duration so one swipe doesn't reveal everything
           pin: true,
-          scrub: 1,
+          scrub: 1, // Smooth scrubbing
         },
       });
 
       // Add an initial empty space in the timeline so nothing happens immediately upon pinning
-      tl.to({}, { duration: 1 });
+      tl.to({}, { duration: 0.5 });
 
-      // Background color inversion starts AFTER the initial scroll delay
-      tl.to(
-        container,
-        {
-          backgroundColor: 'var(--text-primary)', // Dark blue
-          color: 'var(--bg-color)', // Creamy white
-          duration: 1,
-          ease: 'none',
-        },
-        '+=0',
-      );
+      // We removed the background color animation, as the user wants it to be blue from the beginning.
 
       // Staggered text reveal and hide
       texts.forEach((text, i) => {
@@ -54,7 +44,7 @@ const WhyUs = () => {
         tl.fromTo(
           text,
           { opacity: 0, y: 100, scale: 0.9 },
-          { opacity: 1, y: 0, scale: 1, duration: 1.5, ease: 'power2.out' },
+          { opacity: 1, y: 0, scale: 1, duration: 2, ease: 'power2.out' },
           '+=0.5', // Start each text slightly after the previous sequence
         );
 
@@ -66,10 +56,10 @@ const WhyUs = () => {
               opacity: 0,
               y: -100,
               scale: 1.1,
-              duration: 1.5,
+              duration: 2,
               ease: 'power2.in',
             },
-            '+=1', // Give the user time to read before fading out
+            '+=2', // Give the user plenty of time to read before fading out
           );
         }
       });

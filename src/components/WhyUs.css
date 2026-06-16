@@ -1,8 +1,9 @@
 .why-us-cinematic {
   width: 100vw;
   height: 100vh;
-  background-color: var(--bg-color); /* Starts creamy white */
-  color: var(--text-primary);
+  /* User requested it starts showing the blue color from the beginning */
+  background-color: var(--text-primary); 
+  color: var(--bg-color);
   display: flex;
   align-items: center;
   justify-content: center;

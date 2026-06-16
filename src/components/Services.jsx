@@ -6,10 +6,10 @@ import './Services.css';
 gsap.registerPlugin(ScrollTrigger);
 
 const servicesList = [
-  { id: "01", title: "SPATIAL", desc: "Crafting immersive physical environments. We design architectural spaces that subliminally guide behavior.", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2000&auto=format&fit=crop" },
-  { id: "02", title: "CREATIVE", desc: "Engineering the impossible. Disrupting conventional visual paradigms with high-end narrative design.", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2000&auto=format&fit=crop" },
-  { id: "03", title: "VIRTUAL", desc: "High-fidelity unreal production. Metaverse architecture and fully immersive VR cognitive spaces.", img: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2000&auto=format&fit=crop" },
-  { id: "04", title: "SYSTEMS", desc: "Architecting the invisible foundation. Deep infrastructure, structural data ecosystems, and code.", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2000&auto=format&fit=crop" }
+  { id: "01", title: "SPATIAL", desc: "Crafting immersive physical environments. We design architectural spaces that subliminally guide behavior.", img: "https://picsum.photos/seed/spatial/2000/1200" },
+  { id: "02", title: "CREATIVE", desc: "Engineering the impossible. Disrupting conventional visual paradigms with high-end narrative design.", img: "https://picsum.photos/seed/creative/2000/1200" },
+  { id: "03", title: "VIRTUAL", desc: "High-fidelity unreal production. Metaverse architecture and fully immersive VR cognitive spaces.", img: "https://picsum.photos/seed/virtual/2000/1200" },
+  { id: "04", title: "SYSTEMS", desc: "Architecting the invisible foundation. Deep infrastructure, structural data ecosystems, and code.", img: "https://picsum.photos/seed/systems/2000/1200" }
 ];
 
 const Services = () => {
