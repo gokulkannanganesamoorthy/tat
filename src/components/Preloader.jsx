@@ -26,7 +26,7 @@ const Preloader = () => {
     tl.add("bounce", "+=0.1");
 
     // 2. Pulse the lock (bouncing back)
-    tl.to(lockRef.current, { scale: 1.2, borderColor: "rgba(247, 244, 237, 1)", duration: 0.4, ease: "back.out(2)" }, "bounce");
+    tl.to(lockRef.current, { scale: 1.2, borderColor: "rgba(255, 255, 255, 1)", duration: 0.4, ease: "back.out(2)" }, "bounce");
     
     // 3. Fade out the lock quickly as it bounces
     tl.to(lockRef.current, { opacity: 0, duration: 0.4, ease: "power2.in" }, "bounce+=0.2");
@@ -35,26 +35,32 @@ const Preloader = () => {
     // 6 blades at 60° apart. Calculate outward direction vector for each.
     // The blades are anchored at center (50%, 50%) and each covers a 60° wedge.
     // We push each blade along the midpoint angle of its wedge.
-    const bladeCount = 6;
-    const distance = Math.max(window.innerWidth, window.innerHeight) * 1.5;
+    // Use a distance large enough to fully exit any screen
+    const exitDist = Math.sqrt(
+      Math.pow(window.innerWidth, 2) + Math.pow(window.innerHeight, 2)
+    ) * 2;
 
     bladesRef.current.forEach((blade, i) => {
-      // Mid angle of this blade's wedge in radians
-      const angleDeg = i * 60 + 30; // +30 to point to the center of the wedge
+      // The blade is rotated at i*60deg. Its natural "outward" direction
+      // is perpendicular to that rotation — i.e. straight along its own Y axis.
+      // We use the blade's own rotation angle to compute the exit vector.
+      const angleDeg = i * 60; // the blade's rotation angle
       const angleRad = (angleDeg * Math.PI) / 180;
-      const dx = Math.sin(angleRad) * distance;
-      const dy = -Math.cos(angleRad) * distance;
 
+      // Direction along the blade's local Y-up axis, transformed to world space
+      const dx = Math.sin(angleRad) * exitDist;
+      const dy = -Math.cos(angleRad) * exitDist;
+
+      // Fly out in its OWN direction and keep going — never come back
       tl.to(blade, {
         x: dx,
         y: dy,
-        rotation: (i % 2 === 0 ? 1 : -1) * 30, // alternating rotate for iris feel
         duration: 1.4,
         ease: "expo.inOut",
-      }, "bounce+=0.05"); // all start together
+      }, "bounce+=0.05");
     });
 
-    // 5. Hide container
+    // 6. Hide container
     tl.set(containerRef.current, { display: "none" });
 
   }, []);
