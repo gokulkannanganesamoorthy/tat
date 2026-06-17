@@ -1,129 +1,155 @@
-.global-navbar {
+.hud-container {
   position: fixed;
-  top: 2rem;
-  left: 50%;
-  width: 90vw;
-  max-width: 1200px;
-  padding: 1.5rem 3rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 9999;
-  pointer-events: auto;
-  
-  /* Premium Apple Liquid Glass Effect */
-  background: rgba(20, 20, 20, 0.45); /* Highly translucent */
-  backdrop-filter: saturate(180%) blur(40px);
-  -webkit-backdrop-filter: saturate(180%) blur(40px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 100px;
-  /* Removed mix-blend-mode because it conflicts with backdrop-filter in Safari/Chrome */
+  inset: 0;
+  pointer-events: none; /* Let clicks pass through the center */
+  z-index: 50;
 }
 
-.navbar-brand-group {
+.hud-container > div {
+  position: absolute;
+  pointer-events: auto; /* Make corners clickable */
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  letter-spacing: 0.25em;
+  color: #f7f4ed;
+  text-transform: uppercase;
+  mix-blend-mode: difference; /* Ensures visibility over any background */
+}
+
+/* Corner Positions */
+.hud-top-left {
+  top: 4vh;
+  left: 4vw;
   display: flex;
   align-items: center;
   gap: 1.5rem;
+  cursor: pointer;
 }
 
-.navbar-logo-img {
-  height: 24px;
-  width: auto;
-  display: block;
-  /* Forces any image to pure black, then inverts it to pure white. Guarantees visibility on the dark navbar. */
-  filter: brightness(0) invert(1); 
-  transition: transform 0.3s ease;
+.hud-top-right {
+  top: 4vh;
+  right: 4vw;
+  cursor: pointer;
 }
 
-.navbar-logo-img:hover {
-  transform: scale(1.05);
-}
-
-.navbar-text-branding {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  justify-content: center;
-}
-
-.navbar-title {
-  font-family: var(--font-display);
-  font-size: 0.9rem;
-  letter-spacing: 0.05em;
-  color: #1a1a1a; /* Dark text so it is visible! */
-  font-weight: 600;
-  line-height: 1;
-}
-
-.navbar-subtitle {
-  font-family: monospace;
-  font-size: 0.55rem;
-  letter-spacing: 0.15em;
-  color: var(--color-green);
-  line-height: 1;
-  opacity: 0.8;
-}
-
-.global-chronometer {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  font-family: monospace;
-  font-variant-numeric: tabular-nums;
-  font-size: 0.8rem;
-  color: var(--bg-color);
+.hud-bottom-left {
+  bottom: 4vh;
+  left: 4vw;
   opacity: 0.5;
-  letter-spacing: 0.1em;
-  z-index: 9999;
-  pointer-events: none;
-  mix-blend-mode: difference; /* Ensures it stays visible on light backgrounds */
 }
 
-.navbar-links {
-  display: flex;
-  gap: 3rem;
-}
-
-.nav-item {
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  color: var(--bg-color);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  position: relative;
+.hud-bottom-right {
+  bottom: 4vh;
+  right: 4vw;
+  cursor: pointer;
   opacity: 0.7;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s;
 }
 
-.nav-item:hover, .nav-item.active {
+.hud-bottom-right:hover {
   opacity: 1;
 }
 
-.nav-item::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0%;
-  height: 1px;
-  background-color: var(--bg-color);
-  transition: width 0.3s ease;
+/* Logo specific styling */
+.hud-logo {
+  width: 40px;
+  height: 40px;
 }
 
-.nav-item:hover::after, .nav-item.active::after {
+.hud-logo-img {
   width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: invert(1); /* Ensure logo is white since we're using difference mode on light BGs, or just keep it */
+}
+
+.hud-branding {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.hud-sub {
+  font-size: 0.6rem;
+  opacity: 0.5;
+  letter-spacing: 0.3em;
+  color: #219653; /* Subtle brand accent */
+}
+
+/* Overlay Menu */
+.hud-overlay-menu {
+  position: fixed;
+  inset: 0;
+  background-color: #040404;
+  z-index: 40; /* Below the HUD text so we can click [ CLOSE ] */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f7f4ed;
+}
+
+.hud-menu-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 10vh;
+  align-items: center;
+}
+
+.hud-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4vh;
+  text-align: center;
+}
+
+.hud-nav-list a {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6vw, 6rem);
+  text-transform: uppercase;
+  color: #f7f4ed;
+  text-decoration: none;
+  line-height: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  opacity: 0.5;
+  transition: opacity 0.4s, transform 0.4s;
+}
+
+.hud-nav-list a:hover,
+.hud-nav-list a.active {
+  opacity: 1;
+  transform: translateX(20px);
+}
+
+.hud-nav-num {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  opacity: 0.3;
+  letter-spacing: 0.2em;
+}
+
+.hud-menu-meta {
+  display: flex;
+  gap: 3vw;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  opacity: 0.3;
+  text-transform: uppercase;
 }
 
 @media (max-width: 768px) {
-  .global-navbar {
-    width: 95vw;
-    padding: 1rem 1.5rem;
+  .hud-bottom-left {
+    display: none; /* Hide timer on mobile to save space */
   }
-  .navbar-links {
-    gap: 1.5rem;
+  .hud-nav-list a {
+    gap: 1rem;
   }
-  .nav-item {
-    font-size: 0.75rem;
+  .hud-menu-meta {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
   }
 }

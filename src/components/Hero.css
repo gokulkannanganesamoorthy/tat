@@ -3,7 +3,7 @@
   height: 100vh;
   position: relative;
   overflow: hidden;
-  background-color: #ffffff; /* The surrounding screen is white */
+  background-color: #040404; /* The surrounding screen is black */
 }
 
 /* The Background Media (The Photo) */
@@ -23,7 +23,7 @@
   display: block;
 }
 
-/* The Mask Layer (Solid White background, GIF drawing) */
+/* The Mask Layer (Solid Black background, Inverted GIF drawing) */
 .hero-mask-layer {
   position: absolute;
   top: 0;
@@ -31,16 +31,20 @@
   width: 100vw;
   height: 100vh;
   z-index: 2; /* Sits on top of the media */
-  background-color: #ffffff; /* The screen is solid white! */
+  background-color: #040404; /* The screen is solid black! */
   display: flex;
   align-items: center;
   justify-content: center;
-  mix-blend-mode: screen; /* White stays White, Black ink turns transparent */
+  mix-blend-mode: multiply; /* White ink turns transparent, Black stays Black */
   pointer-events: none;
 }
 
 .hero-mask-gif {
-  width: 45vw; /* Massive initial size */
+  width: 50vw;
   height: auto;
+  min-width: 500px;
+  max-width: 1000px;
+  display: block;
+  filter: invert(1); /* Turns black ink on white bg -> white ink on black bg */
   pointer-events: none;
 }

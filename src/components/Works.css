@@ -1,95 +1,196 @@
-.works-stack-container {
+.works-timeline-section {
   width: 100vw;
+  background-color: #040404; /* True dark theme */
+  color: #f7f4ed; /* Cream */
   position: relative;
-  background-color: #050505;
-  color: #F7F4ED;
-}
-
-.works-stack-card {
-  width: 100vw;
-  height: 100vh;
-  position: sticky;
-  top: 0;
   overflow: hidden;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-start;
-  padding: 5rem 5vw;
+  padding: 15vh 0 20vh 0;
 }
 
-.works-stack-bg {
+/* Central Axis Line (The Timeline) */
+.works-axis-line {
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: rgba(247, 244, 237, 0.1);
+  transform: translateX(-50%);
   z-index: 1;
 }
 
-.works-stack-bg img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: grayscale(30%) contrast(1.1);
-  transform: scale(1.02); /* Slight scale to prevent edges showing on wipe */
-}
-
-.works-stack-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    to bottom,
-    rgba(5, 5, 5, 0.2) 0%,
-    rgba(5, 5, 5, 0.8) 100%
-  );
+.works-timeline-header {
+  text-align: center;
+  margin-bottom: 20vh;
+  position: relative;
   z-index: 2;
 }
 
-.works-stack-content {
+.works-label-top {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  letter-spacing: 0.25em;
+  opacity: 0.4;
+  background-color: #040404;
+  padding: 1vh 2vw;
+}
+
+.works-ticking-grid {
+  display: flex;
+  flex-direction: column;
   position: relative;
-  z-index: 3;
-  width: 100%;
+  z-index: 2;
+}
+
+.works-ticking-card {
+  width: 50%;
+  position: relative;
+  padding: 10vh 0;
+}
+
+/* Left/Right staggering */
+.card-left {
+  align-self: flex-start;
+  padding-right: 5vw;
+}
+
+.card-right {
+  align-self: flex-end;
+  padding-left: 5vw;
+}
+
+/* The connector to the timeline */
+.works-tick-connector {
+  position: absolute;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  width: 5vw;
+}
+
+.card-left .works-tick-connector {
+  right: 0;
+  flex-direction: row;
+}
+
+.card-right .works-tick-connector {
+  left: 0;
+  flex-direction: row-reverse;
+}
+
+.works-tick-dot {
+  width: 8px;
+  height: 8px;
+  background: #f7f4ed;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(247, 244, 237, 0.5);
+  flex-shrink: 0;
+}
+
+.card-left .works-tick-dot {
+  transform: translateX(4px); /* Center on axis */
+}
+
+.card-right .works-tick-dot {
+  transform: translateX(-4px); /* Center on axis */
+}
+
+.works-tick-line {
+  flex-grow: 1;
+  height: 1px;
+  background: rgba(247, 244, 237, 0.2);
+  transform-origin: center;
+}
+
+.card-left .works-tick-line { transform-origin: right; }
+.card-right .works-tick-line { transform-origin: left; }
+
+/* The content area */
+.works-tick-content {
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
 
-.works-stack-meta {
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  letter-spacing: 0.2em;
-  color: rgba(247, 244, 237, 0.6);
-  text-transform: uppercase;
-  margin: 0;
-}
-
-.works-stack-header {
+.works-tick-info {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
-.works-stack-title {
+.card-left .works-tick-info {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.card-right .works-tick-info {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.works-project-meta {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  opacity: 0.5;
+  text-transform: uppercase;
+}
+
+.works-project-title {
   font-family: var(--font-display);
-  font-size: clamp(4rem, 8vw, 10rem);
-  line-height: 0.9;
+  font-size: clamp(3rem, 6vw, 6rem);
   text-transform: uppercase;
   margin: 0;
+  line-height: 0.9;
 }
 
-.works-stack-type {
-  font-family: var(--font-body);
-  font-size: 1.2rem;
-  letter-spacing: 0.2em;
-  color: var(--color-burgundy);
-  text-transform: uppercase;
+.works-tick-img {
+  width: 100%;
+  height: 60vh;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.works-tick-img img {
+  width: 100%;
+  height: 130%;
+  object-fit: cover;
+  position: absolute;
+  top: -15%;
+  left: 0;
+  will-change: transform;
 }
 
 @media (max-width: 1024px) {
-  .works-stack-card {
-    padding: 3rem 5vw;
+  .works-axis-line {
+    left: 8vw;
+  }
+  .works-ticking-card {
+    width: 100%;
+    padding: 10vh 8vw 10vh 15vw;
+    align-self: stretch;
+  }
+  .card-left .works-tick-connector,
+  .card-right .works-tick-connector {
+    left: 8vw;
+    right: auto;
+    flex-direction: row-reverse;
+    width: 7vw;
+  }
+  .card-left .works-tick-dot,
+  .card-right .works-tick-dot {
+    transform: translateX(-4px);
+  }
+  .card-left .works-tick-line,
+  .card-right .works-tick-line {
+    transform-origin: left;
+  }
+  .card-left .works-tick-info {
+    align-items: flex-start;
+    text-align: left;
   }
 }

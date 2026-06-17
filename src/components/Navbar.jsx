@@ -1,24 +1,23 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import './Navbar.css';
 
 const Navbar = () => {
-  const [sessionTime, setSessionTime] = useState("00:00:00:000");
+  const [sessionTime, setSessionTime] = useState('00:00:00:000');
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    const startTime = Date.now();
-
     const updateTimer = () => {
-      const elapsed = Date.now() - startTime;
-      
-      const ms = (elapsed % 1000).toString().padStart(3, '0');
-      const seconds = Math.floor((elapsed / 1000) % 60).toString().padStart(2, '0');
-      const minutes = Math.floor((elapsed / (1000 * 60)) % 60).toString().padStart(2, '0');
-      
-      setSessionTime(`00:${minutes}:${seconds}:${ms}`);
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const seconds = now.getSeconds().toString().padStart(2, '0');
+      const ms = now.getMilliseconds().toString().padStart(3, '0');
+
+      setSessionTime(`${hours}:${minutes}:${seconds}:${ms}`);
       requestAnimationFrame(updateTimer);
     };
 
@@ -28,62 +27,122 @@ const Navbar = () => {
 
   const handleNavigate = (e, path) => {
     e.preventDefault();
+    setMenuOpen(false);
     navigate(path);
   };
 
   return (
     <>
-      <motion.nav 
-        className="global-navbar"
-        initial={{ y: -100, x: "-50%", opacity: 0 }}
-        animate={{ y: 0, x: "-50%", opacity: 1 }}
-        transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 1 }}
+      {/* HUD Corners */}
+      <motion.div
+        className="hud-container"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 0.5 }}
       >
-        {/* The entire brand group is now a massive clickable home button */}
-        <div 
-          className="navbar-brand-group interactive" 
+        {/* Top Left: Branding */}
+        <div
+          className="hud-top-left interactive"
           onClick={(e) => handleNavigate(e, '/')}
-          style={{ cursor: 'pointer' }}
         >
-          <div className="navbar-logo">
-            <img src="/logo.png" alt="THE ADS TAG Logo" className="navbar-logo-img" />
+          <div className="hud-logo">
+            <img src="/logo.png" alt="TAT Logo" className="hud-logo-img" />
           </div>
-          
-          <div className="navbar-text-branding">
-            <span className="navbar-title">THE ADS TAG</span>
-            <span className="navbar-subtitle">BEYOND ADS</span>
+          <div className="hud-branding">
+            <span>THE ADS TAG</span>
+            <span className="hud-sub">BEYOND ADS</span>
           </div>
         </div>
-        
-        <div className="navbar-links">
-          <a 
-            href="/about"
-            onClick={(e) => handleNavigate(e, '/about')}
-            className={location.pathname === '/about' ? 'nav-item active interactive' : 'nav-item interactive'}
-          >
-            ABOUT
-          </a>
-          <a 
-            href="/services"
-            onClick={(e) => handleNavigate(e, '/services')}
-            className={location.pathname === '/services' ? 'nav-item active interactive' : 'nav-item interactive'}
-          >
-            SERVICES
-          </a>
-          <a 
-            href="/contact"
-            onClick={(e) => handleNavigate(e, '/contact')}
-            className={location.pathname === '/contact' ? 'nav-item active interactive' : 'nav-item interactive'}
-          >
-            CONTACT
-          </a>
-        </div>
-      </motion.nav>
 
-      {/* Global Bottom-Right Chronometer */}
-      <div className="global-chronometer">
-        T: {sessionTime}
-      </div>
+        {/* Top Right: Menu Button */}
+        <div
+          className="hud-top-right interactive"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          <span>{menuOpen ? '[ CLOSE ]' : '[ MENU ]'}</span>
+        </div>
+
+        {/* Bottom Left: Chronometer */}
+        <div className="hud-bottom-left">
+          <span>T: {sessionTime}</span>
+        </div>
+
+        {/* Bottom Right: Contact */}
+        <div
+          className="hud-bottom-right interactive"
+          onClick={(e) => handleNavigate(e, '/contact')}
+        >
+          <span>[ CONTACT US ]</span>
+        </div>
+      </motion.div>
+
+      {/* Full Screen Overlay Menu */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            className="hud-overlay-menu"
+            initial={{ y: '-100%' }}
+            animate={{ y: '0%' }}
+            exit={{ y: '-100%' }}
+            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+          >
+            <div className="hud-menu-inner">
+              <nav className="hud-nav-list">
+                <a
+                  href="/"
+                  onClick={(e) => handleNavigate(e, '/')}
+                  className={
+                    location.pathname === '/'
+                      ? 'active interactive'
+                      : 'interactive'
+                  }
+                >
+                  <span className="hud-nav-num">01</span> HOME
+                </a>
+                <a
+                  href="/about"
+                  onClick={(e) => handleNavigate(e, '/about')}
+                  className={
+                    location.pathname === '/about'
+                      ? 'active interactive'
+                      : 'interactive'
+                  }
+                >
+                  <span className="hud-nav-num">02</span> ABOUT
+                </a>
+                <a
+                  href="/services"
+                  onClick={(e) => handleNavigate(e, '/services')}
+                  className={
+                    location.pathname === '/services'
+                      ? 'active interactive'
+                      : 'interactive'
+                  }
+                >
+                  <span className="hud-nav-num">03</span> SERVICES
+                </a>
+                <a
+                  href="/contact"
+                  onClick={(e) => handleNavigate(e, '/contact')}
+                  className={
+                    location.pathname === '/contact'
+                      ? 'active interactive'
+                      : 'interactive'
+                  }
+                >
+                  <span className="hud-nav-num">04</span> CONTACT
+                </a>
+              </nav>
+
+              <div className="hud-menu-meta">
+                <p>THE ADS TAG STUDIO</p>
+                <p>BASED IN WORLDWIDE</p>
+                <p>EST. 2024</p>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };

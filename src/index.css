@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 :root {
-  /* The Creamy Blue Lavish Palette */
+  /* The Creamy Obsidian Palette */
   --bg-color: #f7f4ed; /* White-Creamy */
-  --text-primary: #0c1827; /* Dark Blue */
-  --text-secondary: rgba(12, 24, 39, 0.6);
+  --text-primary: #0A1C15; /* Obsidian Forest */
+  --text-secondary: rgba(10, 28, 21, 0.6);
   --color-burgundy: #7d1d2b; /* Burgundy */
   --color-green: #1c3d27; /* Lavish Green */
   

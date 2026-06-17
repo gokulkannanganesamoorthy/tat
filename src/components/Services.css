@@ -1,151 +1,256 @@
-.services-page-safe-wrapper {
-  background-color: #0A0A0A;
+.svc-clock-section {
   width: 100vw;
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-  color: #F7F4ED;
-}
-
-.services-stack-header {
-  padding: 10rem 5vw 5rem 5vw; /* Enough padding to clear nav and introduce section */
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.services-awwwards-meta {
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  letter-spacing: 0.2em;
-  color: var(--color-green);
-}
-
-.services-stack-title {
-  font-family: var(--font-display);
-  font-size: clamp(3rem, 6vw, 6rem);
-  line-height: 1;
-  letter-spacing: -0.02em;
-}
-
-.services-stack-title .serif-italic {
-  font-family: 'Times New Roman', Times, serif;
-  font-style: italic;
-  font-weight: 300;
-  color: rgba(247, 244, 237, 0.7);
-}
-
-.services-stack-container {
-  padding: 0 5vw;
+  height: 100vh;
+  background-color: #040404; /* True dark theme */
+  color: #f7f4ed; /* Cream */
   position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 5vh; /* Initial gap between cards before they stack */
-}
-
-.services-stack-card {
-  position: sticky; /* This makes the magic happen natively! */
-  height: 75vh; /* Takes up most of the screen */
-  width: 100%;
-  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 -20px 40px rgba(0,0,0,0.5);
-  transform-origin: top center; /* When GSAP scales it down, it shrinks towards the top edge! */
-  background-color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.services-card-img-wrapper {
+/* Background wireframe */
+.svc-bg-lines {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
+  inset: 0;
+  pointer-events: none;
 }
 
-.services-card-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: grayscale(40%) contrast(1.1);
-}
-
-.services-card-overlay {
+.svc-line-v {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to bottom, rgba(10,10,10,0.8) 0%, rgba(10,10,10,0.2) 50%, rgba(10,10,10,0.9) 100%);
+  top: 0; bottom: 0; left: 50%;
+  width: 1px;
+  background: rgba(247, 244, 237, 0.05);
 }
 
-.services-card-content {
+.svc-line-h {
+  position: absolute;
+  top: 50%; left: 0; right: 0;
+  height: 1px;
+  background: rgba(247, 244, 237, 0.05);
+}
+
+.svc-label-top {
+  position: absolute;
+  top: 10vh;
+  left: 8vw;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  letter-spacing: 0.25em;
+  opacity: 0.4;
+}
+
+.svc-instruction {
+  position: absolute;
+  bottom: 10vh;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  opacity: 0.3;
+}
+
+/* The Clock Container */
+.svc-clock-container {
   position: relative;
-  z-index: 5;
-  width: 100%;
-  height: 100%;
+  width: 60vh;
+  height: 60vh;
+  border-radius: 50%;
+  border: 1px solid rgba(247, 244, 237, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* The Rotating Dial */
+.svc-dial {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border-radius: 50%;
+}
+
+.svc-dial-item {
+  position: absolute;
+  top: 0; left: 50%;
+  width: 200px;
+  height: 50%; /* Reaches exactly center */
+  transform-origin: bottom center;
+  margin-left: -100px; /* Center horizontally */
+}
+
+/* The text/dot part at the very edge of the dial */
+.svc-item-inner {
+  position: absolute;
+  top: -20px; /* Push slightly outside the circle */
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 4rem;
-}
-
-.services-card-top {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 10px;
+  opacity: 0.3;
+  transition: opacity 0.3s, transform 0.3s;
 }
 
-.services-card-id {
-  font-family: var(--font-body);
-  font-size: 1.5rem;
+.svc-item-inner.is-active {
+  opacity: 1;
+  transform: translateX(-50%) scale(1.1);
+}
+
+.svc-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #f7f4ed;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(247, 244, 237, 0.5);
+}
+
+.svc-item-inner.is-active .svc-dot {
+  width: 10px;
+  height: 10px;
+  box-shadow: 0 0 20px rgba(247, 244, 237, 1);
+}
+
+.svc-item-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
   letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Center Content Area */
+.svc-center-content {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30vh;
+  height: 30vh;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(4, 4, 4, 1) 40%, rgba(4, 4, 4, 0.8) 70%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: none; /* Let drag pass through */
+  z-index: 10;
+}
+
+.svc-center-id {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  opacity: 0.4;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.5rem;
+}
+
+.svc-center-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.svc-center-desc {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  opacity: 0.7;
+  max-width: 250px;
+  margin-bottom: 1.5rem;
+}
+
+.svc-center-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  max-width: 200px;
+}
+
+.svc-center-tags span {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid rgba(247, 244, 237, 0.2);
+  border-radius: 50px;
   opacity: 0.6;
 }
 
-.services-card-btn {
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.2);
-  color: #F7F4ED;
-  padding: 1rem 2rem;
-  border-radius: 50px;
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  letter-spacing: 0.1em;
-  cursor: none;
-  transition: all 0.3s ease;
-}
-
-.services-card-btn:hover {
-  background: #F7F4ED;
-  color: #0A0A0A;
-}
-
-.services-card-bottom {
+/* The Lottery Lever container on the right */
+.svc-lever-container {
+  position: absolute;
+  right: 8vw;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
-.services-card-title {
-  font-family: var(--font-display);
-  font-size: clamp(3rem, 8vw, 10rem);
-  line-height: 0.8;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
+.svc-lever-gear {
+  width: 60px;
+  height: 60px;
 }
 
-.services-card-desc {
-  font-family: var(--font-body);
-  font-size: 1.2rem;
-  max-width: 300px;
-  line-height: 1.4;
-  opacity: 0.8;
-  text-align: right;
+.svc-lever-track {
+  width: 4px;
+  height: 250px;
+  background: rgba(247, 244, 237, 0.1);
+  border-radius: 4px;
+  position: relative;
 }
 
-/* Buffer at the bottom so the last card has room to exist before footer */
-.services-stack-buffer {
-  height: 50vh;
+.svc-lever-knob {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 40px;
+  background: rgba(247, 244, 237, 0.9);
+  border-radius: 2px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svc-knob-handle {
+  width: 12px;
+  height: 2px;
+  background: #040404;
+}
+
+@media (max-width: 1024px) {
+  .svc-clock-container {
+    width: 350px;
+    height: 350px;
+  }
+  .svc-item-title {
+    font-size: 0.8rem;
+  }
+  .svc-center-content {
+    width: 200px;
+    height: 200px;
+  }
+  .svc-center-title {
+    font-size: 1.2rem;
+  }
+  .svc-center-desc {
+    font-size: 0.75rem;
+    max-width: 150px;
+  }
+  .svc-center-tags {
+    display: none;
+  }
+  .svc-lever-container {
+    display: none;
+  }
 }

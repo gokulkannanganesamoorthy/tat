@@ -1,73 +1,122 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './Footer.css';
 
+gsap.registerPlugin(ScrollTrigger);
+
 const Footer = () => {
-  const dialRef = useRef(null);
+  const footerRef = useRef(null);
+  const titleRef = useRef(null);
+  const taglineRef = useRef(null);
+  const navRef = useRef(null);
+  const bottomRef = useRef(null);
 
   useEffect(() => {
     let ctx = gsap.context(() => {
-      // Infinite slow counter-rotation for the footer dial
-      gsap.to(dialRef.current, {
-        rotation: -360,
-        duration: 90, // Extremely slow, massive weight feeling
-        ease: "none",
-        repeat: -1
+      // Manual word split — wraps each word in an overflow:hidden mask span
+      const el = titleRef.current;
+      if (!el) return;
+      const text = el.innerText;
+      el.innerHTML = text
+        .split(' ')
+        .map((w) => `<span class="footer-word-mask"><span class="footer-word">${w}</span></span>`)
+        .join(' ');
+      const words = el.querySelectorAll('.footer-word');
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: 'top 75%',
+          once: true,
+        },
       });
-    });
+
+      // The massive title rises from below its mask — the cinematic "studio card" reveal
+      tl.fromTo(
+        words,
+        { yPercent: 110 },
+        {
+          yPercent: 0,
+          duration: 1.4,
+          stagger: 0.06,
+          ease: 'power4.out',
+        }
+      );
+
+      // Tagline glows in
+      tl.fromTo(
+        taglineRef.current,
+        { opacity: 0, y: 20, filter: 'blur(12px)' },
+        { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1, ease: 'power3.out' },
+        '-=0.6'
+      );
+
+      // Nav links rise in with stagger
+      tl.fromTo(
+        navRef.current.querySelectorAll('a'),
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, stagger: 0.08, duration: 0.8, ease: 'power3.out' },
+        '-=0.5'
+      );
+
+      // Bottom bar rises in
+      tl.fromTo(
+        bottomRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.6, ease: 'power2.out' },
+        '-=0.3'
+      );
+
+    }, footerRef);
+
     return () => ctx.revert();
   }, []);
 
   return (
-    <footer className="footer-monolith-container">
-      
-      {/* Massive Echo Dial (Bleeds off the bottom) */}
-      <div className="footer-echo-dial" ref={dialRef}>
-        <svg viewBox="0 0 100 100" className="footer-dial-svg">
-          {/* Outer thick ring */}
-          <circle cx="50" cy="50" r="48" fill="none" stroke="rgba(247, 244, 237, 0.8)" strokeWidth="0.5" />
-          {/* Inner dotted ring */}
-          <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(247, 244, 237, 0.4)" strokeWidth="0.3" strokeDasharray="1 3" />
-          {/* 24-hour tick marks */}
-          {Array.from({ length: 24 }).map((_, i) => (
-            <line 
-              key={i} 
-              x1="50" y1="2" 
-              x2="50" y2="7" 
-              stroke="rgba(247, 244, 237, 0.9)" 
-              strokeWidth="0.6" 
-              transform={`rotate(${i * 15} 50 50)`} 
-            />
-          ))}
-        </svg>
+    <footer className="footer-finale-container" ref={footerRef}>
+      {/* Animated Film grain */}
+      <div className="footer-grain" />
+
+      {/* Subtle radial glow behind title */}
+      <div className="footer-glow-orb" />
+
+      {/* The cinematic title card */}
+      <div className="footer-title-block">
+        <h1 className="footer-massive-title" ref={titleRef}>THE ADS TAG</h1>
+        <p className="footer-tagline" ref={taglineRef}>BEYOND ADS</p>
       </div>
 
-      <div className="footer-top-row">
-        <div className="footer-nav">
-          <Link to="/about" className="footer-link">ABOUT</Link>
-          <Link to="/works" className="footer-link">WORKS</Link>
-          <Link to="/services" className="footer-link">CAPABILITIES</Link>
-          <Link to="/contact" className="footer-link">CONTACT</Link>
+      {/* The thin glowing divider */}
+      <div className="footer-glow-rule" />
+
+      {/* Navigation & Socials */}
+      <nav className="footer-nav-grid" ref={navRef}>
+        <div className="footer-nav-col">
+          <p className="footer-nav-label">NAVIGATION</p>
+          <Link to="/about" className="footer-nav-link">About</Link>
+          <Link to="/services" className="footer-nav-link">Services</Link>
+          <Link to="/works" className="footer-nav-link">Works</Link>
+          <Link to="/contact" className="footer-nav-link">Contact</Link>
         </div>
-        
-        <div className="footer-social">
-          <a href="#" className="footer-link">INSTAGRAM</a>
-          <a href="#" className="footer-link">LINKEDIN</a>
-          <a href="#" className="footer-link">TWITTER</a>
+        <div className="footer-nav-col">
+          <p className="footer-nav-label">CONNECT</p>
+          <a href="https://instagram.com" target="_blank" rel="noreferrer" className="footer-nav-link">Instagram</a>
+          <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="footer-nav-link">LinkedIn</a>
+          <a href="https://twitter.com" target="_blank" rel="noreferrer" className="footer-nav-link">Twitter</a>
         </div>
-      </div>
+        <div className="footer-nav-col">
+          <p className="footer-nav-label">CONTACT</p>
+          <a href="mailto:hello@theadstag.com" className="footer-nav-link">hello@theadstag.com</a>
+        </div>
+      </nav>
 
-      <div className="footer-massive-text-wrapper">
-        <h1 className="footer-monolith-title">THE ADS TAG</h1>
-        <p className="footer-tagline">BEYOND ADS</p>
-      </div>
-
-      <div className="footer-bottom-row">
-        <p>© {new Date().getFullYear()} TAT STUDIO. ALL RIGHTS RESERVED.</p>
+      {/* Bottom copyright bar */}
+      <div className="footer-bottom-bar" ref={bottomRef}>
+        <p>© {new Date().getFullYear()} THE ADS TAG. ALL RIGHTS RESERVED.</p>
         <p>ENGINEERED IN INDIA</p>
       </div>
-      
     </footer>
   );
 };

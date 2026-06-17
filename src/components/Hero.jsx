@@ -20,12 +20,14 @@ const Hero = () => {
         repeat: -1
       });
 
-      // Create a timeline that pins the container and scales the mask layer
+      // Create a timeline that pins the container and scales the mask layer.
+      // We are using ScrollTrigger again because the user loved the scroll-tied zoom effect,
+      // but we use a shorter end distance (+=150% instead of +=250%) so it isn't frustratingly long.
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "+=250%", // Pin for a long, smooth zoom
+          end: "+=150%", // Shorter pin for a faster, less frustrating zoom
           pin: true,
           scrub: 0.5,
         }

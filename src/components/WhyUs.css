@@ -1,71 +1,135 @@
-.why-us-cinematic {
+.whyus-clockwork-section {
   width: 100vw;
   height: 100vh;
-  /* User requested it starts showing the blue color from the beginning */
-  background-color: var(--text-primary); 
-  color: var(--bg-color);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+  background-color: #040404; /* True dark theme */
+  color: #f7f4ed; /* Cream text */
   overflow: hidden;
+  position: relative;
 }
 
-.why-us-center-content {
-  position: relative;
+/* Massive rotating clock gear in the background */
+.whyus-bg-gear {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120vw;
+  height: 120vw;
+  opacity: 1;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.whyus-gear-svg {
   width: 100%;
-  max-width: 1400px;
-  padding: 0 4rem;
+  height: 100%;
+}
+
+.whyus-track-container {
+  display: flex;
+  height: 100vh;
+  width: max-content;
+  will-change: transform;
+  position: relative;
+  z-index: 2;
+}
+
+.whyus-panel {
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  padding: 0 8vw;
+  flex-shrink: 0;
 }
 
-.why-us-label {
-  position: absolute;
-  top: -10vh;
-  left: 4rem;
+.whyus-intro-panel {
+  width: 100vw;
+  align-items: flex-start;
+  position: relative; /* Keep scroll indicator contained */
+}
+
+.whyus-label {
   font-family: var(--font-body);
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
+  font-size: 0.85rem;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
-  opacity: 0.5;
+  opacity: 0.4;
+  margin-bottom: auto;
+  margin-top: 15vh;
 }
 
-.statements-wrapper {
-  position: relative;
-  width: 100%;
-  height: 30vh; /* Fixed height for the container where text appears */
+.whyus-scroll-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6vw, 8rem);
+  text-transform: uppercase;
+  color: #ffffff;
+  opacity: 1;
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 3rem;
+  white-space: nowrap;
 }
 
-.cinematic-statement {
-  position: absolute;
+.whyus-arrow {
+  font-size: clamp(3rem, 6vw, 8rem);
+  animation: bounceRight 2s infinite;
+}
+
+@keyframes bounceRight {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(30px); }
+}
+
+.whyus-text-panel {
+  width: 120vw; /* Wide panel so text reveals slowly */
+}
+
+.whyus-massive-text {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 4rem);
-  line-height: 1.1;
-  text-align: center;
+  font-size: clamp(4rem, 9vw, 12rem);
+  line-height: 0.95;
   text-transform: uppercase;
-  letter-spacing: normal;
-  width: 100%;
+  max-width: 1400px;
   margin: 0;
-  opacity: 0; /* Hidden by default, GSAP controls this */
-  /* Remove color hardcoding so it inherits the container's animating color */
 }
 
-@media (max-width: 768px) {
-  .why-us-center-content {
-    padding: 0 2rem;
-  }
-  .why-us-label {
-    left: 2rem;
-    top: -20vh;
-  }
-  .cinematic-statement {
-    font-size: clamp(2rem, 8vw, 3rem);
+.whyus-word-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  margin-right: 0.15em;
+}
+
+.whyus-word {
+  display: inline-block;
+  will-change: transform;
+}
+
+.whyus-content-panel {
+  width: 80vw;
+}
+
+.whyus-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5vw;
+}
+
+.whyus-col p {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.2vw, 1.2rem);
+  line-height: 1.6;
+  opacity: 0.7;
+}
+
+@media (max-width: 1024px) {
+  .whyus-bg-gear {
+    width: 200vw;
+    height: 200vw;
   }
 }
