@@ -6,66 +6,55 @@ import './Works.css';
 gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
-  { id: '01', title: 'LUMINA', type: 'SPATIAL', year: '2026', img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200' },
-  { id: '02', title: 'VOID', type: 'VIRTUAL', year: '2025', img: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=1200' },
-  { id: '03', title: 'NEXUS', type: 'SYSTEM', year: '2026', img: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200' },
-  { id: '04', title: 'ECHO', type: 'ENGINEERING', year: '2024', img: 'https://images.unsplash.com/photo-1520085601670-ee14aa5fa3e8?q=80&w=1200' }
+  { id: '01', title: 'NIKE AIR', type: 'CAMPAIGN', year: '2025', img: 'https://images.unsplash.com/photo-1552346154-21d32810baa3?q=80&w=2000' },
+  { id: '02', title: 'RED BULL', type: 'BRAND FILM', year: '2026', img: 'https://images.unsplash.com/photo-1542332213-9b5a5a3fad35?q=80&w=2000' },
+  { id: '03', title: 'SPOTIFY', type: 'SYSTEM', year: '2024', img: 'https://images.unsplash.com/photo-1614680376593-902f74cf0d41?q=80&w=2000' },
+  { id: '04', title: 'PORSCHE', type: 'AUTOMOTIVE', year: '2026', img: 'https://images.unsplash.com/photo-1503376712341-ea402a412212?q=80&w=2000' }
 ];
 
 const Works = () => {
   const sectionRef = useRef(null);
+  const sceneRef = useRef(null);
+
+  const zSpacing = 3000; // Distance between projects in Z space
 
   useEffect(() => {
     let ctx = gsap.context(() => {
       
-      const cards = gsap.utils.toArray('.works-ticking-card');
-      
-      cards.forEach((card, i) => {
-        const info = card.querySelector('.works-tick-info');
-        const img = card.querySelector('.works-tick-img');
-        const tickLine = card.querySelector('.works-tick-line');
+      const totalDepth = (projects.length) * zSpacing;
 
-        // The "Tick" animation — sharp, elastic, mechanical
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: card,
-            start: "top 75%",
-            once: true
-          }
-        });
-
-        // The tick line snaps across
-        tl.fromTo(tickLine, 
-          { scaleX: 0 }, 
-          { scaleX: 1, duration: 0.4, ease: "power4.out" }
-        );
-
-        // The info snaps down
-        tl.fromTo(info,
-          { y: -30, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.6, ease: "back.out(1.7)" },
-          "-=0.2"
-        );
-
-        // Image fades and scales in
-        tl.fromTo(img,
-          { scale: 1.1, opacity: 0, filter: 'grayscale(100%)' },
-          { scale: 1, opacity: 1, filter: 'grayscale(0%)', duration: 1, ease: "power3.out" },
-          "-=0.4"
-        );
-
-        // Deep vertical parallax on image inner
-        gsap.to(img.querySelector('img'), {
-          yPercent: 20,
+      // Animate the entire scene forward on the Z axis
+      gsap.fromTo(sceneRef.current, 
+        { z: 0 },
+        {
+          z: totalDepth,
           ease: "none",
           scrollTrigger: {
-            trigger: card,
-            start: "top bottom",
-            end: "bottom top",
+            trigger: sectionRef.current,
+            start: "top top",
+            end: `+=${totalDepth}`, // Scroll distance equals depth
+            pin: true,
+            scrub: 1,
+            invalidateOnRefresh: true
+          }
+        }
+      );
+
+      // Fade out projects as they fly past the camera
+      const posters = gsap.utils.toArray('.works-3d-poster');
+      posters.forEach((poster, i) => {
+        // The project is at z = -i * zSpacing
+        // We want it to fade out when the scene reaches z = i * zSpacing (meaning the project is at z=0, right at the camera)
+        gsap.to(poster, {
+          opacity: 0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: () => `top+=${(i * zSpacing) - 500} top`, // Start fading out slightly before it hits the camera
+            end: () => `top+=${(i * zSpacing) + 500} top`,
             scrub: true
           }
         });
-
       });
 
     }, sectionRef);
@@ -74,49 +63,43 @@ const Works = () => {
   }, []);
 
   return (
-    <section className="works-timeline-section" ref={sectionRef}>
+    <section className="works-3d-section" ref={sectionRef} id="works">
       
-      {/* Central Axis Line */}
-      <div className="works-axis-line"></div>
-
-      <div className="works-timeline-header">
-        <span className="works-label-top">04 // ARCHIVE</span>
+      <div className="works-3d-overlay">
+        <p className="works-label">04 // PRODUCTIONS</p>
       </div>
 
-      <div className="works-ticking-grid">
-        {projects.map((project, index) => {
-          const isLeft = index % 2 === 0;
-          return (
-            <article 
-              key={project.id} 
-              className={`works-ticking-card ${isLeft ? 'card-left' : 'card-right'}`}
-            >
-              
-              <div className="works-tick-connector">
-                <div className="works-tick-dot"></div>
-                <div className="works-tick-line"></div>
-              </div>
+      <div className="works-3d-viewport">
+        <div className="works-3d-scene" ref={sceneRef}>
+          
+          {projects.map((project, i) => {
+            const zPos = -(i * zSpacing);
+            // Alternate left and right walls of the tunnel
+            const xPos = i % 2 === 0 ? '-35vw' : '35vw';
+            // Angle them slightly towards the center
+            const rotateY = i % 2 === 0 ? '25deg' : '-25deg';
 
-              <div className="works-tick-content">
-                <div className="works-tick-info">
-                  <div className="works-project-meta">
-                    <span>[{project.id}]</span>
-                    <span>{project.type}</span>
-                    <span>{project.year}</span>
-                  </div>
-                  <h3 className="works-project-title">{project.title}</h3>
+            return (
+              <div 
+                className="works-3d-poster" 
+                key={project.id}
+                style={{
+                  transform: `translate3d(calc(-50% + ${xPos}), -50%, ${zPos}px) rotateY(${rotateY})`
+                }}
+              >
+                <div className="works-poster-wrapper">
+                  <img src={project.img} alt={project.title} className="works-poster-img" />
                 </div>
-
-                <div className="works-tick-img">
-                  <img src={project.img} alt={project.title} />
+                <div className="works-poster-meta">
+                  <span className="works-id">[{project.id}]</span>
+                  <h3 className="works-title">{project.title}</h3>
                 </div>
               </div>
+            );
+          })}
 
-            </article>
-          );
-        })}
+        </div>
       </div>
-
     </section>
   );
 };

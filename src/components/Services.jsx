@@ -209,7 +209,11 @@ const Services = () => {
           </svg>
         </div>
         <div className="svc-lever-track">
-          <div className="svc-lever-knob" ref={knobRef}>
+          <div
+            className="svc-lever-knob"
+            ref={knobRef}
+            style={{ cursor: 'grab' }}
+          >
             <div className="svc-knob-handle"></div>
           </div>
         </div>

@@ -1,40 +1,102 @@
-.preloader-chronograph-container {
+.preloader-combined-container {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: var(--text-primary); /* Dark Blue */
-  color: var(--bg-color); /* Creamy White */
-  z-index: 999999;
+  inset: 0;
+  z-index: 9999;
+  background: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
+  pointer-events: none; /* Container is transparent, but blades have background */
+  overflow: hidden;
 }
 
-.preloader-chronograph-content {
+/* APERTURE BLADES */
+.preloader-blades-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+}
+
+.preloader-blade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 150vw;
+  height: 150vh;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+.blade-inner {
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background-color: #040404; /* Matches TAT theme */
+  border-top: 1px solid rgba(247, 244, 237, 0.1);
+  box-shadow: 0 -10px 50px rgba(0, 0, 0, 0.8);
+  pointer-events: auto; /* Block clicks while closed */
+}
+
+.preloader-blade:nth-child(1) .blade-inner { top: 2vw; }
+.preloader-blade:nth-child(2) .blade-inner { top: 2vw; }
+.preloader-blade:nth-child(3) .blade-inner { top: 2vw; }
+.preloader-blade:nth-child(4) .blade-inner { top: 2vw; }
+.preloader-blade:nth-child(5) .blade-inner { top: 2vw; }
+.preloader-blade:nth-child(6) .blade-inner { top: 2vw; }
+
+/* VAULT LOCK */
+.vault-lock-mechanism {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 1rem;
+  background: #040404;
+  padding: 1rem 2rem;
+  border: 1px solid rgba(247, 244, 237, 0.2);
+  border-radius: 4px;
+  box-shadow: 0 0 50px rgba(0,0,0,0.8);
+  z-index: 10000;
+  will-change: transform, opacity;
+}
+
+.vault-ring-window {
+  width: 4rem;
+  height: 6rem;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(247, 244, 237, 0.1);
+  background: #111;
+}
+
+.vault-ring-window::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, #040404 0%, transparent 20%, transparent 80%, #040404 100%);
+  pointer-events: none;
+}
+
+.vault-ring {
+  width: 100%;
+  height: 60rem; 
   display: flex;
   flex-direction: column;
+}
+
+.vault-letter {
+  width: 100%;
+  height: 6rem;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 1rem;
-}
-
-.preloader-meta {
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  letter-spacing: 0.4em;
-  color: var(--color-green); /* Techy green accent */
-  text-transform: uppercase;
-  margin: 0;
-}
-
-/* The Digital Chronograph */
-.preloader-time {
-  font-family: monospace; /* Tabular numbers prevent jittering */
-  font-size: clamp(4rem, 10vw, 12rem);
-  font-weight: 300;
-  letter-spacing: -0.05em;
-  margin: 0;
+  font-family: var(--font-display);
+  font-size: 4rem;
+  color: #f7f4ed;
   line-height: 1;
-  font-variant-numeric: tabular-nums; /* Critical for stable fast-ticking numbers */
 }
