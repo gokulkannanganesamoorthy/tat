@@ -22,31 +22,33 @@
 .preloader-blade {
   position: absolute;
   top: 0;
-  left: 0;
-  width: 150vw;
+  left: -8.7vh; /* Starts exactly at the hexagon vertex to eliminate backward tails */
+  width: 200vw;
   height: 150vh;
   transform-origin: 0 0;
+  overflow: hidden; /* Clips the backward tail natively */
   will-change: transform;
+}
+
+.blade-rotator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
 }
 
 .blade-inner {
   position: absolute;
-  top: 0;
-  left: -50%;
-  width: 200%;
+  top: 15vh;
+  left: 0;
+  width: 100%;
   height: 100%;
   background-color: #040404;
   border-top: 2px solid rgba(247, 244, 237, 0.9);
   box-shadow: 0 -4px 20px rgba(247, 244, 237, 0.15);
   pointer-events: auto;
 }
-
-.preloader-blade:nth-child(1) .blade-inner { top: 2vw; }
-.preloader-blade:nth-child(2) .blade-inner { top: 2vw; }
-.preloader-blade:nth-child(3) .blade-inner { top: 2vw; }
-.preloader-blade:nth-child(4) .blade-inner { top: 2vw; }
-.preloader-blade:nth-child(5) .blade-inner { top: 2vw; }
-.preloader-blade:nth-child(6) .blade-inner { top: 2vw; }
 
 /* VAULT LOCK */
 .vault-lock-mechanism {

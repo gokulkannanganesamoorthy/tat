@@ -26,41 +26,21 @@ const Preloader = () => {
     tl.add("bounce", "+=0.1");
 
     // 2. Pulse the lock (bouncing back)
-    tl.to(lockRef.current, { scale: 1.2, borderColor: "rgba(255, 255, 255, 1)", duration: 0.4, ease: "back.out(2)" }, "bounce");
+    tl.to(lockRef.current, { scale: 1.2, borderColor: "rgba(247, 244, 237, 1)", duration: 0.4, ease: "back.out(2)" }, "bounce");
     
     // 3. Fade out the lock quickly as it bounces
     tl.to(lockRef.current, { opacity: 0, duration: 0.4, ease: "power2.in" }, "bounce+=0.2");
 
-    // 4. Open the Camera Aperture — each blade flies in its OWN radial direction
-    // 6 blades at 60° apart. Calculate outward direction vector for each.
-    // The blades are anchored at center (50%, 50%) and each covers a 60° wedge.
-    // We push each blade along the midpoint angle of its wedge.
-    // Use a distance large enough to fully exit any screen
-    const exitDist = Math.sqrt(
-      Math.pow(window.innerWidth, 2) + Math.pow(window.innerHeight, 2)
-    ) * 2;
+    // 4. Open the Camera Aperture — each blade flies radially outward
+    // By translating 'y' positively, the blade's edge pulls away from the center, opening the iris!
+    tl.to(bladesRef.current, {
+      y: "150vh", // Fly out radially by pulling back
+      rotation: 30, // Pivot like a real iris shutter pin!
+      duration: 1.4,
+      ease: "expo.inOut",
+    }, "bounce+=0.05");
 
-    bladesRef.current.forEach((blade, i) => {
-      // The blade is rotated at i*60deg. Its natural "outward" direction
-      // is perpendicular to that rotation — i.e. straight along its own Y axis.
-      // We use the blade's own rotation angle to compute the exit vector.
-      const angleDeg = i * 60; // the blade's rotation angle
-      const angleRad = (angleDeg * Math.PI) / 180;
-
-      // Direction along the blade's local Y-up axis, transformed to world space
-      const dx = Math.sin(angleRad) * exitDist;
-      const dy = -Math.cos(angleRad) * exitDist;
-
-      // Fly out in its OWN direction and keep going — never come back
-      tl.to(blade, {
-        x: dx,
-        y: dy,
-        duration: 1.4,
-        ease: "expo.inOut",
-      }, "bounce+=0.05");
-    });
-
-    // 6. Hide container
+    // 5. Hide container
     tl.set(containerRef.current, { display: "none" });
 
   }, []);
@@ -68,18 +48,37 @@ const Preloader = () => {
   return (
     <div className="preloader-combined-container" ref={containerRef}>
       
-      {/* The 6 Mechanical Blades (Background Layer) */}
+      {/* The 6 Mechanical Blades + 1 Interlocking Ray (Background Layer) */}
       <div className="preloader-blades-wrapper">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <div 
-            key={i}
-            className="preloader-blade"
-            ref={el => bladesRef.current[i] = el}
-            style={{ transform: `rotate(${i * 60}deg)` }}
-          >
-            <div className="blade-inner"></div>
-          </div>
-        ))}
+        {Array.from({ length: 7 }).map((_, i) => {
+          const isInterlock = i === 6;
+          const rotation = isInterlock ? 0 : i * 60;
+          return (
+            <div 
+              key={`rotator-${i}`}
+              className="blade-rotator"
+              style={{ 
+                position: 'absolute', top: 0, left: 0, width: 0, height: 0, 
+                transform: `rotate(${rotation}deg)` 
+              }}
+            >
+              <div 
+                className="preloader-blade"
+                style={{ 
+                  transform: 'none',
+                  // The 7th blade ONLY provides the missing top-right line!
+                  // It shouldn't have a massive body that covers other blades.
+                  height: isInterlock ? '16vh' : '150vh'
+                }} 
+              >
+                <div 
+                  className="blade-inner"
+                  ref={el => bladesRef.current[i] = el}
+                ></div>
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       {/* The Lock Mechanism (Foreground Layer) */}
