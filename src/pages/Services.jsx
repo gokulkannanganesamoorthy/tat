@@ -9,9 +9,9 @@ const ServicesPage = () => {
         description="Our premium services include UI/UX Design, Web Engineering, Brand Identity, and Motion Graphics." 
         url="/services" 
       />
-      <div style={{ paddingTop: '10vh' }}>
+      <>
         <ServicesComponent />
-      </div>
+      </>
     </>
   );
 };
