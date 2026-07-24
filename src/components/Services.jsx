@@ -143,89 +143,91 @@ const Services = () => {
   const activeService = servicesData[active];
 
   return (
-    <section className="svc-clock-section" ref={sectionRef}>
-      {/* Background wireframe hints */}
-      <div className="svc-bg-lines">
-        <div className="svc-line-v"></div>
-        <div className="svc-line-h"></div>
-      </div>
+    <div className="svc-safe-wrapper">
+      <section className="svc-clock-section" ref={sectionRef}>
+        {/* Background wireframe hints */}
+        <div className="svc-bg-lines">
+          <div className="svc-line-v"></div>
+          <div className="svc-line-h"></div>
+        </div>
 
-      <div className="svc-label-top">03 // WHAT WE CREATE</div>
+        <div className="svc-label-top">03 // WHAT WE CREATE</div>
 
-      <div className="svc-clock-container">
-        {/* The Rotating Dial */}
-        <div className="svc-dial" ref={dialRef}>
-          {servicesData.map((svc, i) => {
-            const rotation = i * angleIncrement;
-            return (
-              <div
-                key={svc.id}
-                className="svc-dial-item"
-                style={{ transform: `rotate(${rotation}deg)` }}
-              >
+        <div className="svc-clock-container">
+          {/* The Rotating Dial */}
+          <div className="svc-dial" ref={dialRef}>
+            {servicesData.map((svc, i) => {
+              const rotation = i * angleIncrement;
+              return (
                 <div
-                  className={`svc-item-inner ${active === i ? 'is-active' : ''}`}
+                  key={svc.id}
+                  className="svc-dial-item"
+                  style={{ transform: `rotate(${rotation}deg)` }}
                 >
-                  <span className="svc-dot"></span>
-                  <span className="svc-item-title">{svc.title}</span>
+                  <div
+                    className={`svc-item-inner ${active === i ? 'is-active' : ''}`}
+                  >
+                    <span className="svc-dot"></span>
+                    <span className="svc-item-title">{svc.title}</span>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
 
-        {/* Center Content (Displays active service) */}
-        <div className="svc-center-content" ref={contentRef}>
-          <p className="svc-center-id">[{activeService.id}]</p>
-          <h3 className="svc-center-title">{activeService.title}</h3>
-          <p className="svc-center-desc">{activeService.desc}</p>
-          <div className="svc-center-tags">
-            {activeService.sub.map((tag, idx) => (
-              <span key={idx}>{tag}</span>
-            ))}
+          {/* Center Content (Displays active service) */}
+          <div className="svc-center-content" ref={contentRef}>
+            <p className="svc-center-id">[{activeService.id}]</p>
+            <h3 className="svc-center-title">{activeService.title}</h3>
+            <p className="svc-center-desc">{activeService.desc}</p>
+            <div className="svc-center-tags">
+              {activeService.sub.map((tag, idx) => (
+                <span key={idx}>{tag}</span>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* The Lottery Machine Lever (Scroll Indicator) */}
-      <div className="svc-lever-container">
-        <div className="svc-lever-gear" ref={gearRef}>
-          <svg viewBox="0 0 100 100" className="svc-gear-svg">
-            <circle
-              cx="50"
-              cy="50"
-              r="40"
-              fill="none"
-              stroke="rgba(247, 244, 237, 0.4)"
-              strokeWidth="2"
-              strokeDasharray="4 4"
-            />
-            {Array.from({ length: 8 }).map((_, i) => (
-              <line
-                key={i}
-                x1="50"
-                y1="0"
-                x2="50"
-                y2="10"
-                stroke="rgba(247, 244, 237, 0.6)"
-                strokeWidth="4"
-                transform={`rotate(${i * 45} 50 50)`}
+        {/* The Lottery Machine Lever (Scroll Indicator) */}
+        <div className="svc-lever-container">
+          <div className="svc-lever-gear" ref={gearRef}>
+            <svg viewBox="0 0 100 100" className="svc-gear-svg">
+              <circle
+                cx="50"
+                cy="50"
+                r="40"
+                fill="none"
+                stroke="rgba(247, 244, 237, 0.4)"
+                strokeWidth="2"
+                strokeDasharray="4 4"
               />
-            ))}
-            <circle cx="50" cy="50" r="10" fill="rgba(247, 244, 237, 0.6)" />
-          </svg>
-        </div>
-        <div className="svc-lever-track">
-          <div
-            className="svc-lever-knob"
-            ref={knobRef}
-            style={{ cursor: 'grab' }}
-          >
-            <div className="svc-knob-handle"></div>
+              {Array.from({ length: 8 }).map((_, i) => (
+                <line
+                  key={i}
+                  x1="50"
+                  y1="0"
+                  x2="50"
+                  y2="10"
+                  stroke="rgba(247, 244, 237, 0.6)"
+                  strokeWidth="4"
+                  transform={`rotate(${i * 45} 50 50)`}
+                />
+              ))}
+              <circle cx="50" cy="50" r="10" fill="rgba(247, 244, 237, 0.6)" />
+            </svg>
+          </div>
+          <div className="svc-lever-track">
+            <div
+              className="svc-lever-knob"
+              ref={knobRef}
+              style={{ cursor: 'grab' }}
+            >
+              <div className="svc-knob-handle"></div>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };
 
