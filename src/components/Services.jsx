@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Draggable } from 'gsap/Draggable';
@@ -62,7 +62,7 @@ const Services = () => {
   const total = servicesData.length;
   const angleIncrement = 360 / total;
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let ctx = gsap.context(() => {
       // Pin the section and rotate the dial based on scroll progress
       // Total rotation needed to see all 6 items is -300 degrees (5 steps of 60)
