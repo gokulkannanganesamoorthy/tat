@@ -3,10 +3,10 @@
   height: 100vh;
   position: relative;
   overflow: hidden;
-  background-color: #040404; /* The surrounding screen is black */
+  background-color: #040404;
 }
 
-/* The Background Media (The Photo) */
+/* The Background Media (Solid White with Text) */
 .hero-media-layer {
   position: absolute;
   top: 0;
@@ -14,13 +14,65 @@
   width: 100vw;
   height: 100vh;
   z-index: 1;
+  background-color: #f7f4ed; /* Clean off-white background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  box-sizing: border-box;
 }
 
-.hero-background-video {
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  display: block;
+.hero-content {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.hero-headline {
+  font-family: inherit;
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: #040404;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.hero-subheadline {
+  font-family: inherit;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  font-weight: 300;
+  line-height: 1.4;
+  color: #333333;
+  margin: 0;
+  max-width: 600px;
+}
+
+.hero-text-line {
+  overflow: hidden;
+}
+
+.hero-cta {
+  align-self: flex-start;
+  padding: 1.25rem 3rem;
+  font-size: 1.125rem;
+  font-family: inherit;
+  font-weight: 500;
+  color: #f7f4ed;
+  background-color: #040404;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.hero-cta:hover {
+  background-color: #333333;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
 /* The Mask Layer (Solid Black background, Inverted GIF drawing) */

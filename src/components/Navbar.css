@@ -3,6 +3,8 @@
   inset: 0;
   pointer-events: none; /* Let clicks pass through the center */
   z-index: 50;
+  mix-blend-mode: difference; /* Move difference mode to the parent to fix stacking context issues! */
+  color: #ffffff; /* Pure white so it perfectly inverts to pure black on a white background */
 }
 
 .hud-container > div {
@@ -11,9 +13,7 @@
   font-family: var(--font-body);
   font-size: 0.85rem;
   letter-spacing: 0.25em;
-  color: #f7f4ed;
   text-transform: uppercase;
-  mix-blend-mode: difference; /* Ensures visibility over any background */
 }
 
 /* Corner Positions */
@@ -35,7 +35,7 @@
 .hud-bottom-left {
   bottom: 4vh;
   left: 4vw;
-  opacity: 0.5;
+  opacity: 0.7;
 }
 
 .hud-bottom-right {
@@ -60,7 +60,7 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: invert(1); /* Ensure logo is white since we're using difference mode on light BGs, or just keep it */
+  filter: brightness(0) invert(1); /* Forces logo to pure white, so difference mode perfectly inverts it to black on light BGs */
 }
 
 .hud-branding {
@@ -71,9 +71,9 @@
 
 .hud-sub {
   font-size: 0.6rem;
-  opacity: 0.5;
+  opacity: 1; /* Make it solid */
   letter-spacing: 0.3em;
-  color: #219653; /* Subtle brand accent */
+  /* Removed green color, it inherits white and will invert to black natively */
 }
 
 /* Overlay Menu */

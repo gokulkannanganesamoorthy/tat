@@ -91,10 +91,7 @@ const ContactForm = () => {
           <div className="contact-targeting-bracket bottom-left"></div>
           <div className="contact-targeting-bracket bottom-right"></div>
           
-          {/* High-speed REC Indicator */}
-          <div className="contact-rec-indicator">
-            <span className="rec-dot"></span> REC: {sessionTime}
-          </div>
+
 
           <div className="contact-sentence-wrapper">
             <span>HI, I AM </span>

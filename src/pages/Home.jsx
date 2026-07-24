@@ -2,6 +2,7 @@ import SEO from '../components/SEO';
 import Hero from '../components/Hero';
 import WhyUs from '../components/WhyUs';
 import Services from '../components/Services';
+import Process from '../components/Process';
 import Works from '../components/Works';
 
 const Home = () => {
@@ -15,6 +16,7 @@ const Home = () => {
       <Hero />
       <WhyUs />
       <Services />
+      <Process />
       <Works />
     </>
   );

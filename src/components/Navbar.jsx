@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import './Navbar.css';
@@ -88,9 +88,9 @@ const Navbar = () => {
           >
             <div className="hud-menu-inner">
               <nav className="hud-nav-list">
-                <a
-                  href="/"
-                  onClick={(e) => handleNavigate(e, '/')}
+                <Link
+                  to="/"
+                  onClick={(e) => { setMenuOpen(false); }}
                   className={
                     location.pathname === '/'
                       ? 'active interactive'
@@ -98,10 +98,10 @@ const Navbar = () => {
                   }
                 >
                   <span className="hud-nav-num">01</span> HOME
-                </a>
-                <a
-                  href="/about"
-                  onClick={(e) => handleNavigate(e, '/about')}
+                </Link>
+                <Link
+                  to="/about"
+                  onClick={(e) => { setMenuOpen(false); }}
                   className={
                     location.pathname === '/about'
                       ? 'active interactive'
@@ -109,10 +109,10 @@ const Navbar = () => {
                   }
                 >
                   <span className="hud-nav-num">02</span> ABOUT
-                </a>
-                <a
-                  href="/services"
-                  onClick={(e) => handleNavigate(e, '/services')}
+                </Link>
+                <Link
+                  to="/services"
+                  onClick={(e) => { setMenuOpen(false); }}
                   className={
                     location.pathname === '/services'
                       ? 'active interactive'
@@ -120,10 +120,10 @@ const Navbar = () => {
                   }
                 >
                   <span className="hud-nav-num">03</span> SERVICES
-                </a>
-                <a
-                  href="/contact"
-                  onClick={(e) => handleNavigate(e, '/contact')}
+                </Link>
+                <Link
+                  to="/contact"
+                  onClick={(e) => { setMenuOpen(false); }}
                   className={
                     location.pathname === '/contact'
                       ? 'active interactive'
@@ -131,7 +131,7 @@ const Navbar = () => {
                   }
                 >
                   <span className="hud-nav-num">04</span> CONTACT
-                </a>
+                </Link>
               </nav>
 
               <div className="hud-menu-meta">

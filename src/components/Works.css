@@ -1,16 +1,19 @@
-.works-3d-section {
+.works-canva-section {
   width: 100vw;
   height: 100vh;
   background-color: #040404; /* Dark theme */
   color: #f7f4ed; /* Cream text */
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .works-3d-overlay {
   position: absolute;
-  top: 4vh;
-  left: 4vw;
+  top: 16vh;
+  left: 8vw;
   z-index: 10;
   pointer-events: none;
 }
@@ -22,92 +25,37 @@
   opacity: 0.4;
 }
 
-.works-3d-viewport {
+.works-canva-container {
   width: 100vw;
-  height: 100vh;
-  perspective: 1500px; /* The distance of the camera from the screen */
-  position: absolute;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-}
-
-.works-3d-scene {
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform-style: preserve-3d;
-  /* GSAP will animate the Z translation of this entire scene! */
-  will-change: transform;
-}
-
-.works-3d-poster {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 50vw; /* Massive poster */
-  transform-style: preserve-3d;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  /* Origin at center to scale/rotate nicely */
-  transform-origin: center center;
-}
-
-.works-poster-wrapper {
-  width: 100%;
+  max-width: 100%;
+  max-height: 100vh;
   aspect-ratio: 16 / 9;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 0 50px rgba(0, 0, 0, 0.8); /* Shadow to separate from background */
+  background-color: transparent;
 }
 
-.works-poster-img {
+.works-canva-iframe {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  filter: grayscale(80%);
-  transition: filter 0.5s ease;
+  border: none;
+  display: block;
 }
 
-.works-3d-poster:hover .works-poster-img {
-  filter: grayscale(0%);
-}
-
-.works-poster-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  text-transform: uppercase;
-  border-top: 1px solid rgba(247, 244, 237, 0.2);
-  padding-top: 1rem;
-}
-
-.works-id {
+.works-instruction {
+  position: absolute;
+  bottom: 8vh;
+  left: 50%;
+  transform: translateX(-50%);
   font-family: var(--font-body);
-  font-size: 0.8rem;
-  opacity: 0.5;
-  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  opacity: 0.4;
+  pointer-events: none;
+  animation: pulseOpacity 2s infinite ease-in-out;
 }
 
-.works-title {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 4rem);
-  line-height: 1;
-  letter-spacing: 0.05em;
-  margin-top: 0.5rem;
-}
-
-@media (max-width: 1024px) {
-  .works-3d-poster {
-    width: 70vw;
-  }
-}
-
-@media (max-width: 768px) {
-  .works-3d-poster {
-    width: 85vw;
-  }
+@keyframes pulseOpacity {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.6; }
 }

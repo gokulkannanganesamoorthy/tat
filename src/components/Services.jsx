@@ -9,39 +9,45 @@ gsap.registerPlugin(ScrollTrigger, Draggable);
 const servicesData = [
   {
     id: '01',
-    title: 'TAT SOCIAL',
-    desc: "We don't just manage social media — we build brands people remember.",
-    sub: ['Content Strategy', 'Community Management', 'Campaigns'],
+    title: 'BRAND STORIES',
+    desc: 'Discovering your voice before the world hears it.',
+    sub: [],
   },
   {
     id: '02',
-    title: 'PRODUCTIONS',
-    desc: 'From concept to final cut, we create content that captures attention.',
-    sub: ['Brand Films', 'Reels', 'Animation'],
+    title: 'CONTENT STUDIO',
+    desc: 'Creating films, photography and content people genuinely enjoy.',
+    sub: [],
   },
   {
     id: '03',
-    title: 'CREATIVE',
-    desc: 'Good design gets noticed. Great design gets remembered.',
-    sub: ['Brand Identity', 'Web Design', 'Packaging'],
+    title: 'CREATIVE DESIGN',
+    desc: 'Designing identities that feel timeless.',
+    sub: [],
   },
   {
     id: '04',
-    title: 'INFLUENCE',
-    desc: 'We connect brands with voices that resonate and deliver impact.',
-    sub: ['Outreach', 'Campaigns', 'UGC'],
+    title: 'BRAND INFLUENCE',
+    desc: 'Building conversations through creators, communities and media.',
+    sub: [],
   },
   {
     id: '05',
-    title: 'TAT TECH',
-    desc: 'We help businesses build the digital infrastructure that supports growth.',
-    sub: ['Web Dev', 'E-commerce', 'CRM'],
+    title: 'DIGITAL PRESENCE',
+    desc: 'Crafting beautiful digital homes for modern brands.',
+    sub: [],
   },
   {
     id: '06',
+    title: 'CREATIVE TECHNOLOGY',
+    desc: 'Connecting creativity with intelligent experiences.',
+    sub: [],
+  },
+  {
+    id: '07',
     title: 'EXPERIENCES',
-    desc: "We create brand experiences that people don't just attend — they remember.",
-    sub: ['Event Strategy', 'Pop-Ups', 'Exhibitions'],
+    desc: 'Turning moments into memories.',
+    sub: [],
   },
 ];
 
@@ -69,8 +75,9 @@ const Services = () => {
           trigger: sectionRef.current,
           pin: true,
           start: 'top top',
-          end: '+=3000', // 3000px of scrolling to go through the 6 items
-          scrub: 1, // Smooth scrubbing
+          end: '+=6000', // Increased to 6000px so it has plenty of time to go through all 7 items
+          scrub: 0.2, // Reduced scrub delay to prevent the animation lagging behind the scroll and unpinning early
+
           onUpdate: (self) => {
             const progress = self.progress;
 
@@ -143,7 +150,7 @@ const Services = () => {
         <div className="svc-line-h"></div>
       </div>
 
-      <div className="svc-label-top">03 // CAPABILITIES</div>
+      <div className="svc-label-top">03 // WHAT WE CREATE</div>
 
       <div className="svc-clock-container">
         {/* The Rotating Dial */}

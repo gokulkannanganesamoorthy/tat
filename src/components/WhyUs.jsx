@@ -104,7 +104,7 @@ const WhyUs = () => {
         
         {/* Intro Space (allows user to scroll before text hits) */}
         <div className="whyus-panel whyus-intro-panel">
-          <p className="whyus-label">02 // PHILOSOPHY</p>
+          <p className="whyus-label">02 // WHO WE ARE</p>
           <div className="whyus-scroll-indicator">
             SCROLL TO REVEAL 
             <span className="whyus-arrow">→</span>
@@ -114,7 +114,7 @@ const WhyUs = () => {
         {/* Text Reveal Panel */}
         <div className="whyus-panel whyus-text-panel">
           <h2 className="whyus-massive-text" ref={textRef}>
-            WE ENGINEER SYSTEMS OF GROWTH AND SCALE
+            BEYOND ADS. WE TAG BRANDS WITH MEANING.
           </h2>
         </div>
 
@@ -122,10 +122,10 @@ const WhyUs = () => {
         <div className="whyus-panel whyus-content-panel">
           <div className="whyus-columns">
             <div className="whyus-col">
-              <p>Where other agencies build ads, we build belief. Every campaign, every frame, every pixel is subordinated to a singular strategic ambition: your growth.</p>
+              <p>In a world full of noise, brands don't need louder ads—they need stronger stories. The Ads Tag exists to discover what makes your brand authentic and bring it to life through creativity, design, films, experiences, and digital storytelling.</p>
             </div>
             <div className="whyus-col">
-              <p>We discard templated paradigms to construct fluid digital environments, architecting a narrative that is uniquely, unapologetically yours.</p>
+              <p>Because people don't connect with campaigns. They connect with emotions.</p>
             </div>
           </div>
         </div>
