@@ -108,7 +108,7 @@ const Footer = () => {
         </div>
         <div className="footer-nav-col">
           <p className="footer-nav-label">CONTACT</p>
-          <a href="mailto:hello@theadstag.com" className="footer-nav-link">hello@theadstag.com</a>
+          <a href="mailto:info@theadstag.com" className="footer-nav-link">info@theadstag.com</a>
         </div>
       </nav>
 

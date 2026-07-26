@@ -11,7 +11,7 @@
   position: absolute;
   pointer-events: auto; /* Make corners clickable */
   font-family: var(--font-body);
-  font-size: 0.85rem;
+  font-size: 1.1rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
 }
@@ -52,13 +52,15 @@
 
 /* Logo specific styling */
 .hud-logo {
-  width: 40px;
-  height: 40px;
+  height: 2.8rem;
+  width: auto;
+  display: flex;
+  align-items: center;
 }
 
 .hud-logo-img {
-  width: 100%;
   height: 100%;
+  width: auto;
   object-fit: contain;
   filter: brightness(0) invert(1); /* Forces logo to pure white, so difference mode perfectly inverts it to black on light BGs */
 }
@@ -66,11 +68,12 @@
 .hud-branding {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.3rem;
+  justify-content: center;
 }
 
 .hud-sub {
-  font-size: 0.6rem;
+  font-size: 0.75rem;
   opacity: 1; /* Make it solid */
   letter-spacing: 0.3em;
   /* Removed green color, it inherits white and will invert to black natively */
