@@ -58,13 +58,41 @@ const ContactForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('submitting');
-    setTimeout(() => {
-      setStatus('success');
-      setFormData({ name: '', company: '', project: '', description: '', email: '' });
-    }, 1500);
+    
+    const submitData = {
+      access_key: "792e0ff2-8cde-48b2-83ab-28fc51156139",
+      name: formData.name,
+      email: formData.email,
+      message: `Company: ${formData.company}\nProject: ${formData.project}\nDescription: ${formData.description}`
+    };
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(submitData)
+      });
+      
+      const result = await response.json();
+      if (result.success) {
+        setStatus('success');
+        setFormData({ name: '', company: '', project: '', description: '', email: '' });
+      } else {
+        console.error("Form submission failed:", result);
+        setStatus('idle');
+        alert("Failed to send message. Please try again.");
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+      setStatus('idle');
+      alert("Network error. Please try again.");
+    }
   };
 
   return (
