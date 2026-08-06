@@ -1,5 +1,6 @@
 import SEO from '../components/SEO';
 import Hero from '../components/Hero';
+import ReelsScatter from '../components/ReelsScatter';
 import WhyUs from '../components/WhyUs';
 import Services from '../components/Services';
 import Process from '../components/Process';
@@ -14,6 +15,7 @@ const Home = () => {
         url="/" 
       />
       <Hero />
+      <ReelsScatter />
       <WhyUs />
       <Services />
       <Process />

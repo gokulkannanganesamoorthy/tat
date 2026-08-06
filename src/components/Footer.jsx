@@ -102,7 +102,7 @@ const Footer = () => {
         </div>
         <div className="footer-nav-col">
           <p className="footer-nav-label">CONNECT</p>
-          <a href="https://instagram.com" target="_blank" rel="noreferrer" className="footer-nav-link">Instagram</a>
+          <a href="https://www.instagram.com/Theadstag" target="_blank" rel="noreferrer" className="footer-nav-link">Instagram</a>
           <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="footer-nav-link">LinkedIn</a>
           <a href="https://twitter.com" target="_blank" rel="noreferrer" className="footer-nav-link">Twitter</a>
         </div>
