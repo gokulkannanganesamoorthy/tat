@@ -14,6 +14,16 @@ const WhyUs = () => {
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
       const track = trackRef.current;
+
+      // Manual word split for the text reveal (MUST HAPPEN BEFORE SCROLLTRIGGER CALCS)
+      const textEl = textRef.current;
+      if (textEl) {
+        const text = textEl.innerText;
+        textEl.innerHTML = text
+          .split(' ')
+          .map((w) => `<span class="whyus-word-mask"><span class="whyus-word">${w}</span></span>`)
+          .join(' ');
+      }
       
       const getScrollAmount = () => -(track.scrollWidth - window.innerWidth);
 
@@ -42,15 +52,7 @@ const WhyUs = () => {
         }
       });
 
-      // Manual word split for the text reveal
-      const textEl = textRef.current;
       if (textEl) {
-        const text = textEl.innerText;
-        textEl.innerHTML = text
-          .split(' ')
-          .map((w) => `<span class="whyus-word-mask"><span class="whyus-word">${w}</span></span>`)
-          .join(' ');
-        
         // Reveal text only AFTER the section is pinned and you start scrolling horizontally
         gsap.fromTo(
           textEl.querySelectorAll('.whyus-word'),
