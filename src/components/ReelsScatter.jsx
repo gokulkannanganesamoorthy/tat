@@ -28,6 +28,17 @@ const scatterPositions = [
   { x: '12vw', y: '35vh', rotation: 22 },
 ];
 
+const scatterPositionsMobile = [
+  { x: '-28vw', y: '-28vh', rotation: -12 },
+  { x: '-20vw', y: '30vh', rotation: 8 },
+  { x: '15vw', y: '-32vh', rotation: -5 },
+  { x: '25vw', y: '25vh', rotation: 15 },
+  { x: '30vw', y: '-5vh', rotation: -10 },
+  { x: '-32vw', y: '8vh', rotation: 12 },
+  { x: '-10vw', y: '-15vh', rotation: -18 },
+  { x: '5vw', y: '35vh', rotation: 22 },
+];
+
 const ReelsScatter = () => {
   const containerRef = useRef(null);
   const reelsRef = useRef([]);
@@ -45,17 +56,20 @@ const ReelsScatter = () => {
         }
       });
 
+      const isMobile = window.innerWidth <= 768;
+      const positions = isMobile ? scatterPositionsMobile : scatterPositions;
+
       // Scatter the reels from the center outwards
       tl.fromTo(reelsRef.current, {
         x: 0,
         y: 0,
         rotation: 0,
         scale: 0.5,
-        opacity: 0,
+        opacity: 1, // Start fully visible
       }, {
-        x: (i) => scatterPositions[i].x,
-        y: (i) => scatterPositions[i].y,
-        rotation: (i) => scatterPositions[i].rotation,
+        x: (i) => positions[i].x,
+        y: (i) => positions[i].y,
+        rotation: (i) => positions[i].rotation,
         opacity: 1,
         scale: 1,
         duration: 1,

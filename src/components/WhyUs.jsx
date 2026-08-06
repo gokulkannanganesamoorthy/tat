@@ -25,7 +25,7 @@ const WhyUs = () => {
           trigger: sectionRef.current,
           pin: true,
           scrub: 1,
-          end: () => `+=${track.scrollWidth}`,
+          end: () => `+=${track.scrollWidth * (window.innerWidth <= 768 ? 2 : 1)}`,
           invalidateOnRefresh: true
         }
       });
@@ -37,7 +37,7 @@ const WhyUs = () => {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
-          end: () => `+=${track.scrollWidth}`,
+          end: () => `+=${track.scrollWidth * (window.innerWidth <= 768 ? 2 : 1)}`,
           scrub: 1
         }
       });

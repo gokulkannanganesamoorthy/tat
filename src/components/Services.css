@@ -253,6 +253,11 @@
     width: 350px;
     height: 350px;
   }
+  .svc-label-top {
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+  }
   .svc-item-title {
     font-size: 0.8rem;
   }

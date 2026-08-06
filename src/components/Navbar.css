@@ -144,6 +144,25 @@
 }
 
 @media (max-width: 768px) {
+  .hud-container > div {
+    font-size: 0.85rem;
+  }
+  .hud-logo {
+    height: 1.8rem;
+  }
+  .hud-top-left {
+    top: 3vh;
+    left: 4vw;
+    gap: 0.8rem;
+  }
+  .hud-top-right {
+    top: 3vh;
+    right: 4vw;
+  }
+  .hud-bottom-right {
+    bottom: 3vh;
+    right: 4vw;
+  }
   .hud-bottom-left {
     display: none; /* Hide timer on mobile to save space */
   }

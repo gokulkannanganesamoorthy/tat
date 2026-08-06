@@ -44,7 +44,6 @@
   box-shadow: 0 20px 40px rgba(0,0,0,0.5);
   will-change: transform, opacity;
   border: 4px solid #fff;
-  opacity: 0;
 }
 
 .reel-video {
@@ -52,4 +51,14 @@
   height: 100%;
   object-fit: cover;
   pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+  .reel-wrapper {
+    width: 120px;
+    height: 213px;
+    margin-top: -106px;
+    margin-left: -60px;
+    border-width: 2px;
+  }
 }

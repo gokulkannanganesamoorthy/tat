@@ -133,3 +133,29 @@
     height: 200vw;
   }
 }
+
+@media (max-width: 768px) {
+  .whyus-massive-text {
+    font-size: clamp(3rem, 10vw, 5rem);
+    white-space: normal;
+    word-break: keep-all; /* Prevents awkward breaks */
+    max-width: 90vw;
+  }
+  .whyus-text-panel {
+    width: 150vw; /* Need more space since text wraps */
+  }
+  .whyus-columns {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .whyus-content-panel {
+    width: 90vw;
+  }
+  .whyus-scroll-indicator {
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    gap: 1.5rem;
+  }
+  .whyus-arrow {
+    font-size: clamp(1.5rem, 4vw, 3rem);
+  }
+}
