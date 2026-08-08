@@ -1,45 +1,33 @@
 .about-premium-container {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   position: relative;
   background-color: #0A0A0A;
   color: #F7F4ED;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  padding: 15vh 5vw;
+  box-sizing: border-box;
 }
 
 /* Typography Layer */
 .about-premium-text-layer {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 75vw;
-  display: flex;
-  flex-direction: row; /* Split left and right */
-  justify-content: space-between;
-  align-items: center;
-  z-index: 4; /* Brought to the very front */
-  opacity: 0; /* GSAP will reveal this */
-  pointer-events: none; /* Let clicks pass through to the image */
-}
-
-.about-text-left, .about-text-right {
-  width: 35vw;
+  width: 100%;
+  max-width: 800px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
+  z-index: 4;
+  opacity: 0;
 }
 
-.about-text-left {
-  text-align: left;
-  align-items: flex-start;
-}
-
-.about-text-right {
-  text-align: right;
-  align-items: flex-end;
+.about-text-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
 }
 
 .about-premium-meta {
@@ -69,11 +57,21 @@
 
 .about-premium-subtitle {
   font-family: var(--font-body);
-  font-size: 1.2rem;
-  max-width: 400px;
+  font-size: 1.15rem;
   line-height: 1.6;
-  color: rgba(247, 244, 237, 0.7);
+  color: rgba(247, 244, 237, 0.8);
   margin-top: 2rem;
+  text-align: center;
+}
+
+.about-premium-subtitle p {
+  margin: 0;
+}
+
+.about-premium-subtitle strong {
+  color: #F7F4ED;
+  font-weight: 600;
+  letter-spacing: 0.05em;
 }
 
 /* Image Layer (Starts Fullscreen, Shrinks down) */
@@ -109,7 +107,7 @@
 
 @media (max-width: 1024px) {
   .about-premium-title {
-    gap: 30vh; /* Make more room for the image on mobile */
+    font-size: clamp(2.5rem, 8vw, 4rem);
   }
 }
 
@@ -124,6 +122,7 @@
   color: rgba(247, 244, 237, 0.4);
   z-index: 5;
   pointer-events: none;
+  position: fixed;
 }
 
 .about-edge-text.left-edge {

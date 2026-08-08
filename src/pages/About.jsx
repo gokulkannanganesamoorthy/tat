@@ -35,17 +35,61 @@ const About = () => {
       />
       <section className="about-premium-container" ref={containerRef}>
         {/* The Typography Layer */}
-        <div className="about-premium-text-layer" ref={textRef} style={{ justifyContent: 'center' }}>
-          
-          <div className="about-text-right" style={{ textAlign: 'center', alignItems: 'center' }}>
+        <div className="about-premium-text-layer" ref={textRef}>
+          <div className="about-text-content">
             <h2 className="about-premium-title">
-              <span className="serif-italic">About Us</span>
+              <span className="serif-italic">ABOUT TAT</span>
             </h2>
-            <p className="about-premium-subtitle" style={{ textAlign: 'center' }}>
-              The Ads Tag is a creative-first digital brand studio crafting
-              meaningful brand experiences through strategy, storytelling,
-              design, and performance-driven marketing.
-            </p>
+            <div className="about-premium-subtitle">
+              <p>Young. Energetic. A little obsessed with good stories. 🎬</p>
+              <br />
+              <p>
+                We’re The Ads Tag (TAT) a creative team that believes great
+                content should make people stop, watch, feel something and go,
+                “Wait… this is actually good.”
+              </p>
+              <br />
+              <p>
+                We don’t copy references.
+                <br />
+                We don’t recreate someone else’s idea with a different logo.
+                <br />
+                And we definitely don’t turn a movie scene into a brand
+                strategy.
+              </p>
+              <br />
+              <p>
+                We create from the brand itself.
+                <br />
+                The people. The personality. The purpose. The chaos.
+              </p>
+              <br />
+              <p>
+                From the first idea to the final frame, we create content that
+                feels fresh, intentional and unmistakably the brand.
+              </p>
+              <br />
+              <p>
+                Because branding isn’t about making a brand look like everyone
+                else.
+              </p>
+              <br />
+              <p>It’s about creating something people remember.</p>
+              <br />
+              <p>So, here we go.</p>
+              <br />
+              <p>
+                Meet the team behind the tag.
+                <br />
+                <strong>THE TEAM TAT. 🫡</strong>
+              </p>
+              <br />
+              <p>
+                <strong>THE ADS TAG</strong>
+                <br />
+                Choose us when the goal is to brand right, not just brand loud.
+              </p>
+            </div>
           </div>
         </div>
 
