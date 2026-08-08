@@ -9,7 +9,6 @@ gsap.registerPlugin(ScrollTrigger);
 const Hero = () => {
   const containerRef = useRef(null);
   const mediaRef = useRef(null);
-  const bgTextRef = useRef(null);
 
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
@@ -39,25 +38,18 @@ const Hero = () => {
         ease: "none"
       });
       
-      // Optional: animate text in slightly after reveal
+      // Animate text in immediately so it's visible through the mask
       tl.fromTo('.hero-text-line', 
         { y: 30, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "power3.out" },
-        0.5 // Start revealing the text when the mask is 50% zoomed
+        0.0 
       );
       
       tl.fromTo('.hero-cta', 
         { y: 20, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" },
-        0.8
+        0.2
       );
-
-      // Animate the huge background text to scroll horizontally for a parallax effect
-      tl.to(bgTextRef.current, {
-        x: '-20%',
-        ease: 'none',
-        duration: 1
-      }, 0);
 
     }, containerRef);
     
@@ -70,9 +62,6 @@ const Hero = () => {
         
         {/* The Media Layer (Solid White Background with Text) */}
         <div className="hero-media-layer">
-          <div className="hero-bg-text-wrapper" ref={bgTextRef}>
-            <div className="hero-bg-text">THE ADS TAG</div>
-          </div>
           <div className="hero-content">
             <h1 className="hero-headline">
               <div className="hero-text-line">TAT | Beyond ads.</div>
