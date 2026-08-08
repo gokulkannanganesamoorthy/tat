@@ -102,6 +102,14 @@ const ReelsScatter = () => {
         ease: "power2.out"
       }, 0);
 
+      // Fade out overlay text
+      tl.to('.reels-overlay-text', {
+        opacity: 0,
+        scale: 0.9,
+        duration: 0.4,
+        ease: "power2.out"
+      }, 0);
+
     }, containerRef);
     
     // Force ScrollTrigger to recalculate positions after all components mount
@@ -119,7 +127,7 @@ const ReelsScatter = () => {
     <div className="reels-scatter-safe-wrapper">
       <section className="reels-scatter-container" ref={containerRef}>
         <div className="reels-overlay-text">
-          <h2 style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', textTransform: 'uppercase' }}>
+          <h2 style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)', textTransform: 'uppercase', maxWidth: '800px', margin: '0 auto', lineHeight: '1.2' }}>
             So these are some of the contents which you can quickly look into
           </h2>
         </div>

@@ -85,7 +85,7 @@ const About = () => {
 
          <div className="about-text-right">
            <h2 className="about-premium-title">
-             <span className="serif-italic">template</span>
+             <span className="serif-italic">ordinary</span>
            </h2>
            <p className="about-premium-subtitle">
              The Ads Tag is a creative-first digital brand studio crafting meaningful brand experiences through strategy, storytelling, design, and performance-driven marketing.

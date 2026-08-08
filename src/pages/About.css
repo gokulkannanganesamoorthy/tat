@@ -16,7 +16,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 90vw;
+  width: 75vw;
   display: flex;
   flex-direction: row; /* Split left and right */
   justify-content: space-between;
@@ -27,7 +27,7 @@
 }
 
 .about-text-left, .about-text-right {
-  width: 30vw;
+  width: 35vw;
   display: flex;
   flex-direction: column;
 }
@@ -127,11 +127,11 @@
 }
 
 .about-edge-text.left-edge {
-  left: -4rem;
+  left: -2rem;
 }
 
 .about-edge-text.right-edge {
-  right: -4rem;
+  right: -2rem;
 }
 
 /* Structural Crosshairs */
