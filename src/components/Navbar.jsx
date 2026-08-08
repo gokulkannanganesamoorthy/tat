@@ -68,12 +68,15 @@ const Navbar = () => {
         </div>
 
         {/* Bottom Right: Contact */}
-        <div
+        <a
+          href="https://wa.me/918681049696"
+          target="_blank"
+          rel="noopener noreferrer"
           className="hud-bottom-right interactive"
-          onClick={(e) => handleNavigate(e, '/contact')}
+          style={{ textDecoration: 'none', color: 'inherit' }}
         >
-          <span>[ CONTACT US ]</span>
-        </div>
+          <span>[ WHATSAPP: 8681049696 ]</span>
+        </a>
       </motion.div>
 
       {/* Full Screen Overlay Menu */}

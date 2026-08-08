@@ -39,10 +39,9 @@ const scatterPositionsMobile = [
   { x: '5vw', y: '35vh', rotation: 22 },
 ];
 
-const scatterWords = ['Skin Care', 'Zilara video', 'FMCG', 'Real Estates'];
+const scatterWords = ['Skin Care', 'FMCG', 'Real Estates'];
 const wordPositions = [
   { x: '30vw', y: '-25vh', rotation: 0 },
-  { x: '-35vw', y: '25vh', rotation: 0 },
   { x: '15vw', y: '40vh', rotation: 0 },
   { x: '-15vw', y: '-35vh', rotation: 0 },
 ];
