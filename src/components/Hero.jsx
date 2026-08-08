@@ -9,6 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 const Hero = () => {
   const containerRef = useRef(null);
   const mediaRef = useRef(null);
+  const bgTextRef = useRef(null);
 
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
@@ -51,6 +52,18 @@ const Hero = () => {
         0.8
       );
 
+      // Animate the huge background text to scroll horizontally for a parallax effect
+      gsap.to(bgTextRef.current, {
+        x: '-20%',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top top',
+          end: '+=150%',
+          scrub: 1,
+        }
+      });
+
     }, containerRef);
     
     return () => ctx.revert();
@@ -62,6 +75,9 @@ const Hero = () => {
         
         {/* The Media Layer (Solid White Background with Text) */}
         <div className="hero-media-layer">
+          <div className="hero-bg-text-wrapper" ref={bgTextRef}>
+            <div className="hero-bg-text">THE ADS TAG</div>
+          </div>
           <div className="hero-content">
             <h1 className="hero-headline">
               <div className="hero-text-line">TAT | Beyond ads.</div>
