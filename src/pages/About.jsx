@@ -14,51 +14,12 @@ const About = () => {
 
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
-      const container = containerRef.current;
-      const imgWrapper = imageWrapperRef.current;
-      const imgInner = imageInnerRef.current;
       const text = textRef.current;
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: container,
-          start: 'top top',
-          end: '+=200%', // Scroll depth for the animation
-          pin: true,
-          scrub: 1, // Buttery smooth scrubbing
-        },
-      });
-
-      // 1. Shrink the massive fullscreen wrapper down to a center frame
-      tl.to(
-        imgWrapper,
-        {
-          width: '35vw',
-          height: '60vh',
-          borderRadius: '8px', // Soften the edges as it becomes a frame
-          ease: 'power2.inOut',
-          duration: 1,
-        },
-        0,
-      );
-
-      // 2. Counter-scale the image inside to maintain aspect ratio and add parallax
-      tl.to(
-        imgInner,
-        {
-          scale: 1.2,
-          ease: 'power2.inOut',
-          duration: 1,
-        },
-        0,
-      );
-
-      // 3. Fade in and scale up the typography from the background
-      tl.fromTo(
+      gsap.fromTo(
         text,
-        { opacity: 0, scale: 0.8 },
-        { opacity: 1, scale: 1, ease: 'power2.inOut', duration: 1 },
-        0.2, // Start slightly after the image begins shrinking
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, ease: 'power3.out', duration: 1.5, delay: 0.2 },
       );
     }, containerRef);
 
@@ -67,55 +28,33 @@ const About = () => {
 
   return (
     <div className="about-page-safe-wrapper">
-      <SEO 
-        title="About Us" 
-        description="Learn more about THE ADS TAG. We build beyond the grid, architecting fluid digital environments." 
-        url="/about" 
+      <SEO
+        title="About Us"
+        description="Learn more about THE ADS TAG. We build beyond the grid, architecting fluid digital environments."
+        url="/about"
       />
       <section className="about-premium-container" ref={containerRef}>
-      {/* The Typography Layer (Sits on top, split left/right) */}
-      <div className="about-premium-text-layer" ref={textRef}>
-         
-         <div className="about-text-left">
-           <p className="about-premium-meta">01 // THE MANIFESTO</p>
-           <h2 className="about-premium-title">
-             WE REJECT <br /> THE
-           </h2>
-         </div>
+        {/* The Typography Layer */}
+        <div className="about-premium-text-layer" ref={textRef} style={{ justifyContent: 'center' }}>
+          
+          <div className="about-text-right" style={{ textAlign: 'center', alignItems: 'center' }}>
+            <h2 className="about-premium-title">
+              <span className="serif-italic">About Us</span>
+            </h2>
+            <p className="about-premium-subtitle" style={{ textAlign: 'center' }}>
+              The Ads Tag is a creative-first digital brand studio crafting
+              meaningful brand experiences through strategy, storytelling,
+              design, and performance-driven marketing.
+            </p>
+          </div>
+        </div>
 
-         <div className="about-text-right">
-           <h2 className="about-premium-title">
-             <span className="serif-italic">ordinary</span>
-           </h2>
-           <p className="about-premium-subtitle">
-             The Ads Tag is a creative-first digital brand studio crafting meaningful brand experiences through strategy, storytelling, design, and performance-driven marketing.
-           </p>
-         </div>
-
-      </div>
-
-      {/* Edge Typography (Fixed to the screen edges) */}
-      <div className="about-edge-text left-edge">[ T - A - T : STRUCTURAL ]</div>
-      <div className="about-edge-text right-edge">[ 00:00:24:00 - REC ]</div>
-
-      {/* The Fullscreen Image Layer (Shrinks down) */}
-      <div className="about-premium-image-layer" ref={imageWrapperRef}>
-        
-        {/* Structural Crosshairs (Attached to the frame corners) */}
-        <div className="about-crosshair top-left">+</div>
-        <div className="about-crosshair top-right">+</div>
-        <div className="about-crosshair bottom-left">+</div>
-        <div className="about-crosshair bottom-right">+</div>
-
-        <img
-          src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2000&auto=format&fit=crop"
-          alt="Abstract Architecture"
-          ref={imageInnerRef}
-        />
-        {/* Dark overlay to ensure text contrast later */}
-        <div className="about-premium-image-overlay"></div>
-      </div>
-    </section>
+        {/* Edge Typography (Fixed to the screen edges) */}
+        <div className="about-edge-text left-edge">
+          [ T - A - T : STRUCTURAL ]
+        </div>
+        <div className="about-edge-text right-edge">[ 00:00:24:00 - REC ]</div>
+      </section>
     </div>
   );
 };
