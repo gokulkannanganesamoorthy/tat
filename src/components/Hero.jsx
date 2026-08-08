@@ -53,16 +53,11 @@ const Hero = () => {
       );
 
       // Animate the huge background text to scroll horizontally for a parallax effect
-      gsap.to(bgTextRef.current, {
+      tl.to(bgTextRef.current, {
         x: '-20%',
         ease: 'none',
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top top',
-          end: '+=150%',
-          scrub: 1,
-        }
-      });
+        duration: 1
+      }, 0);
 
     }, containerRef);
     
