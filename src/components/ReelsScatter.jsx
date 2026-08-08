@@ -41,10 +41,10 @@ const scatterPositionsMobile = [
 
 const scatterWords = ['Skin Care', 'Zilara video', 'FMCG', 'Real Estates'];
 const wordPositions = [
-  { x: '30vw', y: '-25vh', rotation: 10 },
-  { x: '-35vw', y: '25vh', rotation: -15 },
-  { x: '15vw', y: '40vh', rotation: -5 },
-  { x: '-15vw', y: '-35vh', rotation: 20 },
+  { x: '30vw', y: '-25vh', rotation: 0 },
+  { x: '-35vw', y: '25vh', rotation: 0 },
+  { x: '15vw', y: '40vh', rotation: 0 },
+  { x: '-15vw', y: '-35vh', rotation: 0 },
 ];
 
 const ReelsScatter = () => {
