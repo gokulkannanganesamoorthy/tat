@@ -1,0 +1,73 @@
+.industries-section {
+  background-color: #040404;
+  color: #f7f4ed;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10vh 8vw;
+}
+
+.ind-container {
+  max-width: 1200px;
+  width: 100%;
+}
+
+.ind-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  line-height: 1.1;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  max-width: 1000px;
+}
+
+.ind-subheading {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
+  opacity: 0.7;
+  margin-bottom: 4rem;
+}
+
+.ind-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.ind-item {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  border-bottom: 1px solid rgba(247, 244, 237, 0.1);
+  padding-bottom: 1.5rem;
+  transition: padding-left 0.3s ease;
+}
+
+.ind-item:hover {
+  padding-left: 2rem;
+}
+
+.ind-num {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  opacity: 0.4;
+}
+
+.ind-text {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .ind-heading {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+  .ind-item {
+    gap: 1rem;
+  }
+  .ind-item:hover {
+    padding-left: 0; /* Disable hover shift on mobile */
+  }
+}

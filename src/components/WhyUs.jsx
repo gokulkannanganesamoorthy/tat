@@ -116,7 +116,7 @@ const WhyUs = () => {
         {/* Text Reveal Panel */}
         <div className="whyus-panel whyus-text-panel">
           <h2 className="whyus-massive-text" ref={textRef}>
-            BEYOND ADS. WE TAG BRANDS WITH MEANING.
+            MORE THAN 500+ CREATIVE CONTENTS DELIVERED.
           </h2>
         </div>
 
@@ -124,10 +124,16 @@ const WhyUs = () => {
         <div className="whyus-panel whyus-content-panel">
           <div className="whyus-columns">
             <div className="whyus-col">
-              <p>In a world full of noise, brands don't need louder ads—they need stronger stories. The Ads Tag exists to discover what makes your brand authentic and bring it to life through creativity, design, films, experiences, and digital storytelling.</p>
+              <p>Long form videos done for YouTube ads done for D to c brands.</p>
             </div>
             <div className="whyus-col">
-              <p>Because people don't connect with campaigns. They connect with emotions.</p>
+              <p>From digital presence to offline activities we create a end to end plan and execution overviewed to reach the positioning we target.</p>
+            </div>
+            <div className="whyus-col">
+              <p>The turn around time will reach us to the target with TAT on board.</p>
+            </div>
+            <div className="whyus-col">
+              <p>One at the time execution and consistency through content creation across platforms taken care with us.</p>
             </div>
           </div>
         </div>

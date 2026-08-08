@@ -1,0 +1,54 @@
+.discovery-section {
+  width: 100vw;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #040404;
+  color: #f7f4ed;
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.discovery-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 800px;
+}
+
+.discovery-heading {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6vw, 5rem);
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.discovery-subheading {
+  font-family: var(--font-body);
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  line-height: 1.6;
+  opacity: 0.8;
+  margin-bottom: 4rem;
+}
+
+.discovery-arrow-container {
+  display: flex;
+  justify-content: center;
+  animation: bounceDown 2s infinite;
+}
+
+.discovery-arrow {
+  width: 80px;
+  height: 80px;
+  color: #f7f4ed;
+}
+
+@keyframes bounceDown {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(20px);
+  }
+}

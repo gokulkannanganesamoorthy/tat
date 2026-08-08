@@ -48,6 +48,52 @@ export default function SEO({ title, description, url, type = "website" }) {
       <script type="application/ld+json">
         {JSON.stringify(schemaData)}
       </script>
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": "THE ADS TAG",
+          "url": domain
+        })}
+      </script>
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "itemListElement": [
+            {
+              "@type": "SiteNavigationElement",
+              "position": 1,
+              "name": "Products",
+              "url": `${domain}/products`
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 2,
+              "name": "Projects",
+              "url": `${domain}/projects`
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 3,
+              "name": "Gallery",
+              "url": `${domain}/gallery`
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 4,
+              "name": "About",
+              "url": `${domain}/about`
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 5,
+              "name": "Contact",
+              "url": `${domain}/contact`
+            }
+          ]
+        })}
+      </script>
     </Helmet>
   );
 }

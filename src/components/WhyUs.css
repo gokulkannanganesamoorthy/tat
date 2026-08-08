@@ -111,19 +111,25 @@
 }
 
 .whyus-content-panel {
-  width: 80vw;
+  width: 250vw;
 }
 
 .whyus-columns {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10vw;
+  width: 100%;
+}
+
+.whyus-col {
+  width: 40vw;
 }
 
 .whyus-col p {
   font-family: var(--font-body);
-  font-size: clamp(1rem, 1.2vw, 1.2rem);
-  line-height: 1.6;
+  font-size: clamp(1.2rem, 2vw, 2.5rem);
+  line-height: 1.4;
   opacity: 0.7;
 }
 
@@ -145,11 +151,18 @@
     width: 150vw; /* Need more space since text wraps */
   }
   .whyus-columns {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+    display: flex;
+    flex-direction: row;
+    gap: 15vw;
+  }
+  .whyus-col {
+    width: 70vw;
+  }
+  .whyus-col p {
+    font-size: clamp(1.2rem, 5vw, 2rem);
   }
   .whyus-content-panel {
-    width: 90vw;
+    width: 350vw;
   }
   .whyus-scroll-indicator {
     font-size: clamp(1.5rem, 4vw, 3rem);

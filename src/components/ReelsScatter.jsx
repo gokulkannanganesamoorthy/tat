@@ -39,9 +39,18 @@ const scatterPositionsMobile = [
   { x: '5vw', y: '35vh', rotation: 22 },
 ];
 
+const scatterWords = ['Skin Care', 'Zilara video', 'FMCG', 'Real Estates'];
+const wordPositions = [
+  { x: '30vw', y: '-25vh', rotation: 10 },
+  { x: '-35vw', y: '25vh', rotation: -15 },
+  { x: '15vw', y: '40vh', rotation: -5 },
+  { x: '-15vw', y: '-35vh', rotation: 20 },
+];
+
 const ReelsScatter = () => {
   const containerRef = useRef(null);
   const reelsRef = useRef([]);
+  const wordsRef = useRef([]);
 
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
@@ -74,7 +83,24 @@ const ReelsScatter = () => {
         scale: 1,
         duration: 1,
         ease: "power2.out"
-      });
+      }, 0);
+
+      // Scatter words simultaneously
+      tl.fromTo(wordsRef.current, {
+        x: 0,
+        y: 0,
+        rotation: 0,
+        scale: 0,
+        opacity: 0,
+      }, {
+        x: (i) => wordPositions[i].x,
+        y: (i) => wordPositions[i].y,
+        rotation: (i) => wordPositions[i].rotation,
+        scale: 1,
+        opacity: 1,
+        duration: 1,
+        ease: "power2.out"
+      }, 0);
 
     }, containerRef);
     
@@ -93,8 +119,9 @@ const ReelsScatter = () => {
     <div className="reels-scatter-safe-wrapper">
       <section className="reels-scatter-container" ref={containerRef}>
         <div className="reels-overlay-text">
-          <h2>Short-Form Stories</h2>
-          <p>Impactful narratives in under a minute</p>
+          <h2 style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', textTransform: 'uppercase' }}>
+            So these are some of the contents which you can quickly look into
+          </h2>
         </div>
       
       {reels.map((src, index) => (
@@ -111,6 +138,16 @@ const ReelsScatter = () => {
             playsInline 
             className="reel-video" 
           />
+        </div>
+      ))}
+
+      {scatterWords.map((word, index) => (
+        <div 
+          key={`word-${index}`} 
+          className="reel-scatter-word"
+          ref={el => wordsRef.current[index] = el}
+        >
+          {word}
         </div>
       ))}
       </section>

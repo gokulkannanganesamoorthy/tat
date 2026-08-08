@@ -14,6 +14,10 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
 import Contact from './pages/Contact';
+import Products from './pages/Products';
+import Projects from './pages/Projects';
+import Gallery from './pages/Gallery';
+import TatTech from './pages/TatTech';
 import ErrorBoundary from './components/ErrorBoundary';
 import './App.css';
 
@@ -114,6 +118,10 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/services" element={<Services />} />
+                <Route path="/products" element={<Products />} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="/gallery" element={<Gallery />} />
+                <Route path="/tat-tech" element={<TatTech />} />
                 <Route path="/contact" element={<Contact />} />
               </Routes>
             </ErrorBoundary>

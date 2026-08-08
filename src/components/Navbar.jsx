@@ -88,49 +88,29 @@ const Navbar = () => {
           >
             <div className="hud-menu-inner">
               <nav className="hud-nav-list">
-                <Link
-                  to="/"
-                  onClick={(e) => { setMenuOpen(false); }}
-                  className={
-                    location.pathname === '/'
-                      ? 'active interactive'
-                      : 'interactive'
-                  }
-                >
+                <Link to="/" onClick={() => setMenuOpen(false)} className={location.pathname === '/' ? 'active interactive' : 'interactive'}>
                   <span className="hud-nav-num">01</span> HOME
                 </Link>
-                <Link
-                  to="/about"
-                  onClick={(e) => { setMenuOpen(false); }}
-                  className={
-                    location.pathname === '/about'
-                      ? 'active interactive'
-                      : 'interactive'
-                  }
-                >
+                <Link to="/about" onClick={() => setMenuOpen(false)} className={location.pathname === '/about' ? 'active interactive' : 'interactive'}>
                   <span className="hud-nav-num">02</span> ABOUT
                 </Link>
-                <Link
-                  to="/services"
-                  onClick={(e) => { setMenuOpen(false); }}
-                  className={
-                    location.pathname === '/services'
-                      ? 'active interactive'
-                      : 'interactive'
-                  }
-                >
+                <Link to="/services" onClick={() => setMenuOpen(false)} className={location.pathname === '/services' ? 'active interactive' : 'interactive'}>
                   <span className="hud-nav-num">03</span> SERVICES
                 </Link>
-                <Link
-                  to="/contact"
-                  onClick={(e) => { setMenuOpen(false); }}
-                  className={
-                    location.pathname === '/contact'
-                      ? 'active interactive'
-                      : 'interactive'
-                  }
-                >
-                  <span className="hud-nav-num">04</span> CONTACT
+                <Link to="/products" onClick={() => setMenuOpen(false)} className={location.pathname === '/products' ? 'active interactive' : 'interactive'}>
+                  <span className="hud-nav-num">04</span> PRODUCTS
+                </Link>
+                <Link to="/projects" onClick={() => setMenuOpen(false)} className={location.pathname === '/projects' ? 'active interactive' : 'interactive'}>
+                  <span className="hud-nav-num">05</span> PROJECTS
+                </Link>
+                <Link to="/gallery" onClick={() => setMenuOpen(false)} className={location.pathname === '/gallery' ? 'active interactive' : 'interactive'}>
+                  <span className="hud-nav-num">06</span> GALLERY
+                </Link>
+                <Link to="/tat-tech" onClick={() => setMenuOpen(false)} className={location.pathname === '/tat-tech' ? 'active interactive' : 'interactive'}>
+                  <span className="hud-nav-num">07</span> TAT TECH
+                </Link>
+                <Link to="/contact" onClick={() => setMenuOpen(false)} className={location.pathname === '/contact' ? 'active interactive' : 'interactive'}>
+                  <span className="hud-nav-num">08</span> CONTACT
                 </Link>
               </nav>
 

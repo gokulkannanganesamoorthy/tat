@@ -62,3 +62,16 @@
     border-width: 2px;
   }
 }
+
+.reel-scatter-word {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 4rem);
+  color: #f7f4ed;
+  text-transform: uppercase;
+  pointer-events: none;
+  z-index: 10;
+  white-space: nowrap;
+}

@@ -2,9 +2,9 @@ import SEO from '../components/SEO';
 import Hero from '../components/Hero';
 import ReelsScatter from '../components/ReelsScatter';
 import WhyUs from '../components/WhyUs';
+import Industries from '../components/Industries';
+import Discovery from '../components/Discovery';
 import Services from '../components/Services';
-import Process from '../components/Process';
-import Works from '../components/Works';
 
 const Home = () => {
   return (
@@ -15,11 +15,11 @@ const Home = () => {
         url="/" 
       />
       <Hero />
-      <ReelsScatter />
       <WhyUs />
+      <Industries />
+      <ReelsScatter />
+      <Discovery />
       <Services />
-      <Process />
-      <Works />
     </>
   );
 };

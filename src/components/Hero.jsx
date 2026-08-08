@@ -64,13 +64,12 @@ const Hero = () => {
         <div className="hero-media-layer">
           <div className="hero-content">
             <h1 className="hero-headline">
-              <div className="hero-text-line">We don't create advertisements.</div>
-              <div className="hero-text-line">We create stories people choose to remember.</div>
+              <div className="hero-text-line">TAT | Beyond ads.</div>
             </h1>
             
             <h2 className="hero-subheadline">
-              <div className="hero-text-line">Every brand has a truth.</div>
-              <div className="hero-text-line">Every truth deserves to be felt.</div>
+              <div className="hero-text-line">We create brand to reach the position</div>
+              <div className="hero-text-line">they wanted with one team!!</div>
             </h2>
             
             <Link to="/contact" className="hero-cta" style={{ textDecoration: 'none' }}>
