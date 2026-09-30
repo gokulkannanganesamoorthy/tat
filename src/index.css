@@ -1,21 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap');
 
 :root {
-  /* The Creamy Obsidian Palette */
-  --bg-color: #f7f4ed; /* White-Creamy */
-  --text-primary: #0A1C15; /* Obsidian Forest */
-  --text-secondary: rgba(10, 28, 21, 0.6);
-  --color-burgundy: #7d1d2b; /* Burgundy */
-  --color-green: #1c3d27; /* Lavish Green */
+  /* The Digital Gallery Palette */
+  --bg-color: #0A0A0A; /* Void Black */
+  --surface-color: #1A1A1A; /* Studio Charcoal */
+  --text-primary: #F7F4ED; /* Bone White */
+  --text-secondary: #888888; /* Ash Grey */
+  --accent-color: #FF3300; /* Electric Orange */
   
-  --font-body: 'Courier Prime', monospace;
-  --font-display: 'Courier Prime', monospace;
+  --font-body: 'Inter', sans-serif;
+  --font-display: 'Inter', sans-serif;
+  --font-serif: 'Playfair Display', serif;
 
-  /* Extreme Typography */
-  --text-hero: clamp(4rem, 12vw, 15rem);
-  --text-h1: clamp(3.5rem, 8vw, 10rem);
-  --text-h2: clamp(2.5rem, 6vw, 7rem);
-  --text-p: clamp(1rem, 1.8vw, 1.3rem);
+  /* Extreme Typography Scale */
+  --text-hero: clamp(4rem, 10vw, 12rem);
+  --text-h1: clamp(3rem, 8vw, 10rem);
+  --text-h2: clamp(2rem, 5vw, 4rem);
+  --text-p: 1.125rem;
+  
+  /* Spacing Scale */
+  --space-micro: 0.5rem;
+  --space-component: 2rem;
+  --space-section: 15vh;
 }
 
 * {
