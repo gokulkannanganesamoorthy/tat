@@ -3,100 +3,71 @@
   height: 100vh;
   position: relative;
   overflow: hidden;
-  background-color: #040404;
-}
-
-/* The Background Media (Solid White with Text) */
-.hero-media-layer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1;
-  background-color: #f7f4ed; /* Clean off-white background */
+  background-color: var(--bg-color);
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
+  align-items: flex-end; /* Lock text to the bottom */
+  padding: 4vw;
   box-sizing: border-box;
 }
 
-.hero-content {
-  max-width: 1200px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-}
-
-.hero-headline {
-  font-family: inherit;
-  font-size: clamp(2rem, 5vw, 4.5rem);
-  font-weight: 400;
-  line-height: 1.1;
-  color: #040404;
-  margin: 0;
-  letter-spacing: -0.02em;
-}
-
-.hero-subheadline {
-  font-family: inherit;
-  font-size: clamp(1rem, 2vw, 1.5rem);
-  font-weight: 300;
-  line-height: 1.4;
-  color: #333333;
-  margin: 0;
-  max-width: 600px;
-}
-
-.hero-text-line {
-  overflow: hidden;
-}
-
-.hero-cta {
-  align-self: flex-start;
-  padding: 1.25rem 3rem;
-  font-size: 1.125rem;
-  font-family: inherit;
-  font-weight: 500;
-  color: #f7f4ed;
-  background-color: #040404;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 1rem;
-}
-
-.hero-cta:hover {
-  background-color: #333333;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-}
-
-/* The Mask Layer (Solid Black background, Inverted GIF drawing) */
-.hero-mask-layer {
+/* Background Video */
+.hero-video-bg {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 2; /* Sits on top of the media */
-  background-color: #040404; /* The screen is solid black! */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  mix-blend-mode: multiply; /* White ink turns transparent, Black stays Black */
-  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  filter: brightness(0.6) contrast(1.1); /* Darken so text pops */
 }
 
-.hero-mask-gif {
-  width: 50vw;
-  height: auto;
-  min-width: 500px;
-  max-width: 1000px;
-  display: block;
-  filter: invert(1); /* Turns black ink on white bg -> white ink on black bg */
-  pointer-events: none;
+/* Typography Layer */
+.hero-content {
+  position: relative;
+  z-index: 2; /* Sits above the video */
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.hero-headline {
+  font-family: var(--font-display);
+  font-size: var(--text-hero);
+  font-weight: 500;
+  line-height: 0.85;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.hero-subheadline {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  max-width: 250px;
+  text-align: right;
+  margin-bottom: 2vh; /* Align visually with the massive text baseline */
+}
+
+@media (max-width: 768px) {
+  .hero-content {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 2rem;
+  }
+  
+  .hero-headline {
+    font-size: clamp(3.5rem, 15vw, 6rem);
+  }
+
+  .hero-subheadline {
+    text-align: left;
+  }
 }

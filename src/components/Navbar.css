@@ -62,7 +62,7 @@
   height: 100%;
   width: auto;
   object-fit: contain;
-  filter: brightness(0) invert(1); /* Forces logo to pure white, so difference mode perfectly inverts it to black on light BGs */
+  filter: brightness(0) invert(1);
 }
 
 .hud-branding {
@@ -74,21 +74,20 @@
 
 .hud-sub {
   font-size: 0.75rem;
-  opacity: 1; /* Make it solid */
+  opacity: 1;
   letter-spacing: 0.3em;
-  /* Removed green color, it inherits white and will invert to black natively */
 }
 
 /* Overlay Menu */
 .hud-overlay-menu {
   position: fixed;
   inset: 0;
-  background-color: #040404;
+  background-color: var(--bg-color);
   z-index: 40; /* Below the HUD text so we can click [ CLOSE ] */
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #f7f4ed;
+  color: var(--text-primary);
 }
 
 .hud-menu-inner {
@@ -107,9 +106,9 @@
 
 .hud-nav-list a {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-size: var(--text-h2);
   text-transform: uppercase;
-  color: #f7f4ed;
+  color: var(--text-primary);
   text-decoration: none;
   line-height: 1;
   position: relative;
@@ -117,12 +116,13 @@
   align-items: center;
   gap: 2rem;
   opacity: 0.5;
-  transition: opacity 0.4s, transform 0.4s;
+  transition: opacity 0.4s, transform 0.4s, color 0.4s;
 }
 
 .hud-nav-list a:hover,
 .hud-nav-list a.active {
   opacity: 1;
+  color: var(--accent-color);
   transform: translateX(20px);
 }
 
@@ -173,46 +173,5 @@
     flex-direction: column;
     gap: 1rem;
     text-align: center;
-  }
-}
-
-/* Floating WhatsApp Icon */
-.floating-wa-button {
-  position: fixed;
-  bottom: 10vh;
-  right: 4vw;
-  width: 50px;
-  height: 50px;
-  background-color: #25D366;
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  z-index: 90;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.floating-wa-button:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
-}
-
-.floating-wa-button svg {
-  width: 28px;
-  height: 28px;
-}
-
-@media (max-width: 768px) {
-  .floating-wa-button {
-    bottom: 8vh;
-    right: 4vw;
-    width: 45px;
-    height: 45px;
-  }
-  .floating-wa-button svg {
-    width: 24px;
-    height: 24px;
   }
 }

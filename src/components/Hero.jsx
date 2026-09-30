@@ -1,56 +1,17 @@
-import { useEffect, useLayoutEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './Hero.css';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
   const containerRef = useRef(null);
-  const mediaRef = useRef(null);
 
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
-      // Create a timeline that pins the container and scales the mask layer.
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top top',
-          end: '+=150%',
-          pin: true,
-          scrub: 0.5,
-        },
-      });
-
-      // Scale the mask up massively to reveal the white background and text
-      tl.to(mediaRef.current, {
-        scale: 80,
-        transformOrigin: '48% 50%',
-        duration: 0.85,
-        ease: 'power3.in',
-      });
-
-      // Fade out the mask layer at the end
-      tl.to(mediaRef.current, {
-        opacity: 0,
-        duration: 0.15,
-        ease: 'none',
-      });
-
-      // Animate text in immediately so it's visible through the mask
-      tl.fromTo(
-        '.hero-text-line',
+      // Fade and slide up text
+      gsap.fromTo(
+        '.hero-headline, .hero-subheadline',
         { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: 'power3.out' },
-        0.0,
-      );
-
-      tl.fromTo(
-        '.hero-cta',
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out' },
-        0.2,
+        { y: 0, opacity: 1, duration: 1, stagger: 0.2, ease: 'power3.out', delay: 0.5 }
       );
     }, containerRef);
 
@@ -59,34 +20,33 @@ const Hero = () => {
 
   return (
     <div className="hero-safe-wrapper">
-      <section className="hero-awwwards-container" ref={containerRef}>
-        {/* The Media Layer (Solid White Background with Text) */}
-        <div className="hero-media-layer">
-          <div className="hero-content">
-            <h1 className="hero-headline">
-              <div className="hero-text-line">TAT | Beyond ads.</div>
-            </h1>
+      <section 
+        className="hero-awwwards-container interactive" 
+        ref={containerRef}
+        data-cursor="PLAY REEL"
+      >
+        {/* Background Cinematic Video */}
+        <video 
+          className="hero-video-bg"
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+          poster="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=2000&auto=format&fit=crop"
+        >
+          {/* Replace this with the actual reel URL from TAT later */}
+          <source src="https://cdn.pixabay.com/video/2019/04/24/23011-332483103_large.mp4" type="video/mp4" />
+        </video>
 
-            <h2 className="hero-subheadline">
-              <div className="hero-text-line">
-                We create brands to reach the position
-              </div>
-              <div className="hero-text-line">they wanted with one team!!</div>
-            </h2>
+        {/* Foreground Typography */}
+        <div className="hero-content">
+          <h1 className="hero-headline">
+            TAT | BEYOND ADS.
+          </h1>
 
-            <Link
-              to="/contact"
-              className="hero-cta"
-              style={{ textDecoration: 'none' }}
-            >
-              Let's Tell Your Story
-            </Link>
-          </div>
-        </div>
-
-        {/* Foreground Mask Layer (Solid Black background, Inverted GIF drawing) */}
-        <div className="hero-mask-layer" ref={mediaRef}>
-          <img src="/hero.gif" alt="Hero Mask" className="hero-mask-gif" />
+          <h2 className="hero-subheadline">
+            We create brands to reach the position they wanted with one team.
+          </h2>
         </div>
       </section>
     </div>
